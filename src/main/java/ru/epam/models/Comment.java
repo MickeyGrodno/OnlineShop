@@ -5,17 +5,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "comment")
 public class Comment {
-    private int id;
+    @Id
+    @Column(name = "id")
+    private Long id;
+    @Column(name = "date")
     private Date date;
+    @Column(name = "message")
     private String message;
-    private int productId;
-    private int userId;
+    @Column(name = "product_id")
+    private Long productId;
+    @Column(name = "user_id")
+    private Long userId;
 
 }
