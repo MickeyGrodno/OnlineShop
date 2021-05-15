@@ -119,26 +119,26 @@
   <div id="content" class="container_12">
 
 
-      <div id="latest_home" class="grid_12">
-        <h2 class="s_title_1"><span class="s_main_color">Все</span> товары для редактирования</h2>
-        <div class="clear"></div>
-        <div class="s_listing s_grid_view clearfix">
-          <div th:each="product : ${products}">
-            <input type="hidden" id="product_id" th:value="${product.getId()}"/>
-            <div class="s_item grid_2"> <a class="s_thumb" href="product.html"><img  th:src="@{${'/image/' + product.getId()}}" th:title="*{product.getName()}" th:alt="*{product.getName()}" /></a>
-              <h3><a href="product.html" th:text="*{product.getName()}">product name</a></h3>
-              <p class="s_price" th:text="${product.getPrice() +'$'}">price</p>
-              <a class="s_button_add_to_cart" href="product.html"><span class="s_icon_16"><span class="s_icon"></span>Add to Cart</span></a>
-              <form th:method="DELETE" th:action="@{/admin/product_delete_{id}(id=${product.getId()})}">
-                <input type="submit" value="удалить!">
-              </form>
-            </div>
+    <div id="latest_home" class="grid_12">
+      <h2 class="s_title_1"><span class="s_main_color">Все</span> товары для редактирования</h2>
+      <div class="clear"></div>
+      <div class="s_listing s_grid_view clearfix">
+        <div th:each="product : ${products}">
+          <input type="hidden" id="product_id" th:value="${product.getId()}"/>
+          <div class="s_item grid_2"> <a class="s_thumb" href="product.html"><img  th:src="@{${'/image/' + product.getId()}}" th:title="*{product.getName()}" th:alt="*{product.getName()}" /></a>
+            <h3><a href="product.html" th:text="*{product.getName()}">product name</a></h3>
+            <p class="s_price" th:text="${product.getPrice() +'$'}">price</p>
+            <a class="s_button_add_to_cart" href="product.html"><span class="s_icon_16"><span class="s_icon"></span>Add to Cart</span></a>
+            <form th:method="DELETE" th:action="@{/admin/product_delete_{id}(id=${product.getId()})}">
+              <input type="submit" value="удалить!">
+            </form>
           </div>
-          <div class="clear"></div>
         </div>
+        <div class="clear"></div>
       </div>
-
     </div>
+
+  </div>
 
   <!-- ********************** -->
   <!--   S H O P   I N F O    -->

@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.epam.config.MyUploadForm;
-import ru.epam.dto.UploadResultDto;
 import ru.epam.models.Product;
 import ru.epam.service.product.ProductService;
 
@@ -40,7 +39,7 @@ public class AdminPageController {
         Date date = new Date();
         product.setPublicationDate(date);
         Long productId = productService.saveProduct(product);
-        return "redirect:/admin/add_image/"+ productId;
+        return "redirect:/admin/add_image/" + productId;
     }
     @RequestMapping(value = "/add_image/{id}", method = RequestMethod.GET)
     public String uploadOneFileHandler(@PathVariable("id") Long id, Model model) {
@@ -52,9 +51,8 @@ public class AdminPageController {
     @RequestMapping(value = "/add_image/{id}", method = RequestMethod.POST)
     public String uploadImage(@PathVariable("id") Long id, Model model,
                               @ModelAttribute("myUploadForm") MyUploadForm myUploadForm) {
-        UploadResultDto uploadResultDto = productService.doUpload(myUploadForm, id);
-        model.addAttribute("description", uploadResultDto.getDescription());
-        model.addAttribute("uploadedFiles", uploadResultDto.getUploadedFiles());
+        String description = productService.doUpload(myUploadForm, id);
+        model.addAttribute("description", description);
         return "admin/main";
     }
 
@@ -66,8 +64,8 @@ public class AdminPageController {
     }
 
     @RequestMapping(value = "/product_delete_{id}", method = RequestMethod.POST)
-    public String deleteProduct( @PathVariable("id") Long id) {
-        productService.deleteProductById(id);
+    public String deleteProduct(@PathVariable("id") Long id) {
+        productService.remove(id);
         return "redirect:/admin/product_list";
     }
 

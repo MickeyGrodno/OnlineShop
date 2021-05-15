@@ -9,7 +9,7 @@ import ru.epam.service.product.ProductService;
 @RequiredArgsConstructor
 @RestController
 public class ImageController {
-private final ProductService productService;
+    private final ProductService productService;
 
     @GetMapping("image/{id}")
     public byte[] getImage(@PathVariable Long id) {

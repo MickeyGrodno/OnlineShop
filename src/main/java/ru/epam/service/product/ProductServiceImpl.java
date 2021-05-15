@@ -115,7 +115,10 @@ public class ProductServiceImpl implements ProductService{
         return null;
     }
 
-
+    @Override
+    public void remove(Long id) {
+        productRepository.deleteById(id);
+    }
 
 
 }

@@ -14,7 +14,8 @@ public interface ProductService {
     List<Product> getAllProducts();
     List<Product> getAllProductsByProductTypeId(Long id);
     Long saveProduct(Product product);
-    UploadResultDto doUpload(MyUploadForm myUploadForm, Long id);
+    String doUpload(MyUploadForm myUploadForm, Long id);
     byte[] getImageFromProduct(Long id);
+    void remove(Long id);
 //    Product findByPublicationDate(Date date);
 }
