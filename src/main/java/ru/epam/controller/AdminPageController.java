@@ -62,11 +62,4 @@ public class AdminPageController {
         model.addAttribute("products", products);
         return "admin/product_list";
     }
-
-    @RequestMapping(value = "/product_delete_{id}", method = RequestMethod.POST)
-    public String deleteProduct(@PathVariable("id") Long id) {
-        productService.remove(id);
-        return "redirect:/admin/product_list";
-    }
-
 }
