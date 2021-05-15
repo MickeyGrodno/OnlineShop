@@ -58,5 +58,17 @@ public class AdminPageController {
         return "admin/main";
     }
 
+    @GetMapping("/product_list")
+    public String editOrDeleteProductList(Model model) {
+        List<Product> products = productService.getAllProducts();
+        model.addAttribute("products", products);
+        return "admin/product_list";
+    }
+
+    @RequestMapping(value = "/product_delete_{id}", method = RequestMethod.POST)
+    public String deleteProduct( @PathVariable("id") Long id) {
+        productService.deleteProductById(id);
+        return "redirect:/admin/product_list";
+    }
 
 }

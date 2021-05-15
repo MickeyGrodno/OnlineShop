@@ -954,8 +954,14 @@ label.s_radio
 .s_item .s_button_add_to_cart .s_icon_16 {
   padding-left: 22px !important;
 }
+.s_item .s_button_remove .s_icon_16 {
+  padding-left: 22px !important;
+}
 .s_item .s_button_add_to_cart .s_icon {
   background: url(../images/add_to_cart.png) no-repeat center transparent;
+}
+.s_item .s_button_remove .s_icon {
+  background: url(../images/button_remove_10.png) no-repeat center transparent;
 }
 .s_item .s_description {
   margin-bottom: 10px;
@@ -1011,7 +1017,19 @@ label.s_radio
   line-height: 16px;
   font-size: 11px;
 }
+.s_grid_view .s_item .s_button_remove {
+  overflow: hidden;
+  display: none;
+  height: 16px;
+  padding-top: 10px;
+  line-height: 16px;
+  font-size: 11px;
+}
 .s_grid_view .s_item:hover .s_button_add_to_cart {
+  display: block;
+}
+
+.s_grid_view .s_item:hover .s_button_remove {
   display: block;
 }
 .s_grid_view .s_item .s_rating {
@@ -2028,6 +2046,9 @@ body.s_layout_fixed #wrapper {
 .container_12 #product_add_to_cart_form {
 	padding-top: 120px;
 }
+.container_12 #product_remove {
+	padding-top: 120px;
+}
 
 #product_discounts {
   margin-bottom: -1px;
@@ -2069,6 +2090,14 @@ body.s_layout_fixed #wrapper {
   height: 36px;
   padding: 3px;
 }
+
+#remove {
+  cursor: pointer;
+  display: block;
+  float: right;
+  height: 36px;
+  padding: 3px;
+}
 #add_to_cart .s_text {
   position: relative;
   display: block;
@@ -2082,7 +2111,26 @@ body.s_layout_fixed #wrapper {
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
+
+#remove .s_text {
+  position: relative;
+  display: block;
+  height: 34px;
+  padding: 0 10px 0 39px;
+  line-height: 34px;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  font-size: 16px;
+  font-family: "Ubuntu Regular", sans-serif;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
 #add_to_cart:hover .s_text {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+#remove:hover .s_text {
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
 #add_to_cart .s_icon {
@@ -2097,6 +2145,19 @@ body.s_layout_fixed #wrapper {
   background-repeat: no-repeat;
   background-position: center;
 }
+#remove .s_icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  margin-top: -13px;
+  display: block;
+  width: 23px;
+  height: 23px;
+  background-image: url(../images/i_cart_white.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 #product_buy .s_bgr {
   z-index: 1;
   position: absolute;
