@@ -24,7 +24,9 @@ public class CartPageController {
     @RequestMapping(value = "/cart_{id}")
     public String showProductInfo(@PathVariable Long id, Model model) {
         List<ProductInCartDto> productsInCartByCartId = productInCartService.getProductsInCartByCartId(id);
+        Long totalPrice = productsInCartByCartId.stream().mapToLong(o -> o.getTotalPrice()).sum();
         model.addAttribute("productsInCartByCartId", productsInCartByCartId);
+        model.addAttribute("totalPrice", totalPrice);
         return "cart/cart";
     }
 

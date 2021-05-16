@@ -102,9 +102,8 @@
 
       <div id="cart_menu" class="s_nav">
         <a href="cart.html"><span class="s_icon"></span> <small class="s_text">Cart</small><span
-                class="s_grand_total s_main_color">$0.00</span></a>
+                class="s_grand_total s_main_color" th:text="${'$'+totalPrice}">Total price</span></a>
         <div class="s_submenu s_cart_holder">
-          <p class="s_mb_0">0 items</p>
         </div>
       </div>
 
@@ -137,12 +136,12 @@
       <form id="cart" class="clearfix" action="checkout.html">
         <table class="s_table_1" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
-            <th width="65">Remove</th>
-            <th width="60">Image</th>
-            <th width="320">Name</th>
-            <th>Model</th>
-            <th>Unit Price</th>
-            <th>Total</th>
+            <th width="65">Удалить</th>
+            <th width="60">Фото</th>
+            <th width="320">Название</th>
+            <th>Количество</th>
+            <th>Цена за единицу</th>
+            <th>Общая цена</th>
           </tr>
           <div th:each="product : ${productsInCartByCartId}">
           <tr class="even">
@@ -156,9 +155,7 @@
           </div>
         </table>
         <br />
-        <p class="s_total"><strong>Sub-Total:</strong> 880.00<span class="s_currency s_after"> eur</span></p>
-        <p class="s_total"><strong>VAT 17.5%:</strong> 154.00<span class="s_currency s_after"> eur</span></p>
-        <p class="s_total s_secondary_color last"><strong>Total:</strong> 1,034.00<span class="s_currency s_after"> eur</span></p>
+        <p class="s_total s_secondary_color last" th:text="${'Итого '+totalPrice+'$'}"> Суммарная цена</p>
 
         <div class="clear"></div>
         <br />
