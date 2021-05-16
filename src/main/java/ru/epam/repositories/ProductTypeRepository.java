@@ -5,4 +5,5 @@ import ru.epam.models.Comment;
 import ru.epam.models.ProductType;
 
 public interface ProductTypeRepository extends JpaRepository<ProductType, Long> {
+
 }

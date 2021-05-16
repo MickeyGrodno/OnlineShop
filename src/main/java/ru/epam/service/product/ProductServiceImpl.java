@@ -1,25 +1,20 @@
 package ru.epam.service.product;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.multipart.MultipartFile;
-import ru.epam.config.MyUploadForm;
-import ru.epam.dto.UploadResultDto;
-import ru.epam.models.Product;
-import ru.epam.repositories.ProductRepository;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import ru.epam.config.MyUploadForm;
+import ru.epam.dto.UploadResultDto;
+import ru.epam.models.Product;
+import ru.epam.repositories.ProductRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -42,63 +37,35 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Long saveProduct(Product product) {
+        Date date = new Date();
+        product.setPublicationDate(date);
         Product savedProduct = productRepository.saveAndFlush(product);
         return savedProduct.getId();
     }
-    public UploadResultDto doUpload(MyUploadForm myUploadForm, Long id) {
 
-        UploadResultDto uploadResultDto = new UploadResultDto();
+    public String doUpload(MyUploadForm myUploadForm, Long id) {
         String description = myUploadForm.getDescription();
-        System.out.println("Название файла: " + description);
-
-        // Root Directory.
-        String uploadRootPath = "src/main/resources/static/images/products";
-
-        System.out.println("uploadRootPath=" + uploadRootPath);
-
-        File uploadRootDir = new File(uploadRootPath);
-        // Create directory if it not exists.
-        if (!uploadRootDir.exists()) {
-            uploadRootDir.mkdirs();
-        }
-        MultipartFile[] fileDatas = myUploadForm.getFileDatas();
-        //
-        List<File> uploadedFiles = new ArrayList<>();
-
-        for (MultipartFile fileData : fileDatas) {
-
-            // Client File Name
+        MultipartFile[] fileDates = myUploadForm.getFileDatas();
+        for (MultipartFile fileData : fileDates) {
             String name = fileData.getOriginalFilename();
-            System.out.println("Client File Name = " + name);
-
-            if (name != null && name.length() > 0) {
-                try {
-                    String imageFormat = name.split("\\.")[1];
-                    String fullFilePath = uploadRootDir.getAbsolutePath() + File.separator + description + "." +imageFormat;
-
-                    Product productById = productRepository.findById(id).get();
-                    productById.setImage("images/products/" + description + "." +imageFormat);
-                    productRepository.saveAndFlush(productById);
-                    // Create the file at server
-                    File serverFile = new File(fullFilePath);
-                    File newDirectory = new File("\\import\\");
-                    newDirectory.mkdirs();
-                    Files.write(Paths.get("\\import\\"+description+"."+imageFormat), fileData.getBytes());
-                    BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-                    stream.write(fileData.getBytes());
-                    stream.close();
-                    //
-                    uploadedFiles.add(serverFile);
-                    System.out.println("Write file: " + serverFile);
-                } catch (Exception e) {
-                    System.out.println("Error Write file: " + name);
-                }
+            String imageFormat = name.split("\\.")[1];
+            String fileName = "\\EPAM\\OnlineShop\\products\\" + description + "." + imageFormat;
+            File newDirectory = new File("\\EPAM\\OnlineShop\\products\\");
+            newDirectory.mkdirs();
+            try {
+                Files.write(Paths.get(fileName), fileData.getBytes());
+                updateImagePath(id, fileName);
+            } catch (Exception ignored) {
             }
         }
+        return description;
+    }
 
-        uploadResultDto.setUploadedFiles(uploadedFiles);
-        uploadResultDto.setDescription(description);
-        return uploadResultDto;
+    private void updateImagePath(Long id, String fileName) {
+        productRepository.findById(id).ifPresent(product -> {
+            product.setImage(fileName);
+            productRepository.saveAndFlush(product);
+        });
     }
 
     @Override
@@ -123,6 +90,4 @@ public class ProductServiceImpl implements ProductService{
         }else System.out.println("File not found");
         productRepository.deleteById(id);
     }
-
-
 }

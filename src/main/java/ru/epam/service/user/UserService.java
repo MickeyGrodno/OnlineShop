@@ -2,6 +2,8 @@ package ru.epam.service.user;
 
 import ru.epam.models.User;
 
+import java.util.List;
+
 public interface UserService {
-    public User loadUserByLogin(String login);
+    User loadUserByLogin(String login);
 }
