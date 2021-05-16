@@ -3,18 +3,18 @@ package ru.epam.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.epam.dto.ProductInCartDto;
-import ru.epam.models.Comment;
-import ru.epam.models.Product;
-import ru.epam.models.ProductInCart;
-import ru.epam.models.ProductType;
+import ru.epam.models.*;
 import ru.epam.service.productincart.ProductInCartService;
 import ru.epam.service.productincart.ProductInCartServiceImpl;
 import ru.epam.service.user.UserService;
 
 import java.security.Principal;
+import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -52,6 +52,11 @@ public class CartPageController {
         return "redirect:../../";
     }
 
+    @PostMapping("/cart_{productId}")
+    public String deleteProductFromCart(@PathVariable Long productId, Principal principal) throws SQLException {
+        productInCartService.deleteProductInCartById(productId);
+        return "redirect:/cart/";
+    }
     @RequestMapping(value = "/cart_userId")
     public String showProductInfo() {
         return "redirect:../";

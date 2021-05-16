@@ -64,6 +64,11 @@ public class ProductInCartServiceImpl implements ProductInCartService{
 
     }
 
+    @Override
+    public void deleteProductInCartById(Long id) {
+        productInCartRepository.deleteById(id);
+    }
+
     private ProductInCart getProductInCartByUserIdAndProduct(Long userId, Long productId) {
         return productInCartRepository.findProductInCartByUserIdAndProductId(userId, productId);
     }
