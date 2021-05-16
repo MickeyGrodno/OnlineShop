@@ -28,13 +28,16 @@ public class IndexPageController {
     @GetMapping()
     public String mainPage(Principal principal, Model model) {
         List<Product> products = productService.getAllProducts();
-        Long userId = userService.getUserIdByLogin(principal.getName());
+
         model.addAttribute("products", products);
-        model.addAttribute("userId", userId);
+
         if(principal!=null) {
+            Long userId = userService.getUserIdByLogin(principal.getName());
             model.addAttribute("principal", principal.getName());
+            model.addAttribute("userId", userId);
         } else  {
             model.addAttribute("principal", "noData");
+            model.addAttribute("userId", "userId");
         }
         return "index";
     }
@@ -46,4 +49,5 @@ public class IndexPageController {
         model.addAttribute("products", products);
         return "index";
     }
+
 }

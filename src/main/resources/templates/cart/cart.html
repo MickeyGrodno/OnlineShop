@@ -50,16 +50,6 @@
 
       <a id="site_logo" href="index.html">Shoppica store - Premium e-Commerce Theme</a>
 
-      <div id="system_navigation" class="s_nav">
-        <ul class="s_list_1 clearfix">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="login.html">Log In</a></li>
-          <li><a href="cart.html">Shopping Cart</a></li>
-          <li><a href="static.html">About Us</a></li>
-          <li><a href="contacts.html">Contact</a></li>
-        </ul>
-      </div>
-
       <div id="site_search">
         <a id="show_search" href="javascript:;" title="Search:"></a>
         <div id="search_bar" class="clearfix">
@@ -151,37 +141,19 @@
             <th width="60">Image</th>
             <th width="320">Name</th>
             <th>Model</th>
-            <th>Quantity</th>
             <th>Unit Price</th>
             <th>Total</th>
           </tr>
+          <div th:each="product : ${productsInCartByCartId}">
           <tr class="even">
             <td valign="middle"><input type="checkbox" /></td>
-            <td valign="middle"><a href="product.html"><img src="images/dummy/pic_1.jpg" width="60" height="60" alt="Panasonic Lumix" /></a></td>
-            <td valign="middle"><a href="product.html"><strong>Panasonic Lumix</strong></a></td>
-            <td valign="middle">Product 4</td>
-            <td valign="middle"><input type="text" size="3" /></td>
-            <td valign="middle">94.00<span class="s_currency s_after"> eur</span></td>
-            <td valign="middle">94.00<span class="s_currency s_after"> eur</span></td>
+            <td valign="middle"><a><img th:src="@{${'/image/' + product.getId()}}" width="60" height="60" alt="Panasonic Lumix" /></a></td>
+            <td valign="middle"><a th:text="${product.getName()}"><strong>Panasonic Lumix</strong></a></td>
+            <td valign="middle" th:text="${product.getCount()}">>Count</td>
+            <td valign="middle" th:text="${product.getPrice()}">>Price<span class="s_currency s_after"> eur</span></td>
+            <td valign="middle" th:text="${product.getTotalPrice()}">Total price<span class="s_currency s_after"> eur</span></td>
           </tr>
-          <tr class="odd">
-            <td valign="middle"><input type="checkbox" /></td>
-            <td valign="middle"><a href="product.html"><img src="images/dummy/pic_2.jpg" width="60" height="60" alt="Armani Acqua di Gioia" /></a></td>
-            <td valign="middle"><a href="product.html"><strong>Armani Acqua di Gioia</strong></a></td>
-            <td valign="middle">Product 4</td>
-            <td valign="middle"><input type="text" size="3" /></td>
-            <td valign="middle">822.50<span class="s_currency s_after"> eur</span></td>
-            <td valign="middle">822.50<span class="s_currency s_after"> eur</span></td>
-          </tr>
-          <tr class="even">
-            <td valign="middle"><input type="checkbox" /></td>
-            <td valign="middle"><a href="product.html"><img src="images/dummy/pic_3.jpg" width="60" height="60" alt="Jameson Whiskey Special Reserve 12 yers" /></a></td>
-            <td valign="middle"><a href="product.html"><strong>Jameson Whiskey Special Reserve 12 yers</strong></a></td>
-            <td valign="middle">Product 8</td>
-            <td valign="middle"><input type="text" size="3" /></td>
-            <td valign="middle">117.50<span class="s_currency s_after"> eur</span></td>
-            <td valign="middle">117.50<span class="s_currency s_after"> eur</span></td>
-          </tr>
+          </div>
         </table>
         <br />
         <p class="s_total"><strong>Sub-Total:</strong> 880.00<span class="s_currency s_after"> eur</span></p>
@@ -205,134 +177,6 @@
   </div>
   <!-- end of content -->
 
-  <!-- ********************** -->
-  <!--   S H O P   I N F O    -->
-  <!-- ********************** -->
-  <div id="shop_info">
-    <div id="shop_info_wrap">
-      <div class="container_12">
-        <div id="shop_description" class="grid_3">
-          <h2>Shoppica Theme</h2>
-          <p>Pellentesque a arcu ut nisi semper cursus. Nullam vehicula dapibus ultrices. Integer nunc risus, fringilla ut hendrerit a, dapibus vestibulum ante. In ullamcorper erat et orci mattis rutrum et a enim. Curabitur semper, erat sit amet condimentum volutpat, enim nisi auctor augue, id fringilla est dui non lectus. Cras in urna ante, sit amet dignissim orci. Proin nibh urna, consectetur vitae placerat luctus.</p>
-        </div>
-        <div id="shop_contacts" class="grid_3">
-          <h2>Contact Us</h2>
-          <table width="100%" cellpadding="0" cellspacing="0" border="0">
-            <tr>
-              <td valign="middle"><span class="s_icon_32"><span class="s_icon s_phone_32"></span>5234452 <br /></span></td>
-            </tr>
-            <tr>
-              <td valign="middle"><span class="s_icon_32"><span class="s_icon s_fax_32"></span>5234452 <br /></span></td>
-            </tr>
-            <tr>
-              <td valign="middle"><span class="s_icon_32"><span class="s_icon s_mail_32"></span>pinko@example.com <br /> pinko@example.com</span></td>
-            </tr>
-            <tr>
-              <td valign="middle"><span class="s_icon_32"><span class="s_icon s_skype_32"></span>my_skype <br /> </span></td>
-            </tr>
-          </table>
-        </div>
-        <div id="twitter" class="grid_3">
-          <h2>Twitter</h2>
-          <ul id="twitter_update_list"><li></li></ul>
-          <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-          <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/themeburn.json?callback=twitterCallback2&amp;count=2"></script>
-        </div>
-        <div id="facebook" class="grid_3">
-          <h2>Facebook</h2>
-          <div class="s_widget_holder">
-            <fb:fan profileid="111188056908" stream="0" connections="6" logobar="0" width="220" css="http://svest.no-ip.org/test/opencart/catalog/view/theme/shoppica/stylesheet/facebook.css.php?300"></fb:fan>
-          </div>
-        </div>
-        <div class="clear"></div>
-      </div>
-    </div>
-  </div>
-  <!-- end of shop info -->
-
-
-
-  <!-- ********************** -->
-  <!--      F O O T E R       -->
-  <!-- ********************** -->
-  <div id="footer" class="container_12">
-    <div id="footer_categories" class="clearfix">
-      <div class="grid_2">
-        <h2>Electronics</h2>
-        <ul class="s_list_1">
-          <li><a href="">Digital Cameras</a></li>
-          <li><a href="">Home Audio</a></li>
-          <li><a href="">Home Cinema</a></li>
-          <li><a href="">Cell Phones</a></li>
-          <li><a href="">MP3 Players</a></li>
-          <li><a href="">Car-Audio</a></li>
-        </ul>
-      </div>
-      <div class="grid_2">
-        <h2>Computers</h2>
-        <ul class="s_list_1">
-          <li><a href="">Desktops</a></li>
-          <li><a href="">Laptops</a></li>
-          <li><a href="">Monitors</a></li>
-          <li><a href="">Components</a></li>
-          <li><a href="">Software</a></li>
-        </ul>
-      </div>
-      <div class="grid_2">
-        <h2>Clothing</h2>
-        <ul class="s_list_1">
-          <li><a href="">Women's Clothing</a></li>
-          <li><a href="">Men's Clothing</a></li>
-          <li><a href="">Boys</a></li>
-          <li><a href="">Girls</a></li>
-          <li><a href="">Infants and toddlers</a></li>
-        </ul>
-      </div>
-      <div class="grid_2">
-        <h2>Shoes</h2>
-        <ul class="s_list_1">
-          <li><a href="">Women's Shoes</a></li>
-          <li><a href="">Men's Shoes</a></li>
-          <li><a href="">Kids' Shoes</a></li>
-          <li><a href="">Sportswear</a></li>
-        </ul>
-      </div>
-      <div class="grid_2">
-        <h2>Gifts</h2>
-        <ul class="s_list_1">
-          <li><a href="">Perfumes</a></li>
-          <li><a href="">Spirits and Beers</a></li>
-          <li><a href="">Wines</a></li>
-          <li><a href="">Flowers</a></li>
-          <li><a href="">Chocolates and sweets</a></li>
-          <li><a href="">Toys and Games</a></li>
-        </ul>
-      </div>
-      <div class="grid_2">
-        <h2>At home</h2>
-        <ul class="s_list_1">
-          <li><a href="">Furniture</a></li>
-          <li><a href="">Garden</a></li>
-          <li><a href="">Appliances</a></li>
-          <li><a href="">Pet Supplies</a></li>
-          <li><a href="">Tools and Accessories</a></li>
-          <li><a href="">Lighting</a></li>
-        </ul>
-      </div>
-      <div class="clear"></div>
-      <div class="grid_12 border_eee"></div>
-    </div>
-    <div id="payments" class="right clearfix">
-      <img src="images/payments/discover_straight_32px.png" alt="" />
-      <img src="images/payments/american_express_straight_32px.png" alt="" />
-      <img src="images/payments/moneybookers_straight_32px.png" alt="" />
-      <img src="images/payments/paypal_straight_32px.png" alt="" />
-      <img src="images/payments/visa_straight_32px.png" alt="" />
-      <img src="images/payments/american_express_straight_32px.png" alt="" />
-    </div>
-    <p id="copy">&copy; Copyright 2011. Powered by <a class="blue" href="">Open Cart</a>.<br /> <a class="s_main_color" href="http://www.shoppica.net">Shoppica theme</a> made by <a href="http://www.themeburn.com">ThemeBurn.com</a></p>
-  </div>
-  <!-- end of FOOTER -->
 
 </div>
 

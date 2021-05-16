@@ -20,9 +20,7 @@ public class Product {
     @Column(name = "name")
     private String name;
     @Column(name = "price")
-    private BigDecimal price;
-    @Column(name = "count")
-    private int count;
+    private Long price;
     @Column(name = "publication_date")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Date publicationDate;

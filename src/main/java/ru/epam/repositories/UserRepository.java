@@ -9,5 +9,7 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findUserByLogin(String login);
-    Long getIdByLogin(String login);
+
+    @Query(nativeQuery = true, value="SELECT id FROM users WHERE login=:login")
+    Long getIdByLogin(@Param(value = "login") String login);
 }
