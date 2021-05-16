@@ -31,6 +31,18 @@ public class ProductInCartServiceImpl implements ProductInCartService{
         productInCartRepository.removeAllByUserId(id);
     }
 
+    @Override
+    public void saveProductInCart(ProductInCart productInCart) {
+        ProductInCart productInCartFromDB =
+                getProductInCartByUserIdAndProduct(productInCart.getUserId(), productInCart.getProductId());
+        if(productInCartFromDB!=null) {
+            productInCart.setProductCount(productInCart.getProductCount()+productInCartFromDB.getProductCount());
+            productInCartRepository.saveAndFlush(productInCart);
+        } else {
+            productInCartRepository.saveAndFlush(productInCart);
+        }
+    }
+
     public List<ProductInCartDto> getProductsInCartByCartId(Long userId) {
         List<ProductInCart> allUserProducts = productInCartRepository.getAllByUserId(userId);
         List<Long> productsId = allUserProducts.stream().map(ProductInCart::getProductId).collect(Collectors.toList());
@@ -50,6 +62,9 @@ public class ProductInCartServiceImpl implements ProductInCartService{
         }
         return resultDtos;
 
+    }
 
+    private ProductInCart getProductInCartByUserIdAndProduct(Long userId, Long productId) {
+        return productInCartRepository.findProductInCartByUserIdAndProductId(userId, productId);
     }
 }

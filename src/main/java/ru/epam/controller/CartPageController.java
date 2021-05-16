@@ -41,6 +41,17 @@ public class CartPageController {
         return "cart/cart";
     }
 
+    @RequestMapping(value = "/cart_{userId}/{productId}")
+    public String addProductInCartFast(@PathVariable Long userId,
+                                       @PathVariable Long productId) {
+        ProductInCart productInCart = new ProductInCart();
+        productInCart.setUserId(userId);
+        productInCart.setProductId(productId);
+        productInCart.setProductCount(1);
+        productInCartService.saveProductInCart(productInCart);
+        return "redirect:../../";
+    }
+
     @RequestMapping(value = "/cart_userId")
     public String showProductInfo() {
         return "redirect:../";
