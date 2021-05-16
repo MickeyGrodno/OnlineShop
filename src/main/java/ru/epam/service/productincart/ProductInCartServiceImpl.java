@@ -8,6 +8,7 @@ import ru.epam.models.ProductInCart;
 import ru.epam.repositories.ProductInCartRepository;
 import ru.epam.repositories.ProductRepository;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,12 @@ public class ProductInCartServiceImpl implements ProductInCartService{
     @Override
     public List<ProductInCart> getAllProdInCartByUserId(Long userId) {
         return productInCartRepository.getAllByUserId(userId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteCartProductsByUserId(Long id) {
+        productInCartRepository.removeAllByUserId(id);
     }
 
     public List<ProductInCartDto> getProductsInCartByCartId(Long userId) {
@@ -40,8 +47,9 @@ public class ProductInCartServiceImpl implements ProductInCartService{
             dto.setName(product.getName());
             dto.setTotalPrice(dto.getCount()*dto.getPrice());
             resultDtos.add(dto);
-
         }
         return resultDtos;
+
+
     }
 }

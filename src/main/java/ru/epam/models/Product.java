@@ -22,7 +22,6 @@ public class Product {
     @Column(name = "price")
     private Long price;
     @Column(name = "publication_date")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Date publicationDate;
     @Column(name = "product_type_id")
     private Long productTypeId;
