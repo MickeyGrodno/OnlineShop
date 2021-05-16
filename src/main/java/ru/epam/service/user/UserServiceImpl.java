@@ -12,10 +12,11 @@ import java.util.Date;
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
+
     public User loadUserByLogin(String login) {
-
-        Date date = new Date();
-
         return userRepository.findUserByLogin(login);
+    }
+    public Long getUserIdByLogin(String login) {
+        return userRepository.getIdByLogin(login);
     }
 }

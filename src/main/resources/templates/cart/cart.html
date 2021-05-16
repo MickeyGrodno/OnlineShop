@@ -12,10 +12,29 @@
         data-th-href="@{/stylesheet/screen.css}" media="screen"/>
   <link rel="stylesheet" type="text/css" href="../../static/stylesheet/color.css"
         data-th-href="@{/stylesheet/color.css}" media="screen"/>
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" type="text/css" href="../static/stylesheet/ie.css" media="screen"/>
+  <![endif]-->
 
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
   <script type="text/javascript" src="../static/js/shoppica.js"></script>
+
+
+  <script type="text/javascript">
+
+    $(document).ready(function () {
+
+      $(".s_tabs").tabs({fx: {opacity: 'toggle', duration: 300}});
+
+      $("#product_images a[rel^='prettyPhoto'], #product_gallery a[rel^='prettyPhoto']").prettyPhoto({
+        theme: 'light_square',
+        opacity: 0.5
+      });
+
+    });
+
+  </script>
 
 </head>
 
@@ -54,60 +73,48 @@
                 class="s_advanced s_main_color" href="">Advanced Search</a>
         </div>
       </div>
-
-      <div id="language_switcher" class="s_switcher"><span class="s_selected">US Dollar</span>
-        <ul class="s_options">
-          <li><a href="">Euro</a></li>
-          <li><a href="">Pound Sterling</a></li>
-          <li><a href="">US Dollar</a></li>
-        </ul>
-      </div>
-
-      <div id="currency_switcher" class="s_switcher"><span class="s_selected"><img src="images/flags/gb.png"
-                                                                                   alt="English"/> English</span>
-        <ul class="s_options">
-          <li><a href=""><img src="images/flags/gb.png" alt="English"/> English</a></li>
-          <li><a href=""><img src="images/flags/de.png" alt="Deutsch"/> Deutsch</a></li>
-        </ul>
-      </div>
-
       <div id="categories" class="s_nav">
         <ul>
-          <li id="menu_home"><a href="index.html">Home</a></li>
+
+
+          <li><a href="listing_1.html">Мужчинам</a>
+            <div class="s_submenu">
+              <h3>Inside mens</h3>
+              <ul class="s_list_1 clearfix">
+                <li><a href="category_1">Байки</a></li>
+                <li><a href="category_2">Куртки</a></li>
+                <li><a href="category_3">Костюмы</a></li>
+                <li><a href="category_4">Кофты</a></li>
+                <li><a href="category_5">Штаны, шорты</a></li>
+                <li><a href="category_6">Футболк</a></li>
+                <li><a href="category_7">Рубашки</a></li>
+              </ul>
+            </div>
+          </li>
+          <li><a href="listing_1.html">Женщинам</a>
+            <div class="s_submenu">
+              <h3>Inside womens</h3>
+              <ul class="s_list_1 clearfix">
+                <li><a href="category_8">Платья, туники</a></li>
+                <li><a href="category_9">Кофты</a></li>
+                <li><a href="category_10">Блузки, рубашки</a></li>
+                <li><a href="category_11">Куртки, пальто, жилетки</a></li>
+                <li><a href="category_12">Кардиганы, пиджаки</a></li>
+                <li><a href="category_13">Костюмы</a></li>
+                <li><a href="category_14">Штаны, шорты</a></li>
+              </ul>
+              <span class="clear border_eee"></span>
+            </div>
+          </li>
 
         </ul>
       </div>
-
 
       <div id="cart_menu" class="s_nav">
         <a href="cart.html"><span class="s_icon"></span> <small class="s_text">Cart</small><span
-                class="s_grand_total s_main_color">1,034.00 eur</span></a>
+                class="s_grand_total s_main_color">$0.00</span></a>
         <div class="s_submenu s_cart_holder">
-          <div class="s_cart_item">
-            <a id="hremove_95" class="s_button_remove" href="product.html">&nbsp;</a>
-            <span class="block">1x <a href="product.html">Panasonic Lumix</a></span>
-          </div>
-          <div class="s_cart_item">
-            <a id="hremove_31" class="s_button_remove" href="product.html">&nbsp;</a>
-            <span class="block">1x <a href="product.html">Armani Acqua di Gioia</a></span>
-          </div>
-          <div class="s_cart_item">
-            <a id="hremove_87" class="s_button_remove" href="product.html">&nbsp;</a>
-            <span class="block">1x <a href="product.html">Jameson Whiskey Special Reserve 12 yers</a></span>
-          </div>
-          <span class="clear s_mb_15 border_eee"></span>
-          <div class="s_total clearfix"><strong class="cart_module_total left">Sub-Total:</strong><span
-                  class="cart_module_total">880.00<span class="s_currency s_after"> eur</span></span></div>
-          <div class="s_total clearfix"><strong class="cart_module_total left">VAT 17.5%:</strong><span
-                  class="cart_module_total">154.00<span class="s_currency s_after"> eur</span></span></div>
-          <div class="s_total clearfix"><strong class="cart_module_total left">Total:</strong><span
-                  class="cart_module_total">1,034.00<span class="s_currency s_after"> eur</span></span></div>
-          <span class="clear s_mb_15"></span>
-          <div class="align_center clearfix">
-            <a class="s_button_1 s_secondary_color_bgr s_ml_0" href="cart.html"><span class="s_text">View Cart</span></a>
-            <a class="s_button_1 s_secondary_color_bgr" href="checkout.html"><span
-                    class="s_text">Checkout</span></a>
-          </div>
+          <p class="s_mb_0">0 items</p>
         </div>
       </div>
 
@@ -119,14 +126,11 @@
   <!-- ********************** -->
   <!--     I N T R O          -->
   <!-- ********************** -->
+
   <div id="intro">
     <div id="intro_wrap">
       <div class="container_12">
-        <div id="breadcrumbs" class="grid_12">
-          <a href="index.html">Home</a>
-          &gt; <a href="cart.html">Basket</a>
-        </div>
-        <h1>Shopping Cart (0.00kg)</h1>
+        <h1>Корзина</h1>
       </div>
     </div>
   </div>
@@ -152,48 +156,40 @@
             <th>Total</th>
           </tr>
           <tr class="even">
-            <td valign="middle"><input type="checkbox"/></td>
-            <td valign="middle"><a href="product.html"><img src="images/dummy/pic_1.jpg" width="60"
-                                                            height="60" alt="Panasonic Lumix"/></a></td>
+            <td valign="middle"><input type="checkbox" /></td>
+            <td valign="middle"><a href="product.html"><img src="images/dummy/pic_1.jpg" width="60" height="60" alt="Panasonic Lumix" /></a></td>
             <td valign="middle"><a href="product.html"><strong>Panasonic Lumix</strong></a></td>
             <td valign="middle">Product 4</td>
-            <td valign="middle"><input type="text" size="3"/></td>
+            <td valign="middle"><input type="text" size="3" /></td>
             <td valign="middle">94.00<span class="s_currency s_after"> eur</span></td>
             <td valign="middle">94.00<span class="s_currency s_after"> eur</span></td>
           </tr>
           <tr class="odd">
-            <td valign="middle"><input type="checkbox"/></td>
-            <td valign="middle"><a href="product.html"><img src="images/dummy/pic_2.jpg" width="60"
-                                                            height="60" alt="Armani Acqua di Gioia"/></a>
-            </td>
+            <td valign="middle"><input type="checkbox" /></td>
+            <td valign="middle"><a href="product.html"><img src="images/dummy/pic_2.jpg" width="60" height="60" alt="Armani Acqua di Gioia" /></a></td>
             <td valign="middle"><a href="product.html"><strong>Armani Acqua di Gioia</strong></a></td>
             <td valign="middle">Product 4</td>
-            <td valign="middle"><input type="text" size="3"/></td>
+            <td valign="middle"><input type="text" size="3" /></td>
             <td valign="middle">822.50<span class="s_currency s_after"> eur</span></td>
             <td valign="middle">822.50<span class="s_currency s_after"> eur</span></td>
           </tr>
           <tr class="even">
-            <td valign="middle"><input type="checkbox"/></td>
-            <td valign="middle"><a href="product.html"><img src="images/dummy/pic_3.jpg" width="60"
-                                                            height="60"
-                                                            alt="Jameson Whiskey Special Reserve 12 yers"/></a>
-            </td>
-            <td valign="middle"><a href="product.html"><strong>Jameson Whiskey Special Reserve 12
-              yers</strong></a></td>
+            <td valign="middle"><input type="checkbox" /></td>
+            <td valign="middle"><a href="product.html"><img src="images/dummy/pic_3.jpg" width="60" height="60" alt="Jameson Whiskey Special Reserve 12 yers" /></a></td>
+            <td valign="middle"><a href="product.html"><strong>Jameson Whiskey Special Reserve 12 yers</strong></a></td>
             <td valign="middle">Product 8</td>
-            <td valign="middle"><input type="text" size="3"/></td>
+            <td valign="middle"><input type="text" size="3" /></td>
             <td valign="middle">117.50<span class="s_currency s_after"> eur</span></td>
             <td valign="middle">117.50<span class="s_currency s_after"> eur</span></td>
           </tr>
         </table>
-        <br/>
+        <br />
         <p class="s_total"><strong>Sub-Total:</strong> 880.00<span class="s_currency s_after"> eur</span></p>
         <p class="s_total"><strong>VAT 17.5%:</strong> 154.00<span class="s_currency s_after"> eur</span></p>
-        <p class="s_total s_secondary_color last"><strong>Total:</strong> 1,034.00<span
-                class="s_currency s_after"> eur</span></p>
+        <p class="s_total s_secondary_color last"><strong>Total:</strong> 1,034.00<span class="s_currency s_after"> eur</span></p>
 
         <div class="clear"></div>
-        <br/>
+        <br />
 
         <a class="s_button_1 s_ddd_bgr left"><span class="s_text">Continue Shopping</span></a>
         <button class="s_button_1 s_main_color_bgr" type="submit"><span class="s_text">Checkout</span></button>
@@ -203,8 +199,8 @@
     </div>
 
     <div class="clear"></div>
-    <br/>
-    <br/>
+    <br />
+    <br />
 
   </div>
   <!-- end of content -->
@@ -217,47 +213,35 @@
       <div class="container_12">
         <div id="shop_description" class="grid_3">
           <h2>Shoppica Theme</h2>
-          <p>Pellentesque a arcu ut nisi semper cursus. Nullam vehicula dapibus ultrices. Integer nunc risus,
-            fringilla ut hendrerit a, dapibus vestibulum ante. In ullamcorper erat et orci mattis rutrum et
-            a enim. Curabitur semper, erat sit amet condimentum volutpat, enim nisi auctor augue, id
-            fringilla est dui non lectus. Cras in urna ante, sit amet dignissim orci. Proin nibh urna,
-            consectetur vitae placerat luctus.</p>
+          <p>Pellentesque a arcu ut nisi semper cursus. Nullam vehicula dapibus ultrices. Integer nunc risus, fringilla ut hendrerit a, dapibus vestibulum ante. In ullamcorper erat et orci mattis rutrum et a enim. Curabitur semper, erat sit amet condimentum volutpat, enim nisi auctor augue, id fringilla est dui non lectus. Cras in urna ante, sit amet dignissim orci. Proin nibh urna, consectetur vitae placerat luctus.</p>
         </div>
         <div id="shop_contacts" class="grid_3">
           <h2>Contact Us</h2>
           <table width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
-              <td valign="middle"><span class="s_icon_32"><span
-                      class="s_icon s_phone_32"></span>5234452 <br/></span></td>
+              <td valign="middle"><span class="s_icon_32"><span class="s_icon s_phone_32"></span>5234452 <br /></span></td>
             </tr>
             <tr>
-              <td valign="middle"><span class="s_icon_32"><span
-                      class="s_icon s_fax_32"></span>5234452 <br/></span></td>
+              <td valign="middle"><span class="s_icon_32"><span class="s_icon s_fax_32"></span>5234452 <br /></span></td>
             </tr>
             <tr>
-              <td valign="middle"><span class="s_icon_32"><span class="s_icon s_mail_32"></span>pinko@example.com <br/> pinko@example.com</span>
-              </td>
+              <td valign="middle"><span class="s_icon_32"><span class="s_icon s_mail_32"></span>pinko@example.com <br /> pinko@example.com</span></td>
             </tr>
             <tr>
-              <td valign="middle"><span class="s_icon_32"><span class="s_icon s_skype_32"></span>my_skype <br/> </span>
-              </td>
+              <td valign="middle"><span class="s_icon_32"><span class="s_icon s_skype_32"></span>my_skype <br /> </span></td>
             </tr>
           </table>
         </div>
         <div id="twitter" class="grid_3">
           <h2>Twitter</h2>
-          <ul id="twitter_update_list">
-            <li></li>
-          </ul>
+          <ul id="twitter_update_list"><li></li></ul>
           <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-          <script type="text/javascript"
-                  src="http://twitter.com/statuses/user_timeline/themeburn.json?callback=twitterCallback2&amp;count=2"></script>
+          <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/themeburn.json?callback=twitterCallback2&amp;count=2"></script>
         </div>
         <div id="facebook" class="grid_3">
           <h2>Facebook</h2>
           <div class="s_widget_holder">
-            <fb:fan profileid="111188056908" stream="0" connections="6" logobar="0" width="220"
-                    css="http://svest.no-ip.org/test/opencart/catalog/view/theme/shoppica/stylesheet/facebook.css.php?300"></fb:fan>
+            <fb:fan profileid="111188056908" stream="0" connections="6" logobar="0" width="220" css="http://svest.no-ip.org/test/opencart/catalog/view/theme/shoppica/stylesheet/facebook.css.php?300"></fb:fan>
           </div>
         </div>
         <div class="clear"></div>
@@ -265,6 +249,7 @@
     </div>
   </div>
   <!-- end of shop info -->
+
 
 
   <!-- ********************** -->
@@ -338,16 +323,14 @@
       <div class="grid_12 border_eee"></div>
     </div>
     <div id="payments" class="right clearfix">
-      <img src="images/payments/discover_straight_32px.png" alt=""/>
-      <img src="images/payments/american_express_straight_32px.png" alt=""/>
-      <img src="images/payments/moneybookers_straight_32px.png" alt=""/>
-      <img src="images/payments/paypal_straight_32px.png" alt=""/>
-      <img src="images/payments/visa_straight_32px.png" alt=""/>
-      <img src="images/payments/american_express_straight_32px.png" alt=""/>
+      <img src="images/payments/discover_straight_32px.png" alt="" />
+      <img src="images/payments/american_express_straight_32px.png" alt="" />
+      <img src="images/payments/moneybookers_straight_32px.png" alt="" />
+      <img src="images/payments/paypal_straight_32px.png" alt="" />
+      <img src="images/payments/visa_straight_32px.png" alt="" />
+      <img src="images/payments/american_express_straight_32px.png" alt="" />
     </div>
-    <p id="copy">&copy; Copyright 2011. Powered by <a class="blue" href="">Open Cart</a>.<br/> <a
-            class="s_main_color" href="http://www.shoppica.net">Shoppica theme</a> made by <a
-            href="http://www.themeburn.com">ThemeBurn.com</a></p>
+    <p id="copy">&copy; Copyright 2011. Powered by <a class="blue" href="">Open Cart</a>.<br /> <a class="s_main_color" href="http://www.shoppica.net">Shoppica theme</a> made by <a href="http://www.themeburn.com">ThemeBurn.com</a></p>
   </div>
   <!-- end of FOOTER -->
 
@@ -355,20 +338,18 @@
 
 <div id="fb-root"></div>
 <script type="text/javascript">
-  window.fbAsyncInit = function () {
-    FB.init({
-      appId: '0c18007de6f00f7ecda8c040fb76cd90', status: true, cookie: true,
-      xfbml: true
-    });
+  window.fbAsyncInit = function() {
+    FB.init({appId: '0c18007de6f00f7ecda8c040fb76cd90', status: true, cookie: true,
+      xfbml: true});
   };
-  (function () {
-    var e = document.createElement('script');
-    e.async = true;
+  (function() {
+    var e = document.createElement('script'); e.async = true;
     e.src = document.location.protocol +
             '//connect.facebook.net/en_US/all.js';
     document.getElementById('fb-root').appendChild(e);
   }());
 </script>
 
+</body>
 </body>
 </html>

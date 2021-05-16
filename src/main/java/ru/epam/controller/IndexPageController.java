@@ -1,6 +1,7 @@
 package ru.epam.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import ru.epam.service.product.ProductService;
 import ru.epam.service.producttype.ProductTypeService;
 import ru.epam.service.user.UserService;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -24,12 +26,16 @@ public class IndexPageController {
     private final ProductTypeService productTypeService;
 
     @GetMapping()
-    public String mainPage(Model model) {
-//        Product product = productDaoImpl.read(1);
+    public String mainPage(Principal principal, Model model) {
         List<Product> products = productService.getAllProducts();
-//        List<ProductType> productTypes = productTypeService.getAllProductTypes();
+        Long userId = userService.getUserIdByLogin(principal.getName());
         model.addAttribute("products", products);
-//        model.addAttribute("productTypes", productTypes);
+        model.addAttribute("userId", userId);
+        if(principal!=null) {
+            model.addAttribute("principal", principal.getName());
+        } else  {
+            model.addAttribute("principal", "noData");
+        }
         return "index";
     }
 
