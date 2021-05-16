@@ -12,7 +12,9 @@ import ru.epam.models.ProductInCart;
 import ru.epam.models.ProductType;
 import ru.epam.service.productincart.ProductInCartService;
 import ru.epam.service.productincart.ProductInCartServiceImpl;
+import ru.epam.service.user.UserService;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -20,13 +22,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CartPageController {
     private final ProductInCartService productInCartService;
+    private final UserService userService;
 
     @RequestMapping(value = "/cart_{id}")
-    public String showProductInfo(@PathVariable Long id, Model model) {
+    public String showProductInfo(@PathVariable Long id, Principal principal, Model model) {
         List<ProductInCartDto> productsInCartByCartId = productInCartService.getProductsInCartByCartId(id);
         Long totalPrice = productsInCartByCartId.stream().mapToLong(o -> o.getTotalPrice()).sum();
         model.addAttribute("productsInCartByCartId", productsInCartByCartId);
         model.addAttribute("totalPrice", totalPrice);
+        if(principal!=null) {
+            Long userId = userService.getUserIdByLogin(principal.getName());
+            model.addAttribute("principal", principal.getName());
+            model.addAttribute("userId", userId);
+        } else  {
+            model.addAttribute("principal", "noData");
+            model.addAttribute("userId", "userId");
+        }
         return "cart/cart";
     }
 
