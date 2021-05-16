@@ -54,8 +54,9 @@ public class CartPageController {
 
     @PostMapping("/cart_{productId}")
     public String deleteProductFromCart(@PathVariable Long productId, Principal principal) throws SQLException {
+        Long userId = userService.getUserIdByLogin(principal.getName());
         productInCartService.deleteProductInCartById(productId);
-        return "redirect:/cart/";
+        return "redirect:/cart/cart_"+userId;
     }
     @RequestMapping(value = "/cart_userId")
     public String showProductInfo() {

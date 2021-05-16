@@ -84,10 +84,15 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public void remove(Long id) {
-        File file = new File(productRepository.findById(id).get().getImage());
-        if(file.delete()){
-            System.out.println("File has been deleted");
-        }else System.out.println("File not found");
-        productRepository.deleteById(id);
+        if (productRepository.findById(id).get().getImage() != null) {
+            File file = new File(productRepository.findById(id).get().getImage());
+            if (file.delete()) {
+                System.out.println("File has been deleted");
+            } else System.out.println("File not found");
+            productRepository.deleteById(id);
+        }
+        else {
+            productRepository.deleteById(id);
+        }
     }
 }

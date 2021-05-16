@@ -144,10 +144,9 @@
             <th>Общая цена</th>
           </tr>
           <div th:each="product : ${productsInCartByCartId}">
+
           <tr class="even">
-
-
-
+            </br>
             <form method="POST" th:action="@{/cart/cart_{id}(id=${product.getId()})}">
               <td valign="middle"><button type="submit" class="btn btn-danger">Удалить</button>
             </form>
@@ -166,7 +165,7 @@
         <br />
 
         <a class="s_button_1 s_ddd_bgr left" href="../"><span class="s_text">Продолжить покупки</span></a>
-        <button class="s_button_1 s_main_color_bgr" type="submit"><span class="s_text">Оформить заказ</span></button>
+        <button class="s_button_1 s_main_color_bgr" ><span class="s_text">Оформить заказ</span></button>
       </form>
 
     </div>
