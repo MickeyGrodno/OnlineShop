@@ -144,11 +144,19 @@
             <div class="s_listing s_grid_view clearfix">
                 <div th:each="product : ${products}">
 
-			        <div class="s_item grid_2"> <a class="s_thumb" href="product.html"><img url="http://localhost:8080/image/36" th:title="*{product.getName()}" th:alt="*{product.getName()}" /></a>
-          <h3><a href="product.html" th:text="*{product.getName()}">product name</a></h3>
-          <p class="s_price" th:text="${product.getPrice() +'$'}">price</p>
-          <a class="s_button_add_to_cart" href="product.html"><span class="s_icon_16"><span class="s_icon"></span>Add to Cart</span></a>
+                    <input type="hidden" name="id" value="${product.getId()"/>
+                    <div class="s_item grid_2"><a class="s_thumb"
+                                                  th:href="@{/product/product_{id}(id=*{product.getId()})}"><img
+                            th:src="@{${'/image/' + product.getId()}}" th:title="*{product.getName()}"
+                            th:alt="*{product.getName()}"/></a>
+                        <h3><a th:href="@{/product/product_{id}(id=*{product.getId()})}" th:text="*{product.getName()}">product
+                            name</a></h3>
+                        <p class="s_price" th:text="${product.getPrice() +'$'}">price</p>
 
+
+
+
+                        <a class="s_button_add_to_cart" th:href="@{/cart/cart_{userId}/{productId}(productId=*{product.getId()}, userId=${userId})}"><span class="s_icon_16"><span class="s_icon"></span>Add to Cart</span></a>
                     </div>
                 </div>
                 <div class="clear"></div>

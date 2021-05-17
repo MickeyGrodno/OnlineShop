@@ -4,18 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ru.epam.config.MyUploadForm;
 import ru.epam.models.Product;
 import ru.epam.service.product.ProductService;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -35,14 +28,13 @@ public class AdminPageController {
     }
 
     @PostMapping("/new_product")
-    public String create(@ModelAttribute("product") Product product, Model model) throws SQLException {
-        Date date = new Date();
-        product.setPublicationDate(date);
+    public String create(@ModelAttribute("product") Product product) throws SQLException {
         Long productId = productService.saveProduct(product);
         return "redirect:/admin/add_image/" + productId;
     }
-    @RequestMapping(value = "/add_image/{id}", method = RequestMethod.GET)
-    public String uploadOneFileHandler(@PathVariable("id") Long id, Model model) {
+
+    @RequestMapping(value = "/add_image/*", method = RequestMethod.GET)
+    public String uploadOneFileHandler(Model model) {
         MyUploadForm myUploadForm = new MyUploadForm();
         model.addAttribute("myUploadForm", myUploadForm);
         return "admin/add_product_image";
