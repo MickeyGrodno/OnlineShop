@@ -3,17 +3,17 @@ package ru.epam.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import ru.epam.dto.ProductInCartDto;
 import ru.epam.models.Order;
-import ru.epam.models.Product;
 import ru.epam.service.order.OrderService;
 import ru.epam.service.productincart.ProductInCartService;
 import ru.epam.service.user.UserService;
 
 import java.security.Principal;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -36,7 +36,7 @@ public class OrderPageController {
     public String create(@ModelAttribute("order") Order order, Principal principal) throws SQLException {
         Long userId = userService.getUserIdByLogin(principal.getName());
         List<ProductInCartDto> productsInCartByCartId = productInCartService.getProductsInCartByCartId(userId);
-        Long totalPrice = productsInCartByCartId.stream().mapToLong(o -> o.getTotalPrice()).sum();
+        Long totalPrice = productsInCartByCartId.stream().mapToLong(ProductInCartDto::getTotalPrice).sum();
         order.setPrice(totalPrice);
         order.setUserId(userId);
         orderService.saveOrder(order);

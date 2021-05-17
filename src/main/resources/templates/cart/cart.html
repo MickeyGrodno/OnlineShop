@@ -146,9 +146,10 @@
                     <div th:each="product : ${productsInCartByCartId}">
 
 
-                        <form method="POST" th:action="@{/cart/cart_{userId}/delete_{productId}(userId=${userId}, productId=*{product.getId()})}">
+                        <form method="POST" th:action="@{${'/cart/delete/'+product.getId()}}">
                             <td valign="middle">
                                 <button type="submit">Удалить</button>
+                            </td>
                         </form>
 
                         <td valign="middle"><a><img th:src="@{${'/image/' + product.getId()}}" width="60" height="60"

@@ -5,7 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Getter
@@ -14,7 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User  {
+public class User {
     @Id
     @Column(name = "id")
     private Long id;
@@ -38,11 +41,4 @@ public class User  {
     private boolean isBlocked;
     @Column(name = "telephone")
     private Long telephone;
-
-//    @Transient
-//    private Set<Role> roles;
-//    {
-//        roles = new HashSet<>();
-//        Arrays.stream(role.split(" ")).forEach(r -> roles.add(Role.valueOf(r)));
-//    }
 }

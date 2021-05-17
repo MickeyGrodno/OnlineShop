@@ -7,6 +7,5 @@ import org.springframework.web.multipart.MultipartFile;
 public class MyUploadForm {
     private String description;
     private Long id;
-    // Upload files.
-    private MultipartFile[] fileDatas;
+    private MultipartFile[] filesData;
 }

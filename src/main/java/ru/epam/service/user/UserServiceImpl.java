@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import ru.epam.models.User;
 import ru.epam.repositories.UserRepository;
 
-import java.util.Date;
-
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{

@@ -1,17 +1,12 @@
 package ru.epam.config;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
 import ru.epam.models.User;
 import ru.epam.service.user.UserService;
 
@@ -33,8 +28,7 @@ public class CustomDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(authority);
 
-        UserDetails userDetails = new org.springframework.security.core.userdetails.
+        return new org.springframework.security.core.userdetails.
                 User(user.getLogin(), user.getPassword(), authorities);
-        return userDetails;
     }
 }

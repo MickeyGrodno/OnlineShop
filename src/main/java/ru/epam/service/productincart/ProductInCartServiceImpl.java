@@ -21,11 +21,6 @@ public class ProductInCartServiceImpl implements ProductInCartService{
     private final ProductRepository productRepository;
 
     @Override
-    public List<ProductInCart> getAllProdInCartByUserId(Long userId) {
-        return productInCartRepository.getAllByUserId(userId);
-    }
-
-    @Override
     @Transactional
     public void deleteCartProductsByUserId(Long id) {
         productInCartRepository.removeAllByUserId(id);

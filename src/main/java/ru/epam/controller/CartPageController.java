@@ -5,13 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.epam.dto.ProductInCartDto;
-import ru.epam.models.*;
+import ru.epam.models.ProductInCart;
 import ru.epam.service.productincart.ProductInCartService;
-import ru.epam.service.productincart.ProductInCartServiceImpl;
 import ru.epam.service.user.UserService;
 
 import java.security.Principal;
-import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -24,7 +22,7 @@ public class CartPageController {
     @RequestMapping(value = "/cart_{id}")
     public String showProductInfo(@PathVariable Long id, Principal principal, Model model) {
         List<ProductInCartDto> productsInCartByCartId = productInCartService.getProductsInCartByCartId(id);
-        Long totalPrice = productsInCartByCartId.stream().mapToLong(o -> o.getTotalPrice()).sum();
+        Long totalPrice = productsInCartByCartId.stream().mapToLong(ProductInCartDto::getTotalPrice).sum();
         model.addAttribute("productsInCartByCartId", productsInCartByCartId);
         model.addAttribute("totalPrice", totalPrice);
         if(principal!=null) {
@@ -62,15 +60,14 @@ public class CartPageController {
         return "redirect:../../";
     }
 
-//    @PostMapping("/cart_{userId}/delete_{productId}")
-    @PostMapping(value = "/cart_{userId}/delete_{productId}")
-    public String deleteProductFromCart(@PathVariable Long userId,
-                                        @PathVariable Long productId, Principal principal) {
-//        Long userId = userService.getUserIdByLogin(principal.getName());
+    @PostMapping( "/delete/{productId}")
+    public String deleteProductFromCart(Principal principal,
+                                        @PathVariable Long productId) {
+        Long userId = userService.getUserIdByLogin(principal.getName());
         productInCartService.deleteProductInCartByUserIdAndProductId(userId, productId);
         return "redirect:/cart/cart_"+userId;
     }
-    @RequestMapping(value = "/cart_userId")
+    @GetMapping( "/cart_userId")
     public String showProductInfo() {
         return "redirect:../";
     }
