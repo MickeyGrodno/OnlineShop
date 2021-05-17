@@ -5,6 +5,7 @@
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/java/ru/epam/controller/MainPageController.java" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/resources/templates/admin/product_list.html" value="file://$PROJECT_DIR$/src/main/resources/templates/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/resources/templates/index.html" value="file://$PROJECT_DIR$/src/main/resources/templates" />
       </map>
     </option>
   </component>

@@ -188,7 +188,15 @@
 
                 <div id="product_buy" class="clearfix">
                     <label style="color:ForestGreen">В наличии</label>
-                    <a id="add_to_cart" class="s_main_color_bgr"><span class="s_text"><span class="s_icon"></span> Add to Cart</span></a>
+                    <div id="product_buy" class="clearfix">
+                        <label for="product_buy_quantity">Количество</label>
+                        <form th:method="POST"
+                              th:action="@{/cart/cart_{userId}/{productId}(userId=${userId}, productId=${product.getId()})}"
+                              th:object="${productInCart}">
+                            <input type="text" size="1" th:field="*{productCount}" id="productCount"/>
+                            <input  type="submit" value="Добавить в корзину" id="add_to_cart" class="s_main_color_bgr">
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="clear"></div>
@@ -204,9 +212,11 @@
                         </div>
                     </div>
 
-                    <div id="product_reviews" class="s_listing" >
+                    <div id="product_reviews" class="s_listing">
                         <div class="s_review last" th:each="comment : ${commentsByProductId}">
-                            <p class="s_author"><strong>Shoppica</strong><small th:text="${#dates.format(comment.getDate(), 'dd MMM yyyy')}">Comment date</small></p>
+                            <p class="s_author"><strong>Shoppica</strong><small
+                                    th:text="${#dates.format(comment.getDate(), 'dd MMM yyyy')}">Comment date</small>
+                            </p>
                             <div class="right">
 
                             </div>

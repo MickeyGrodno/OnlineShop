@@ -38,14 +38,26 @@ public class CartPageController {
         return "cart/cart";
     }
 
-//    @PostMapping(value = "/cart_{userId}/{productId}")
-@RequestMapping(value = "/cart_{userId}/{productId}", method = RequestMethod.POST)
+    @GetMapping( "/cart_{userId}/{productId}")
+//@RequestMapping(value = "/cart_{userId}/{productId}", method = RequestMethod.POST)
     public String addProductInCartFast(@PathVariable Long userId,
                                        @PathVariable Long productId) {
         ProductInCart productInCart = new ProductInCart();
         productInCart.setUserId(userId);
         productInCart.setProductId(productId);
         productInCart.setProductCount(1);
+        productInCartService.saveProductInCart(productInCart);
+        return "redirect:../../";
+    }
+
+    @PostMapping( "/cart_{userId}/{productId}")
+    public String addProductInCartFast(@PathVariable Long userId,
+                                       @PathVariable Long productId,
+                                       @ModelAttribute("productInCart") ProductInCart productInCart) {
+        ProductInCart productInCartToDB = new ProductInCart();
+        productInCartToDB.setUserId(userId);
+        productInCartToDB.setProductId(productId);
+        productInCartToDB.setProductCount(productInCart.getProductCount());
         productInCartService.saveProductInCart(productInCart);
         return "redirect:../../";
     }

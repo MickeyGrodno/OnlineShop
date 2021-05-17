@@ -33,11 +33,11 @@ public class ProductInCartServiceImpl implements ProductInCartService{
 
     @Override
     public void saveProductInCart(ProductInCart productInCart) {
-        ProductInCart productInCartFromDB =
-                getProductInCartByUserIdAndProduct(productInCart.getUserId(), productInCart.getProductId());
+        ProductInCart productInCartFromDB = productInCartRepository.findByUserIdAndProductId(productInCart.getUserId(), productInCart.getProductId());
+
         if(productInCartFromDB!=null) {
-            productInCart.setProductCount(productInCart.getProductCount()+productInCartFromDB.getProductCount());
-            productInCartRepository.saveAndFlush(productInCart);
+            productInCartFromDB.setProductCount(productInCart.getProductCount()+productInCartFromDB.getProductCount());
+            productInCartRepository.saveAndFlush(productInCartFromDB);
         } else {
             productInCartRepository.saveAndFlush(productInCart);
         }
@@ -68,9 +68,5 @@ public class ProductInCartServiceImpl implements ProductInCartService{
     @Transactional
     public void deleteProductInCartByUserIdAndProductId(Long userId, Long productId) {
         productInCartRepository.deleteByUserIdAndProductId(userId, productId);
-    }
-
-    private ProductInCart getProductInCartByUserIdAndProduct(Long userId, Long productId) {
-        return productInCartRepository.findProductInCartByUserIdAndProductId(userId, productId);
     }
 }
