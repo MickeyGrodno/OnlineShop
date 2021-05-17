@@ -135,23 +135,26 @@
     <div id="login_page" style="display: inline-block;" class="grid_16">
             
       <div class="grid_8 alpha">
-        <h2 class="s_title_1"><span class="s_secondary_color">Войти</span></h2>
+        <h2 class="s_title_1"><span class="s_secondary_color">Регистрация</span></h2>
         <div class="clear"></div>
-        <form id="account" action="forms.html">
+        <form id="account" th:method="POST" th:action="@{/registration}" th:object="${userForm}">
           <div class="s_row_3 clearfix">
 
             <br />
-            <label><strong>E-Mail Address:</strong></label>
-            <input type="text" size="35"/>
+            <label><strong>Логин</strong></label>
+            <input type="text" size="35" th:field="*{login}" id="login"/>
             <br />
             <br />
-            <label><strong>Password:</strong></label>
-            <input type="password" size="35" class="required" />
+            <label><strong>Пароль</strong></label>
+            <input type="password" size="35" class="required" th:field="*{password}" id="password"/>
             <br />
+              <label><strong>Повторите пароль</strong></label>
+              <input type="password" size="35" class="required" th:field="*{passwordConfirm}" id="passwordConfirm"/>
+              <br />
           </div>
           <span class="clear border_ddd"></span>
           <br />
-          <button class="s_button_1 s_main_color_bgr" type="submit"><span class="s_text">Continue</span></button>
+          <button class="s_button_1 s_main_color_bgr" type="submit"><span class="s_text">Зарегистрироваться</span></button>
         </form>
       </div>
 

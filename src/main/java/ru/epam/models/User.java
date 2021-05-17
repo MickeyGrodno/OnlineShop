@@ -5,10 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Getter
@@ -19,6 +17,7 @@ import java.util.Date;
 @Table(name = "users")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "first_name")
@@ -29,10 +28,13 @@ public class User {
     private String gender;
     @Column(name = "birth_date")
     private Date birthDate;
+    @Size(min=2, message = "Не меньше 5 знаков")
     @Column(name = "login")
     private String login;
+    @Size(min=2, message = "Не меньше 5 знаков")
     @Column(name = "password")
     private String password;
+    private String passwordConfirm;
     @Column(name = "email")
     private String email;
     @Column(name = "role")
