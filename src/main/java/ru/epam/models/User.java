@@ -31,16 +31,15 @@ public class User {
     @Size(min=2, message = "Не меньше 5 знаков")
     @Column(name = "login")
     private String login;
-    @Size(min=2, message = "Не меньше 5 знаков")
+    @Size(min=1, message = "Не меньше 5 знаков")
     @Column(name = "password")
     private String password;
+    @Transient
     private String passwordConfirm;
     @Column(name = "email")
     private String email;
     @Column(name = "role")
     private String role;
-    @Column(name = "is_blocked")
-    private boolean isBlocked;
     @Column(name = "telephone")
     private Long telephone;
 }

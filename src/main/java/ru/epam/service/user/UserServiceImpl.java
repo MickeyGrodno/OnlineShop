@@ -16,7 +16,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    @Autowired
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
@@ -55,13 +54,4 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
-
-//    @Override
-//    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-//        User user = userRepository.findUserByLogin(login);
-//        if (user == null) {
-//            throw new UsernameNotFoundException("User not found");
-//        }
-//        return null;
-//    }
 }

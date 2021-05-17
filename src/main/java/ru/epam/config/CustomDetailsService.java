@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.epam.models.User;
+import ru.epam.repositories.UserRepository;
 import ru.epam.service.user.UserService;
 
 import javax.transaction.Transactional;
@@ -19,11 +20,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomDetailsService implements UserDetailsService {
 
-    private final UserService userService;
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(final String login) throws UsernameNotFoundException {
-        User user = userService.loadUserByLogin(login);
+        User user = userRepository.findUserByLogin(login);
         GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().toUpperCase());
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(authority);
