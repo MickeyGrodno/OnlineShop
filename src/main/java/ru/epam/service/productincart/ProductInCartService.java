@@ -10,5 +10,5 @@ public interface ProductInCartService {
     List<ProductInCartDto> getProductsInCartByCartId(Long userId);
     void deleteCartProductsByUserId(Long id);
     void saveProductInCart(ProductInCart productInCart);
-    void deleteProductInCartById(Long id);
+    void deleteProductInCartByUserIdAndProductId(Long userId, Long productId);
 }

@@ -3,10 +3,7 @@ package ru.epam.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.epam.dto.ProductInCartDto;
 import ru.epam.models.*;
 import ru.epam.service.productincart.ProductInCartService;
@@ -41,7 +38,8 @@ public class CartPageController {
         return "cart/cart";
     }
 
-    @RequestMapping(value = "/cart_{userId}/{productId}")
+//    @PostMapping(value = "/cart_{userId}/{productId}")
+@RequestMapping(value = "/cart_{userId}/{productId}", method = RequestMethod.POST)
     public String addProductInCartFast(@PathVariable Long userId,
                                        @PathVariable Long productId) {
         ProductInCart productInCart = new ProductInCart();
@@ -52,10 +50,12 @@ public class CartPageController {
         return "redirect:../../";
     }
 
-    @PostMapping("/cart_{productId}")
-    public String deleteProductFromCart(@PathVariable Long productId, Principal principal) throws SQLException {
-        Long userId = userService.getUserIdByLogin(principal.getName());
-        productInCartService.deleteProductInCartById(productId);
+//    @PostMapping("/cart_{userId}/delete_{productId}")
+    @PostMapping(value = "/cart_{userId}/delete_{productId}")
+    public String deleteProductFromCart(@PathVariable Long userId,
+                                        @PathVariable Long productId, Principal principal) {
+//        Long userId = userService.getUserIdByLogin(principal.getName());
+        productInCartService.deleteProductInCartByUserIdAndProductId(userId, productId);
         return "redirect:/cart/cart_"+userId;
     }
     @RequestMapping(value = "/cart_userId")

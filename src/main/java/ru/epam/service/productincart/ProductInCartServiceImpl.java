@@ -65,8 +65,9 @@ public class ProductInCartServiceImpl implements ProductInCartService{
     }
 
     @Override
-    public void deleteProductInCartById(Long id) {
-        productInCartRepository.deleteById(id);
+    @Transactional
+    public void deleteProductInCartByUserIdAndProductId(Long userId, Long productId) {
+        productInCartRepository.deleteByUserIdAndProductId(userId, productId);
     }
 
     private ProductInCart getProductInCartByUserIdAndProduct(Long userId, Long productId) {
