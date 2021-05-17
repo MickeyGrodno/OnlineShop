@@ -133,46 +133,44 @@
 
         <div id="shopping_cart" class="grid_12">
 
-            <form id="cart" class="clearfix">
-                <table class="s_table_1" width="100%" cellpadding="0" cellspacing="0" border="0">
-                    <tr>
-                        <th width="65">Удалить</th>
-                        <th width="60">Фото</th>
-                        <th width="320">Название</th>
-                        <th>Количество</th>
-                        <th>Цена за единицу</th>
-                        <th>Общая цена</th>
+            <table class="s_table_1" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <th width="65">Удалить</th>
+                    <th width="60">Фото</th>
+                    <th width="320">Название</th>
+                    <th>Количество</th>
+                    <th>Цена за единицу</th>
+                    <th>Общая цена</th>
+                </tr>
+                <div th:each="product : ${productsInCartByCartId}">
+
+
+                    <form method="POST" th:action="@{${'/cart/delete/'+product.getId()}}">
+                        <td valign="middle">
+                            <button type="submit">Удалить</button>
+                        </td>
+                    </form>
+
+                    <td valign="middle"><a><img th:src="@{${'/image/' + product.getId()}}" width="60" height="60"
+                                                alt="Panasonic Lumix"/></a></td>
+                    <td valign="middle"><a th:text="${product.getName()}"><strong>Name</strong></a></td>
+                    <td valign="middle" th:text="${product.getCount()}">>Count</td>
+                    <td valign="middle" th:text="${product.getPrice()}">>Price<span
+                            class="s_currency s_after"> $</span></td>
+                    <td valign="middle" th:text="${product.getTotalPrice()}">Total price<span
+                            class="s_currency s_after"> $</span></td>
                     </tr>
-                    <div th:each="product : ${productsInCartByCartId}">
+                </div>
+            </table>
+            <br/>
+            <p class="s_total s_secondary_color last" th:text="${'Итого '+totalPrice+'$'}"> Суммарная цена</p>
 
+            <div class="clear"></div>
+            <br/>
 
-                        <form method="POST" th:action="@{${'/cart/delete/'+product.getId()}}">
-                            <td valign="middle">
-                                <button type="submit">Удалить</button>
-                            </td>
-                        </form>
-
-                        <td valign="middle"><a><img th:src="@{${'/image/' + product.getId()}}" width="60" height="60"
-                                                    alt="Panasonic Lumix"/></a></td>
-                        <td valign="middle"><a th:text="${product.getName()}"><strong>Name</strong></a></td>
-                        <td valign="middle" th:text="${product.getCount()}">>Count</td>
-                        <td valign="middle" th:text="${product.getPrice()}">>Price<span
-                                class="s_currency s_after"> $</span></td>
-                        <td valign="middle" th:text="${product.getTotalPrice()}">Total price<span
-                                class="s_currency s_after"> $</span></td>
-                        </tr>
-                    </div>
-                </table>
-                <br/>
-                <p class="s_total s_secondary_color last" th:text="${'Итого '+totalPrice+'$'}"> Суммарная цена</p>
-
-                <div class="clear"></div>
-                <br/>
-
-                <a class="s_button_1 s_ddd_bgr left" href="../"><span class="s_text">Продолжить покупки</span></a>
-                <a class="s_button_1 s_main_color_bgr" href="../order/create_order"><span
-                        class="s_text">Оформить заказ</span></a>
-            </form>
+            <a class="s_button_1 s_ddd_bgr left" href="../"><span class="s_text">Продолжить покупки</span></a>
+            <a class="s_button_1 s_main_color_bgr" href="../order/create_order"><span
+                    class="s_text">Оформить заказ</span></a>
 
         </div>
 
