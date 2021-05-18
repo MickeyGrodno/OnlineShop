@@ -22,7 +22,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/product")
 @RequiredArgsConstructor
-public class ProductController {
+public class ProductPageController {
 
     private final ProductService productService;
     private final ProductTypeService productTypeService;
@@ -35,7 +35,7 @@ public class ProductController {
         return "redirect:../../admin/product_list";
     }
 
-    @RequestMapping(value = "/product_{id}")
+    @RequestMapping(value = "/{id}")
     public String showProductInfo(@PathVariable Long id,
                                   @ModelAttribute("productInCart") ProductInCart productInCart,
                                   Principal principal,
@@ -43,13 +43,6 @@ public class ProductController {
         Product product = productService.findById(id);
         ProductType productType = productTypeService.getById(product.getProductTypeId());
         List<Comment> commentsByProductId = commentService.getCommentsByProductId(id);
-        if (principal != null) {
-            Long userId = userService.getUserIdByLogin(principal.getName());
-            model.addAttribute("userId", userId);
-        } else {
-            model.addAttribute("userId", "noId");
-        }
-
         model.addAttribute("product", product);
         model.addAttribute("productType", productType);
         model.addAttribute("commentsByProductId", commentsByProductId);

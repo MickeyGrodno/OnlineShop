@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.epam.models.Product;
 import ru.epam.service.product.ProductService;
+import ru.epam.service.user.UserProvider;
 import ru.epam.service.user.UserService;
 
 import java.security.Principal;
@@ -19,21 +20,16 @@ import java.util.List;
 public class IndexPageController {
     private final UserService userService;
     private final ProductService productService;
+    private final UserProvider userProvider;
 
     @GetMapping()
-    public String mainPage(Principal principal, Model model) {
+    public String mainPage(Model model) {
         List<Product> products = productService.getAllProducts();
-
+        boolean isAuthenticated = userProvider.isAuthenticated();
+        String userLogin = userProvider.getUsername();
         model.addAttribute("products", products);
-
-        if (principal != null) {
-            Long userId = userService.getUserIdByLogin(principal.getName());
-            model.addAttribute("principal", principal.getName());
-            model.addAttribute("userId", userId);
-        } else {
-            model.addAttribute("principal", "noData");
-            model.addAttribute("userId", "userId");
-        }
+        model.addAttribute("userLogin", userLogin);
+        model.addAttribute("isAuthenticated", isAuthenticated);
         return "index";
     }
 

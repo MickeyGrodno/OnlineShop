@@ -1,17 +1,16 @@
 package ru.epam.service.user;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.epam.dto.UserDto;
 import ru.epam.models.User;
 import ru.epam.repositories.UserRepository;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +18,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
-    public User loadUserByLogin(String login) {
+    public User getUserByLogin(String login) {
         return userRepository.findUserByLogin(login);
     }
     public Long getUserIdByLogin(String login) {
@@ -46,6 +45,27 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         return true;
     }
+    public UserDto getUserDtoByLogin(String login) {
+        UserDto userDto = new UserDto();
+        User userByLogin = userRepository.getUserByLogin(login);
+        userDto.setLogin(userByLogin.getLogin());
+        userDto.setFirstName(userByLogin.getFirstName());
+        userDto.setLastName(userByLogin.getLastName());
+        userDto.setGender(userByLogin.getGender());
+        userDto.setEmail(userByLogin.getEmail());
+        userDto.setTelephone(userByLogin.getTelephone());
+        return userDto;
+    }
+
+    public void updateUser(UserDto userDto, String login) {
+        User userFromDB = userRepository.findUserByLogin(login);
+        userFromDB.setFirstName(userDto.getFirstName());
+        userFromDB.setLastName(userDto.getLastName());
+        userFromDB.setGender(userDto.getGender());
+        userFromDB.setEmail(userDto.getEmail());
+        userFromDB.setTelephone(userDto.getTelephone());
+        userRepository.save(userFromDB);
+    }
 
     public boolean deleteUser(Long userId) {
         if (userRepository.findById(userId).isPresent()) {
@@ -54,4 +74,5 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
 }

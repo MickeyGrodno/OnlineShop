@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -36,6 +37,7 @@ public class User {
     private String password;
     @Transient
     private String passwordConfirm;
+    @Email
     @Column(name = "email")
     private String email;
     @Column(name = "role")

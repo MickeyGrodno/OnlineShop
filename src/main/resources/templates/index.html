@@ -34,21 +34,22 @@
         <div class="grid_12">
 
             <a id="site_logo" href="/">Shoppica store - Premium e-Commerce Theme</a>
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Sign Out"/>
 
-            </form>
-            <div th:if="${principal!='noData'}">
-                <a th:text="${'Hello '+principal}">Приветствие</a>
-            </div>
+
             <div id="system_navigation" class="s_nav">
                 <ul class="s_list_1 clearfix">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="/login">Log In</a></li>
+                    <!-- IF CUSTOMER IS ANONYMOUS -->
+                    <li>
+                        <a th:if="${isAuthenticated}" href="/logout">Log out</a>
+                        <a th:if="${!isAuthenticated}" href="/login">Log In</a>
+                    </li>
                     <li><a href="/registration">Registration</a></li>
 
                 </ul>
             </div>
+
+
 
             <div id="site_search">
                 <a id="show_search" href="javascript:;" title="Search:"></a>
@@ -101,7 +102,7 @@
             </div>
 
             <div id="cart_menu" class="s_nav">
-                <a th:href="@{/cart/cart_{id}(id=*{userId})}"><span class="s_icon"></span> <small class="s_text">Cart</small><span
+                <a th:href="@{/cart}"><span class="s_icon"></span> <small class="s_text">Cart</small><span
                         class="s_grand_total s_main_color">$0.00</span></a>
                 <div class="s_submenu s_cart_holder">
                     <p class="s_mb_0">0 items</p>
@@ -145,17 +146,19 @@
 
                     <input type="hidden" name="id" value="${product.getId()"/>
                     <div class="s_item grid_2"><a class="s_thumb"
-                                                  th:href="@{/product/product_{id}(id=*{product.getId()})}"><img
+                                                  th:href="@{/product/{id}(id=*{product.getId()})}"><img
                             th:src="@{${'/image/' + product.getId()}}" th:title="*{product.getName()}"
                             th:alt="*{product.getName()}"/></a>
-                        <h3><a th:href="@{/product/product_{id}(id=*{product.getId()})}" th:text="*{product.getName()}">product
+                        <h3><a th:href="@{/product/{id}(id=*{product.getId()})}" th:text="*{product.getName()}">product
                             name</a></h3>
                         <p class="s_price" th:text="${product.getPrice() +'$'}">price</p>
 
-
-
-
-                        <a class="s_button_add_to_cart" th:href="@{/cart/cart_{userId}/{productId}(productId=*{product.getId()}, userId=${userId})}"><span class="s_icon_16"><span class="s_icon"></span>Add to Cart</span></a>
+                        <form method="POST" th:action="@{/cart/{productId}(productId=*{product.getId()})}">
+                            <input type="submit" value="Добавить в корзину" id="add_to_cart" class="s_main_color_bgr">
+                        <a class="s_button_add_to_cart" ><span class="s_icon_16"><span class="s_icon">
+                        </span>Add to Cart</span>
+                        </a>
+                        </form>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -164,11 +167,6 @@
 
     </div>
     <div></div>
-
-
-    <!-- ********************** -->
-    <!--   S H O P   I N F O    -->
-    <!-- ********************** -->
     <div id="shop_info">
 
     </div>

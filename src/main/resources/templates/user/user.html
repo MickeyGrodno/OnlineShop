@@ -6,14 +6,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Your Store</title>
     <meta name="description" content="My Store"/>
-    <link rel="stylesheet" type="text/css" href="../static/stylesheet/960.css" data-th-href="@{/stylesheet/960.css}"
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheet/960.css" data-th-href="@{/stylesheet/960.css}"
           media="all"/>
-    <link rel="stylesheet" type="text/css" href="../static/stylesheet/screen.css"
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheet/screen.css"
           data-th-href="@{/stylesheet/screen.css}" media="screen"/>
-    <link rel="stylesheet" type="text/css" href="../static/stylesheet/color.css" data-th-href="@{/stylesheet/color.css}"
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheet/color.css"
+          data-th-href="@{/stylesheet/color.css}"
           media="screen"/>
     <!--[if lt IE 9]>
-    <link rel="stylesheet" type="text/css" href="../static/stylesheet/ie.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheet/ie.css" media="screen"/>
     <![endif]-->
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
@@ -34,19 +35,13 @@
         <div class="grid_12">
 
             <a id="site_logo" href="/">Shoppica store - Premium e-Commerce Theme</a>
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Sign Out"/>
 
-            </form>
-            <div th:if="${principal!='noData'}">
-                <a th:text="${'Hello '+principal}">Приветствие</a>
-            </div>
+
             <div id="system_navigation" class="s_nav">
                 <ul class="s_list_1 clearfix">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li><a href="/login">Log In</a></li>
                     <li><a href="/registration">Registration</a></li>
-
                 </ul>
             </div>
 
@@ -101,8 +96,7 @@
             </div>
 
             <div id="cart_menu" class="s_nav">
-                <a th:href="@{/cart/cart_{id}(id=*{userId})}"><span class="s_icon"></span> <small class="s_text">Cart</small><span
-                        class="s_grand_total s_main_color">$0.00</span></a>
+
                 <div class="s_submenu s_cart_holder">
                     <p class="s_mb_0">0 items</p>
                 </div>
@@ -110,102 +104,90 @@
 
         </div>
     </div>
-  <!-- end of header --> 
-  
+    <!-- end of header -->
 
-  <!-- ********************** --> 
-  <!--     I N T R O          -->
-  <!-- ********************** --> 
-  <div id="intro">
-    <div id="intro_wrap">
-      <div class="container_12">
-        <div id="breadcrumbs" class="grid_12">
-          <a href="index.html">Home</a>
-           &gt; <a href="cart.html">Basket</a>
-        </div>
-        <h1>Orders</h1>
-      </div>
-    </div>
-  </div>
-  <!-- end of intro -->
-  
-  
-  <!-- ********************** --> 
-  <!--      C O N T E N T     --> 
-  <!-- ********************** --> 
-  <div id="content" class="container_12">
-  
-    <div id="order_history" class="grid_12">
-      
-      <div class="s_listing s_grid_view clearfix">
-        
-                
-        
-        
 
-                
-                <div class="grid_4">
-
-          <div class="s_order clearfix">
-            <p class="s_id"><span class="s_999">Order ID:</span> <span class="s_main_color">#1</span></p>
-            <p class="s_status s_secondary_color">Pending</p>
-            <span class="clear"></span>
-            <dl class="clearfix">
-              <dt>Date Added::</dt>
-
-              <dd>06/04/2011</dd>
-              <dt>Customer::</dt>
-              <dd>Pinko Pinkov</dd>
-              <dt>Products::</dt>
-              <dd>1</dd>
-            </dl>
-
-            <span class="clear border_eee"></span>
-            <br />
-            <p class="s_total left"><span class="s_currency s_before">$</span>1,633.46</p>
-            <a href="invoice.html" class="s_main_color right"><strong>View</strong></a>
-          </div>
-        </div>
-      </div>
-
-      <a href="invoice.html" class="s_button_1 s_main_color_bgr"><span class="s_text">Continue</span></a>
-
-      <div class="clear"></div>
-      <br />
-
-      <br />
+    <!-- ********************** -->
+    <!--     I N T R O          -->
+    <!-- ********************** -->
+    <div id="intro">
 
     </div>
-    
-  </div>
-  <!-- end of content --> 
-  
-  <!-- ********************** --> 
-  <!--   S H O P   I N F O    --> 
-  <!-- ********************** --> 
-  <div id="shop_info"></div>
-  <!-- end of shop info --> 
-  
-  
-  
-  <!-- ********************** --> 
-  <!--      F O O T E R       --> 
-  <!-- ********************** --><!-- end of FOOTER --> 
-  
+    <script type="text/javascript" src="../static/js/jquery/jquery.slides.js"></script>
+    <script type="text/javascript" src="../static/js/shoppica.products_slide.js"></script>
+    <!-- end of intro -->
+
+    <!-- end of intro -->
+
+
+    <!-- ********************** -->
+    <!--      C O N T E N T     -->
+    <!-- ********************** -->
+    <div id="content" class="container_16">
+
+
+        <div id="login_page" style="display: inline-block;" class="grid_16">
+            <div class="grid_8 alpha">
+                <h2 class="s_title_1"><span class="s_secondary_color">Данные пользователя </span></h2>
+                <h2 th:text="${user.getLogin()}"></h2>
+                <div class="s_row_3 clearfix"><br/>
+                    <label style="color:ForestGreen"><strong>Имя</strong></label>
+                    <label><strong th:text="${user.getFirstName()}">Имя</strong></label>
+                    <br/>
+                    <label style="color:ForestGreen"><strong>Фамилия</strong></label>
+                    <label><strong th:text="${user.getLastName()}">Имя</strong></label>
+                    <br/>
+                    <label style="color:ForestGreen"><strong>Пол</strong></label>
+                    <label><strong th:text="${user.getGender()}">Имя</strong></label>
+                    <br/>
+                    <label style="color:ForestGreen"><strong>Email</strong></label>
+                    <label><strong th:text="${user.getEmail()}">Имя</strong></label>
+                    <br/>
+                    <label style="color:ForestGreen"><strong>Номер телефона</strong></label>
+                    <label><strong th:text="${user.getTelephone()}">Имя</strong></label>
+                    <br/>
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <a class="s_button_1 s_main_color_bgr" href="/user/edit" type="submit"><span class="s_text">Редактировать</span></a>
+            </div>
+
+
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!-- end of content -->
+
+    <!-- ********************** -->
+    <!--   S H O P   I N F O    -->
+    <!-- ********************** -->
+
+    <p id="copy"> Copyright 2011. Powered by <a class="blue" href="">Open Cart</a>.<br/> <a class="s_main_color"
+                                                                                            href="http://www.shoppica.net">Shoppica
+        theme</a> made by <a href="http://www.themeburn.com">ThemeBurn.com</a></p>
+</div>
+<!-- end of FOOTER -->
+
 </div>
 
 <div id="fb-root"></div>
 <script type="text/javascript">
-  window.fbAsyncInit = function() {
-    FB.init({appId: '0c18007de6f00f7ecda8c040fb76cd90', status: true, cookie: true,
-     xfbml: true});
-  };
-  (function() {
-    var e = document.createElement('script'); e.async = true;
-    e.src = document.location.protocol +
-    '//connect.facebook.net/en_US/all.js';
-    document.getElementById('fb-root').appendChild(e);
-  }());
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '0c18007de6f00f7ecda8c040fb76cd90', status: true, cookie: true,
+            xfbml: true
+        });
+    };
+    (function () {
+        var e = document.createElement('script');
+        e.async = true;
+        e.src = document.location.protocol +
+            '//connect.facebook.net/en_US/all.js';
+        document.getElementById('fb-root').appendChild(e);
+    }());
 </script>
 
 </body>

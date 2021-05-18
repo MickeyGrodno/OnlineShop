@@ -191,10 +191,10 @@
                     <div id="product_buy" class="clearfix">
                         <label for="product_buy_quantity">Количество</label>
                         <form th:method="POST"
-                              th:action="@{/cart/cart_{userId}/{productId}(userId=${userId}, productId=${product.getId()})}"
+                              th:action="@{/cart/{productId}(productId=${product.getId()})}"
                               th:object="${productInCart}">
-                            <input type="text" size="1" th:field="*{productCount}" id="productCount"/>
-                            <input  type="submit" value="Добавить в корзину" id="add_to_cart" class="s_main_color_bgr">
+                            <input type="text" size="1" min="1" th:field="*{productCount}" id="productCount"/>
+                            <input type="submit" value="Добавить в корзину" id="add_to_cart" class="s_main_color_bgr">
                         </form>
                     </div>
                 </div>
