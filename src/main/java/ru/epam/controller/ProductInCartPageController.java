@@ -31,7 +31,7 @@ public class ProductInCartPageController {
     }
 
     @PostMapping("/{productId}")
-    public String addProductInCartFast(@PathVariable Long productId,
+    public String addProductInCart(@PathVariable Long productId,
                                        Principal principal,
                                        ProductInCart productInCartFromPage) {
         Long userId = userService.getUserIdByLogin(principal.getName());
@@ -43,6 +43,18 @@ public class ProductInCartPageController {
         } else {
             productInCart.setProductCount(productInCartFromPage.getProductCount());
         }
+        productInCartService.saveProductInCart(productInCart);
+        return "redirect:../";
+    }
+
+    @GetMapping("/{productId}")
+    public String addProductInCartFast(@PathVariable Long productId,
+                                   Principal principal) {
+        Long userId = userService.getUserIdByLogin(principal.getName());
+        ProductInCart productInCart = new ProductInCart();
+        productInCart.setUserId(userId);
+        productInCart.setProductId(productId);
+        productInCart.setProductCount(1);
         productInCartService.saveProductInCart(productInCart);
         return "redirect:../";
     }

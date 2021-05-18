@@ -153,12 +153,12 @@
                             name</a></h3>
                         <p class="s_price" th:text="${product.getPrice() +'$'}">price</p>
 
-                        <form method="POST" th:action="@{/cart/{productId}(productId=*{product.getId()})}">
-                            <input type="submit" value="Добавить в корзину" id="add_to_cart" class="s_main_color_bgr">
-                        <a class="s_button_add_to_cart" ><span class="s_icon_16"><span class="s_icon">
+<!--                        <form method="POST" th:action="@{/cart/{productId}(productId=*{product.getId()})}">-->
+<!--                        <form method="POST" th:href="@{/cart/{productId}(productId=*{product.getId()})}">-->
+                        <a th:href="@{/cart/{productId}(productId=*{product.getId()})}" class="s_button_add_to_cart"><span class="s_icon_16"><span class="s_icon">
                         </span>Add to Cart</span>
                         </a>
-                        </form>
+<!--                        </form>-->
                     </div>
                 </div>
                 <div class="clear"></div>
