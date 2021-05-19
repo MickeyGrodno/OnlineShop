@@ -1,6 +1,7 @@
 package ru.epam.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,6 +30,7 @@ public class ProductPageController {
     private final CommentService commentService;
     private final UserService userService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/remove/product_{id}", method = RequestMethod.POST)
     public String remove(@PathVariable("id") Long id) {
         productService.remove(id);

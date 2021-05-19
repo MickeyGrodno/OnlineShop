@@ -9,6 +9,7 @@ import ru.epam.dto.UserDto;
 import ru.epam.models.User;
 import ru.epam.repositories.UserRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> allUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
@@ -65,6 +66,17 @@ public class UserServiceImpl implements UserService {
         userFromDB.setEmail(userDto.getEmail());
         userFromDB.setTelephone(userDto.getTelephone());
         userRepository.save(userFromDB);
+    }
+
+    @Override
+    @Transactional
+    public void updateUserRoleById(Long id, String role) {
+        userRepository.updateUserRoleById(id, role);
+    }
+
+    @Override
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
     }
 
     public boolean deleteUser(Long userId) {

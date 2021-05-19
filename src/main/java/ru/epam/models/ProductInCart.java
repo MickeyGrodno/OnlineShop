@@ -24,5 +24,5 @@ public class ProductInCart {
     @Column(name = "user_id")
     private Long userId;
     @Column(name = "product_count")
-    private int productCount;
+    private Long productCount;
 }

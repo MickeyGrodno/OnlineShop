@@ -142,22 +142,22 @@
                     <th>Цена за единицу</th>
                     <th>Общая цена</th>
                 </tr>
-                <div th:each="product : ${productsInCartByCartId}">
+                <div th:each="productInCart : ${productsInCartByCartId}">
 
 
-                    <form method="POST" th:action="@{${'/cart/delete/'+product.getId()}}">
+                    <form method="POST" th:action="@{${'/cart/delete/'+productInCart.getId()}}">
                         <td valign="middle">
                             <button type="submit">Удалить</button>
                         </td>
                     </form>
 
-                    <td valign="middle"><a><img th:src="@{${'/image/' + product.getId()}}" width="60" height="60"
+                    <td valign="middle"><a><img th:src="@{${'/image/' + productInCart.getId()}}" width="60" height="60"
                                                 alt="Panasonic Lumix"/></a></td>
-                    <td valign="middle"><a th:text="${product.getName()}"><strong>Name</strong></a></td>
-                    <td valign="middle" th:text="${product.getCount()}">>Count</td>
-                    <td valign="middle" th:text="${product.getPrice()}">>Price<span
+                    <td valign="middle"><a th:text="${productInCart.getName()}"><strong>Name</strong></a></td>
+                    <td valign="middle" th:text="${productInCart.getCount()}">>Count</td>
+                    <td valign="middle" th:text="${productInCart.getPrice()}">>Price<span
                             class="s_currency s_after"> $</span></td>
-                    <td valign="middle" th:text="${product.getTotalPrice()}">Total price<span
+                    <td valign="middle" th:text="${productInCart.getTotalPrice()}">Total price<span
                             class="s_currency s_after"> $</span></td>
                     </tr>
                 </div>

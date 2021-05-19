@@ -13,4 +13,7 @@ public interface ProductInCartService {
     void saveProductInCart(ProductInCart productInCart);
 
     void deleteProductInCartByUserIdAndProductId(Long userId, Long productId);
+
+    Long getTotalPriceAllProductsInCartByUserId(Long userId);
+
 }

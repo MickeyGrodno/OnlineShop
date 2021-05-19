@@ -1,8 +1,10 @@
 package ru.epam.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,12 +19,21 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Controller
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 @RequestMapping("/order")
 @RequiredArgsConstructor
 public class OrderPageController {
     private final UserService userService;
     private final ProductInCartService productInCartService;
     private final OrderService orderService;
+
+    @GetMapping( "")
+    public String mainPage(Principal principal, Model model) {
+        Long userId = userService.getUserIdByLogin(principal.getName());
+        List<Order> orders = orderService.getAllOrdersByUserId(userId);
+        model.addAttribute("orders", orders);
+        return "order/orders";
+    }
 
     @RequestMapping(value = "/create_order", method = RequestMethod.GET)
     public String mainPage(@ModelAttribute("order") Order order, Principal principal, Model model) {

@@ -1,6 +1,7 @@
 package ru.epam.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Controller
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 @RequestMapping("/cart")
 @RequiredArgsConstructor
 public class ProductInCartPageController {
@@ -24,7 +26,7 @@ public class ProductInCartPageController {
     public String showProductInfo(Principal principal, Model model) {
         Long userId = userService.getUserIdByLogin(principal.getName());
         List<ProductInCartDto> productsInCartByCartId = productInCartService.getProductsInCartByCartId(userId);
-        Long totalPrice = productsInCartByCartId.stream().mapToLong(ProductInCartDto::getTotalPrice).sum();
+        Long totalPrice = productInCartService.getTotalPriceAllProductsInCartByUserId(userId);
         model.addAttribute("productsInCartByCartId", productsInCartByCartId);
         model.addAttribute("totalPrice", totalPrice);
         return "cart/cart";
@@ -39,7 +41,7 @@ public class ProductInCartPageController {
         productInCart.setUserId(userId);
         productInCart.setProductId(productId);
         if(Objects.isNull(productInCartFromPage) || productInCartFromPage.getProductCount()==0) {
-            productInCart.setProductCount(1);
+            productInCart.setProductCount(1L);
         } else {
             productInCart.setProductCount(productInCartFromPage.getProductCount());
         }
@@ -54,7 +56,7 @@ public class ProductInCartPageController {
         ProductInCart productInCart = new ProductInCart();
         productInCart.setUserId(userId);
         productInCart.setProductId(productId);
-        productInCart.setProductCount(1);
+        productInCart.setProductCount(1L);
         productInCartService.saveProductInCart(productInCart);
         return "redirect:../";
     }

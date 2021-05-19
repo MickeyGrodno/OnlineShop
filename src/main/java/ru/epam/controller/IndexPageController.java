@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.epam.models.Product;
 import ru.epam.service.product.ProductService;
+import ru.epam.service.productincart.ProductInCartService;
 import ru.epam.service.user.UserProvider;
 import ru.epam.service.user.UserService;
 
@@ -20,16 +21,21 @@ import java.util.List;
 public class IndexPageController {
     private final UserService userService;
     private final ProductService productService;
+    private final ProductInCartService productInCartService;
     private final UserProvider userProvider;
 
     @GetMapping()
-    public String mainPage(Model model) {
+    public String mainPage(Model model, Principal principal) {
+
         List<Product> products = productService.getAllProducts();
         boolean isAuthenticated = userProvider.isAuthenticated();
-        String userLogin = userProvider.getUsername();
         model.addAttribute("products", products);
-        model.addAttribute("userLogin", userLogin);
         model.addAttribute("isAuthenticated", isAuthenticated);
+        if(isAuthenticated) {
+            Long userId = userService.getUserIdByLogin(principal.getName());
+            Long totalPriceAllProducts = productInCartService.getTotalPriceAllProductsInCartByUserId(userId);
+            model.addAttribute("totalPriceAllProducts", totalPriceAllProducts);
+        }
         return "index";
     }
 
@@ -40,5 +46,4 @@ public class IndexPageController {
         model.addAttribute("products", products);
         return "index";
     }
-
 }

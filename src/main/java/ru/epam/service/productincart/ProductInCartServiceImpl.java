@@ -7,18 +7,21 @@ import ru.epam.models.Product;
 import ru.epam.models.ProductInCart;
 import ru.epam.repositories.ProductInCartRepository;
 import ru.epam.repositories.ProductRepository;
+import ru.epam.service.product.ProductService;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ProductInCartServiceImpl implements ProductInCartService{
+public class ProductInCartServiceImpl implements ProductInCartService {
     private final ProductInCartRepository productInCartRepository;
     private final ProductRepository productRepository;
+    private final ProductService productService;
 
     @Override
     @Transactional
@@ -30,8 +33,8 @@ public class ProductInCartServiceImpl implements ProductInCartService{
     public void saveProductInCart(ProductInCart productInCart) {
         ProductInCart productInCartFromDB = productInCartRepository.findByUserIdAndProductId(productInCart.getUserId(), productInCart.getProductId());
 
-        if(productInCartFromDB!=null) {
-            productInCartFromDB.setProductCount(productInCart.getProductCount()+productInCartFromDB.getProductCount());
+        if (productInCartFromDB != null) {
+            productInCartFromDB.setProductCount(productInCart.getProductCount() + productInCartFromDB.getProductCount());
             productInCartRepository.saveAndFlush(productInCartFromDB);
         } else {
             productInCartRepository.saveAndFlush(productInCart);
@@ -52,7 +55,7 @@ public class ProductInCartServiceImpl implements ProductInCartService{
             Product product = productMap.get(productInCart.getProductId());
             dto.setPrice(product.getPrice());
             dto.setName(product.getName());
-            dto.setTotalPrice(dto.getCount()*dto.getPrice());
+            dto.setTotalPrice(dto.getCount() * dto.getPrice());
             resultDtos.add(dto);
         }
         return resultDtos;
@@ -63,5 +66,27 @@ public class ProductInCartServiceImpl implements ProductInCartService{
     @Transactional
     public void deleteProductInCartByUserIdAndProductId(Long userId, Long productId) {
         productInCartRepository.deleteByUserIdAndProductId(userId, productId);
+    }
+
+    @Override
+    public Long getTotalPriceAllProductsInCartByUserId(Long userId) {
+        List<ProductInCart> userProductsInCart = productInCartRepository.findAllByUserId(userId);
+        Set<Long> productIds = userProductsInCart
+                .stream()
+                .map(ProductInCart::getProductId)
+                .collect(Collectors.toSet());
+
+        List<Product> products = productRepository.findAllById(productIds);
+        Map<Long, Long> productIdToPrice = products
+                .stream()
+                .collect(Collectors.toMap(Product::getId, Product::getPrice));
+
+        Long totalPrice = userProductsInCart
+                .stream()
+                .map(a -> a.getProductCount() * productIdToPrice.get(a.getProductId()))
+                .mapToLong(Long::longValue)
+                .sum();
+
+        return totalPrice;
     }
 }

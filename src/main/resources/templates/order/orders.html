@@ -35,13 +35,13 @@
         <div class="grid_12">
 
             <a id="site_logo" href="/">Shoppica store - Premium e-Commerce Theme</a>
-
-
+            </form>
             <div id="system_navigation" class="s_nav">
                 <ul class="s_list_1 clearfix">
-                    <li><a href="/">Home</a></li>
+                    <li><a href="../index.html">Home</a></li>
                     <li><a href="/login">Log In</a></li>
                     <li><a href="/registration">Registration</a></li>
+
                 </ul>
             </div>
 
@@ -62,31 +62,31 @@
                 <ul>
 
 
-                    <li><a href="listing_1.html">Мужчинам</a>
+                    <li><a href="../user/listing_1.html">Мужчинам</a>
                         <div class="s_submenu">
                             <h3>Inside mens</h3>
                             <ul class="s_list_1 clearfix">
-                                <li><a href="category_1">Байки</a></li>
-                                <li><a href="category_2">Куртки</a></li>
-                                <li><a href="category_3">Костюмы</a></li>
-                                <li><a href="category_4">Кофты</a></li>
-                                <li><a href="category_5">Штаны, шорты</a></li>
-                                <li><a href="category_6">Футболк</a></li>
-                                <li><a href="category_7">Рубашки</a></li>
+                                <li><a href="../user/category_1">Байки</a></li>
+                                <li><a href="../user/category_2">Куртки</a></li>
+                                <li><a href="../user/category_3">Костюмы</a></li>
+                                <li><a href="../user/category_4">Кофты</a></li>
+                                <li><a href="../user/category_5">Штаны, шорты</a></li>
+                                <li><a href="../user/category_6">Футболк</a></li>
+                                <li><a href="../user/category_7">Рубашки</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li><a href="listing_1.html">Женщинам</a>
+                    <li><a href="../user/listing_1.html">Женщинам</a>
                         <div class="s_submenu">
                             <h3>Inside womens</h3>
                             <ul class="s_list_1 clearfix">
-                                <li><a href="category_8">Платья, туники</a></li>
-                                <li><a href="category_9">Кофты</a></li>
-                                <li><a href="category_10">Блузки, рубашки</a></li>
-                                <li><a href="category_11">Куртки, пальто, жилетки</a></li>
-                                <li><a href="category_12">Кардиганы, пиджаки</a></li>
-                                <li><a href="category_13">Костюмы</a></li>
-                                <li><a href="category_14">Штаны, шорты</a></li>
+                                <li><a href="../user/category_8">Платья, туники</a></li>
+                                <li><a href="../user/category_9">Кофты</a></li>
+                                <li><a href="../user/category_10">Блузки, рубашки</a></li>
+                                <li><a href="../user/category_11">Куртки, пальто, жилетки</a></li>
+                                <li><a href="../user/category_12">Кардиганы, пиджаки</a></li>
+                                <li><a href="../user/category_13">Костюмы</a></li>
+                                <li><a href="../user/category_14">Штаны, шорты</a></li>
                             </ul>
                             <span class="clear border_eee"></span>
                         </div>
@@ -96,7 +96,9 @@
             </div>
 
             <div id="cart_menu" class="s_nav">
-
+                <a th:href="@{/cart/cart_{id}(id=*{userId})}"><span class="s_icon"></span> <small
+                        class="s_text">Cart</small><span
+                        class="s_grand_total s_main_color">$0.00</span></a>
                 <div class="s_submenu s_cart_holder">
                     <p class="s_mb_0">0 items</p>
                 </div>
@@ -111,74 +113,71 @@
     <!--     I N T R O          -->
     <!-- ********************** -->
     <div id="intro">
-
+        <div id="intro_wrap">
+            <div class="container_12">
+                <div id="breadcrumbs" class="grid_12">
+                    <a href="../index.html">Home</a>
+                    &gt; <a href="../user/cart.html">Basket</a>
+                </div>
+                <h1>Orders</h1>
+            </div>
+        </div>
     </div>
-    <script type="text/javascript" src="../static/js/jquery/jquery.slides.js"></script>
-    <script type="text/javascript" src="../static/js/shoppica.products_slide.js"></script>
-    <!-- end of intro -->
-
     <!-- end of intro -->
 
 
     <!-- ********************** -->
     <!--      C O N T E N T     -->
     <!-- ********************** -->
-    <div id="content" class="container_16">
+    <div id="content" class="container_12">
+        <div id="order_history" class="grid_12">
+            <div class="s_listing s_grid_view clearfix">
+                <div th:each="order : ${orders}" class="grid_4">
+                    <div class="s_order clearfix">
+                        <p class="s_id"><span class="s_999">Order ID:</span> <span class="s_main_color" th:text="${order.getId()}">Order Id</span></p>
+                        <p th:if="${order.isHasBeenPaid()}" class="s_status s_secondary_color" style="color:green">Оплачено</p>
+                        <p th:if="${!order.isHasBeenPaid()}" class="s_status s_secondary_color" style="color:red">Не оплачено</p>
+                        <span class="clear"></span>
+                        <dl class="clearfix">
+                            <dt>Дата заказа::</dt>
+                            <dd th:text="${#dates.format(order.getDate(), 'dd MMM yyyy')}">Дата</dd>
+                            <dt>Адрес доставки::</dt>
+                            <dd th:text="${order.getAddress()}">Адрес</dd>
+<!--                            <dt>Products::</dt>-->
+<!--                            <dd>1</dd>-->
+                        </dl>
+                        <span class="clear border_eee"></span>
+                        <br/>
+                        <p class="s_total left"><span class="s_currency s_before" th:text="*{order.getPrice()}"></span>$</p>
+                        <a href="../invoice.html" class="s_main_color right"><strong>View</strong></a>
+                    </div>
 
 
-        <div id="login_page" style="display: inline-block;" class="grid_16">
-            <div class="grid_8 alpha">
-                <h2 class="s_title_1"><span class="s_secondary_color">Данные пользователя &nbsp;</span> </h2>
-                <h2 th:text="${'  '+user.getLogin()}"></h2>
-                <div class="s_row_3 clearfix"><br/>
-
-
-                    <label style="color:ForestGreen"><strong>Имя</strong></label>
-                    <label><strong th:text="${user.getFirstName()}">Имя</strong></label>
-                    <br/>
-                    <label style="color:ForestGreen"><strong>Фамилия</strong></label>
-                    <label><strong th:text="${user.getLastName()}">Имя</strong></label>
-                    <br/>
-                    <label style="color:ForestGreen"><strong>Пол</strong></label>
-                    <label><strong th:text="${user.getGender()}">Имя</strong></label>
-                    <br/>
-                    <label style="color:ForestGreen"><strong>Email</strong></label>
-                    <label><strong th:text="${user.getEmail()}">Имя</strong></label>
-                    <br/>
-                    <label style="color:ForestGreen"><strong>Номер телефона</strong></label>
-                    <label><strong th:text="${user.getTelephone()}">Имя</strong></label>
-                    <br/>
                 </div>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <a class="s_button_1 s_main_color_bgr" href="/order" type="submit"><span class="s_text">Просмотр заказов</span></a>
-                <a class="s_button_1 s_main_color_bgr" href="/user/edit" type="submit"><span class="s_text">Редактировать</span></a>
             </div>
 
-
+            <a href="../invoice.html" class="s_button_1 s_main_color_bgr"><span class="s_text">Continue</span></a>
 
             <div class="clear"></div>
+            <br/>
+
+            <br/>
+
         </div>
+
     </div>
     <!-- end of content -->
 
     <!-- ********************** -->
     <!--   S H O P   I N F O    -->
     <!-- ********************** -->
+    <div id="shop_info"></div>
+    <!-- end of shop info -->
 
-    <p id="copy"> Copyright 2011. Powered by <a class="blue" href="">Open Cart</a>.<br/> <a class="s_main_color"
-                                                                                            href="http://www.shoppica.net">Shoppica
-        theme</a> made by <a href="http://www.themeburn.com">ThemeBurn.com</a></p>
-</div>
-<!-- end of FOOTER -->
+
+    <!-- ********************** -->
+    <!--      F O O T E R       -->
+    <!-- ********************** --><!-- end of FOOTER -->
 
 </div>
 
