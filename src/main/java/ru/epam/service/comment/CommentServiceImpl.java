@@ -1,30 +1,54 @@
 package ru.epam.service.comment;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.epam.dto.CommentDto;
 import ru.epam.models.Comment;
+import ru.epam.models.User;
 import ru.epam.repositories.CommentRepository;
+import ru.epam.repositories.UserRepository;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
+    private final UserRepository userRepository;
 
     @Override
     public List<Comment> getCommentsByProductId(Long id) {
         List<Comment> commentsByProductId = commentRepository.findCommentsByProductId(id);
-        commentsByProductId.sort(Comparator.comparing(Comment::getDate).reversed());
+
         return commentsByProductId;
     }
 
     public void saveComment(Comment comment) {
-        comment.setDate(new Date());
+        comment.setDate(LocalDateTime.now());
         commentRepository.save(comment);
     }
+
+    public List<CommentDto> getCommentsDtoByProductId(Long id) {
+        List<Comment> allComments = commentRepository.findCommentsByProductId(id);
+        List<Long> usersId = allComments.stream().map(Comment::getUserId).collect(Collectors.toList());
+        List<User> users = userRepository.findAllById(usersId);
+        Map<Long, User> userMap = users.stream().collect(Collectors.toMap(User::getId, user -> user));
+        List<CommentDto> resultDtos = new ArrayList<>();
+
+        for (Comment comment : allComments) {
+            CommentDto dto = new CommentDto();
+            dto.setId(comment.getId());
+            dto.setMessage(comment.getMessage());
+            dto.setProductId(comment.getProductId());
+            dto.setDate(comment.getDate());
+            User user = userMap.get(comment.getUserId());
+            dto.setLogin(user.getLogin());
+            resultDtos.add(dto);
+        }
+        resultDtos.sort(Comparator.comparing(CommentDto::getDate).reversed());
+        return resultDtos;
+    }
+
 }

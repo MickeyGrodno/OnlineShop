@@ -213,16 +213,16 @@
                     </div>
 
                     <div id="product_reviews" class="s_listing">
-                        <div class="s_review last" th:each="commentFromList : ${commentsByProductId}">
-                            <p class="s_author"><strong>Shoppica</strong><small
-                                    th:text="${#dates.format(commentFromList.getDate(), 'dd MMM yyyy')}">Comment
+                        <div class="s_review last" th:each="commentDto : ${commentsDto}">
+                            <p class="s_author"><strong th:text="${commentDto.getLogin()}">Login</strong><small
+                                    th:text="${#temporals.format(commentDto.getDate(), 'yyyy-mm-dd hh:mm')}">Comment
                                 date</small>
                             </p>
                             <div class="right">
 
                             </div>
                             <div class="clear"></div>
-                            <p th:text="${commentFromList.getMessage()}">Comment text</p>
+                            <p th:text="${commentDto.getMessage()}">Comment text</p>
                         </div>
 
                         <div th:if="${isAuthenticated}" type="hidden">

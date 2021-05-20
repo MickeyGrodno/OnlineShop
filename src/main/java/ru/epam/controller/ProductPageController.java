@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import ru.epam.dto.CommentDto;
 import ru.epam.models.Comment;
 import ru.epam.models.Product;
 import ru.epam.models.ProductInCart;
@@ -47,7 +48,7 @@ public class ProductPageController {
         boolean isAuthenticated = userProvider.isAuthenticated();
         Product product = productService.findById(productId);
         ProductType productType = productTypeService.getById(product.getProductTypeId());
-        List<Comment> commentsByProductId = commentService.getCommentsByProductId(productId);
+        List<CommentDto> commentsDto = commentService.getCommentsDtoByProductId(productId);
         if(isAuthenticated) {
             Long userId = userService.getUserIdByLogin(principal.getName());
             Comment comment = new Comment();
@@ -56,7 +57,7 @@ public class ProductPageController {
         }
         model.addAttribute("product", product);
         model.addAttribute("productType", productType);
-        model.addAttribute("commentsByProductId", commentsByProductId);
+        model.addAttribute("commentsDto", commentsDto);
         model.addAttribute("isAuthenticated", isAuthenticated);
         return "product/product_info";
     }
