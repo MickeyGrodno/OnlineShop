@@ -89,7 +89,7 @@ public class ProductServiceImpl implements ProductService {
                 File file = new File(product.getImage());
                 if (file.delete()) {
                     System.out.println("File has been deleted");
-                } else System.out.println("File not found");
+                } else { System.out.println("File not found"); }
                 productRepository.deleteById(id);
             } else {
                 productRepository.deleteById(id);

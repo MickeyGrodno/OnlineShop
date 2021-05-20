@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.epam.models.User;
 import ru.epam.repositories.UserRepository;
-import ru.epam.service.user.UserService;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;

@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 public class ProductInCartServiceImpl implements ProductInCartService {
     private final ProductInCartRepository productInCartRepository;
     private final ProductRepository productRepository;
-    private final ProductService productService;
 
     @Override
     @Transactional
