@@ -1,10 +1,12 @@
 package ru.epam.service.user;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.security.Provider;
+import java.util.Collection;
 import java.util.Objects;
 
 @Service

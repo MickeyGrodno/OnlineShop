@@ -155,8 +155,13 @@
             <br />
             <br />
               <label style="color:ForestGreen"><strong>Пол</strong></label>
-              <input type="text" size="35" class="required" th:field="*{gender}" id="gender"/>
+              <select style="width: 150px;"  name="gender" th:field="*{gender}">
+                  <option th:value="'Мужской'">Мужской</option>
+                  <option th:value="'Женский'">Женский</option>
+              </select>
             <br />
+
+
 <!--            <br />-->
 <!--                <label style="color:ForestGreen"><strong>Дата рождения</strong></label>-->
 <!--              <input type="date" name="calendar" value="2010-01-01" max="2010-01-01" min="1920-01-01"-->

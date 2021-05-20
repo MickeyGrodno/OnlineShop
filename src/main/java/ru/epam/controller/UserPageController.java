@@ -1,5 +1,6 @@
 package ru.epam.controller;
 
+import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,21 @@ public class UserPageController {
         return "user/user_edit";
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping("/change_password")
+    public String changePassword(@RequestParam("userId") Long userId,
+                                 @RequestParam("oldPassword") String oldPassword,
+                                 @RequestParam("newPassword") String newPassword,
+                                 Model model) throws NotFoundException {
+        System.out.println();
+        if(userService.updateUserPassword(userId, oldPassword, newPassword)){
+            return "redirect:/user";
+        } else {
+//            model.addAttribute("user", user);
+            return "redirect:/user/edit";
+        }
+    }
+
     @PostMapping("/edit")
     public String saveUserInfo(UserDto userDto, Principal principal) {
         userService.updateUser(userDto, principal.getName());
@@ -43,17 +59,8 @@ public class UserPageController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/update_role")
     public String updateUserRole(@RequestParam("userId") Long id,
-                                 @RequestParam("role") String role) {
-        String newRole;
-        if (role.equals("ROLE_ADMIN")) {
-            return "redirect:/admin/all_users";
-        }
-        if (role.equals("ROLE_USER")) {
-            newRole = "ROLE_BLOCKED";
-        } else {
-            newRole = "ROLE_USER";
-        }
-        userService.updateUserRoleById(id, newRole);
+                                 @RequestParam("role") String role) throws NotFoundException {
+        userService.updateUserRoleById(id, role);
         return "redirect:/admin/all_users";
     }
 
@@ -66,6 +73,8 @@ public class UserPageController {
         }
         return "redirect:/admin/all_users";
     }
+
+
 
 }
 

@@ -189,7 +189,7 @@
                 <div id="product_buy" class="clearfix">
                     <label style="color:ForestGreen">В наличии</label>
                     <div id="product_buy" class="clearfix">
-                        <label for="product_buy_quantity">Количество</label>
+                        <label>Количество</label>
                         <form th:method="POST"
                               th:action="@{/cart/{productId}(productId=${product.getId()})}"
                               th:object="${productInCart}">
@@ -213,50 +213,48 @@
                     </div>
 
                     <div id="product_reviews" class="s_listing">
-                        <div class="s_review last" th:each="comment : ${commentsByProductId}">
+                        <div class="s_review last" th:each="commentFromList : ${commentsByProductId}">
                             <p class="s_author"><strong>Shoppica</strong><small
-                                    th:text="${#dates.format(comment.getDate(), 'dd MMM yyyy')}">Comment date</small>
+                                    th:text="${#dates.format(commentFromList.getDate(), 'dd MMM yyyy')}">Comment
+                                date</small>
                             </p>
                             <div class="right">
 
                             </div>
                             <div class="clear"></div>
-                            <p th:text="${comment.getMessage()}">Comment text</p>
+                            <p th:text="${commentFromList.getMessage()}">Comment text</p>
                         </div>
 
-                        <h2 class="s_title_1"><span class="s_main_color">Write</span> Review</h2>
-                        <div id="review_title" class="clear"></div>
-                        <div class="s_row_3 clearfix">
-                            <label><strong>Your Name:</strong></label>
-                            <input type="text"/>
-                        </div>
-                        <div class="s_row_3 clearfix">
-                            <label><strong>Your Review:</strong></label>
-                            <textarea style="width: 98%;" rows="8"></textarea>
-                            <p class="s_legend"><span style="color: #FF0000;">Note:</span> HTML is not translated!</p>
-                        </div>
-                        <div class="s_row_3 clearfix">
-                            <span class="clear border_ddd"></span>
-                            <a class="s_button_1 s_main_color_bgr"><span class="s_text">Continue</span></a> <span
-                                class="clear"></span></div>
-                        <div id="product_gallery">
-                            <ul class="s_thumbs clearfix">
-                                <li><a class="s_thumb" href="images/dummy/pic_2.jpg" title="Leica M7"
-                                       rel="prettyPhoto[gallery]"><img src="images/dummy/pic_2.jpg" width="120"
-                                                                       title="Leica M7" alt="Leica M7"/></a></li>
-                                <li><a class="s_thumb" href="images/dummy/pic_3.jpg" title="Leica M7"
-                                       rel="prettyPhoto[gallery]"><img src="images/dummy/pic_3.jpg" width="120"
-                                                                       title="Leica M7" alt="Leica M7"/></a></li>
-                            </ul>
+                        <div th:if="${isAuthenticated}" type="hidden">
+                            <form th:method="POST" th:action="@{/comment/post}" th:object="${comment}">
+                                <h2 class="s_title_">
+                                    <span class="s_main_color">Оставить</span> комментарий
+                                </h2>
+                                <div id="review_title" class="clear"></div>
+                                <div class="s_row_3 clearfix">
+                                    <textarea style="width: 98%;" rows="8" th:field="*{message}"></textarea>
+                                    <span class="clear border_ddd"></span>
+                                    <span class="clear"></span>
+                                </div>
+                                <input type="hidden" name="userId" th:value="${userId}"/>
+                                <input type="hidden" name="productId" th:value="${product.getId()}"/>
+                                <button class="s_button_1 s_main_color_bgr" type="submit"><span
+                                        class="s_text">Отправить</span>
+                                </button>
+                                <div class="s_row_3 clearfix">
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="shop_info">
 
-        </div>
     </div>
+    <div id="shop_info">
+
+    </div>
+
 </div>
 </body>
 </html>

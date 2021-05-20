@@ -10,7 +10,8 @@
           media="all"/>
     <link rel="stylesheet" type="text/css" href="../../static/stylesheet/screen.css"
           data-th-href="@{/stylesheet/screen.css}" media="screen"/>
-    <link rel="stylesheet" type="text/css" href="../../static/stylesheet/color.css" data-th-href="@{/stylesheet/color.css}"
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheet/color.css"
+          data-th-href="@{/stylesheet/color.css}"
           media="screen"/>
     <!--[if lt IE 9]>
     <link rel="stylesheet" type="text/css" href="../../static/stylesheet/ie.css" media="screen"/>
@@ -95,7 +96,7 @@
             </div>
 
             <div id="cart_menu" class="s_nav">
-                
+
                 <div class="s_submenu s_cart_holder">
                     <p class="s_mb_0">0 items</p>
                 </div>
@@ -116,75 +117,102 @@
     <script type="text/javascript" src="../../static/js/shoppica.products_slide.js"></script>
     <!-- end of intro -->
 
-  <!-- end of intro -->
-  
-  
-  <!-- ********************** --> 
-  <!--      C O N T E N T     --> 
-  <!-- ********************** --> 
-  <div id="content" class="container_16">
-  
-
-    <div id="login_page" style="display: inline-block;" class="grid_16">
-            
-      <div class="grid_8 alpha">
-        <h2 class="s_title_1"><span class="s_secondary_color">Редактирование</span> данных пользователя </h2>
-        <div class="clear"></div>
-        <form id="account" th:method="POST" th:action="@{/user/edit}" th:object="${user}">
-          <div class="s_row_3 clearfix"><br />
-                 <label style="color:ForestGreen"><strong>Имя</strong></label>
-                <input type="text" size="35" class="required" th:field="*{firstName}" id="firstName"/>
-            <br />
-            <br />
-                <label style="color:ForestGreen"><strong>Фамилия</strong></label>
-                <input type="text" size="35" class="required" th:field="*{lastName}" id="lastName"/>
-            <br />
-            <br />
-              <label style="color:ForestGreen"><strong>Пол</strong></label>
-              <input type="text" size="35" class="required" th:field="*{gender}" id="gender"/>
-            <br />
-            <br />
-                <label style="color:ForestGreen"><strong>Email</strong></label>
-                <input type="text" size="35" class="required" th:field="*{email}" id="email"/>
-            <br />
-            <br />
-              <label style="color:ForestGreen"><strong>Номер телефона</strong></label>
-              <input type="text" size="35" class="required" th:field="*{telephone}" id="telephone"/>
-            <br />
-          </div>
-          <button class="s_button_1 s_main_color_bgr" type="submit"><span class="s_text">Сохранить</span></button>
-        </form>
-      </div>
+    <!-- end of intro -->
 
 
+    <!-- ********************** -->
+    <!--      C O N T E N T     -->
+    <!-- ********************** -->
+    <div id="content" class="container_16">
 
-      <div class="clear"></div>
+
+        <div id="login_page" style="display: inline-block;" class="grid_16">
+
+            <div class="grid_8 alpha">
+                <h2 class="s_title_1"><span class="s_secondary_color">Редактирование</span> данных пользователя </h2>
+                <div class="clear"></div>
+                <form id="account" th:method="POST" th:action="@{/user/edit}" th:object="${user}">
+                    <div class="s_row_3 clearfix"><br/>
+                        <label style="color:ForestGreen"><strong>Имя</strong></label>
+                        <input type="text" size="35" class="required" th:field="*{firstName}" id="firstName"/>
+                        <br/>
+                        <br/>
+                        <label style="color:ForestGreen"><strong>Фамилия</strong></label>
+                        <input type="text" size="35" class="required" th:field="*{lastName}" id="lastName"/>
+                        <br/>
+                        <br/>
+                        <label style="color:ForestGreen"><strong>Пол</strong></label>
+                        <select style="width: 150px;"  name="gender" th:field="*{gender}">
+                            <option th:value="'Мужской'">Мужской</option>
+                            <option th:value="'Женский'">Женский</option>
+                        </select>
+                        <br/>
+                        <br/>
+                        <label style="color:ForestGreen"><strong>Email</strong></label>
+                        <input type="text" size="35" class="required" th:field="*{email}" id="email"/>
+                        <br/>
+                        <br/>
+                        <label style="color:ForestGreen"><strong>Номер телефона</strong></label>
+                        <input type="text" size="35" class="required" th:field="*{telephone}" id="telephone"/>
+                        <br/>
+                    </div>
+                    <button class="s_button_1 s_main_color_bgr" type="submit"><span class="s_text">Сохранить</span>
+                    </button>
+                </form>
+            </div>
+
+            <div class="grid_8 alpha">
+                <h2 class="s_title_1"><span class="s_secondary_color">Изменить</span> пароль </h2>
+                <div class="clear"></div>
+                <form th:method="POST" th:action="@{/user/change_password}">
+                    <div class="s_row_3 clearfix"><br/>
+                        <label style="color:ForestGreen"><strong>Старый пароль</strong></label>
+                        <input type="password" size="35" class="required" name="oldPassword"/>
+                        <br/>
+                        <br/>
+                        <label style="color:ForestGreen"><strong>Новый пароль</strong></label>
+                        <input type="password" size="35" class="required" name="newPassword"/>
+                        <br/>
+                        <input type="hidden" name="userId" th:value="${user.getId()}"/>
+                    </div>
+                    <button class="s_button_1 s_main_color_bgr" type="submit"><span class="s_text">Изменить</span>
+                    </button>
+                </form>
+            </div>
+
+
+            <div class="clear"></div>
+        </div>
     </div>
-  </div>
-  <!-- end of content --> 
-  
-  <!-- ********************** --> 
-  <!--   S H O P   I N F O    --> 
-  <!-- ********************** --> 
-  
-    <p id="copy"> Copyright 2011. Powered by <a class="blue" href="">Open Cart</a>.<br /> <a class="s_main_color" href="http://www.shoppica.net">Shoppica theme</a> made by <a href="http://www.themeburn.com">ThemeBurn.com</a></p>
-  </div>
-  <!-- end of FOOTER --> 
-  
+    <!-- end of content -->
+
+    <!-- ********************** -->
+    <!--   S H O P   I N F O    -->
+    <!-- ********************** -->
+
+    <p id="copy"> Copyright 2011. Powered by <a class="blue" href="">Open Cart</a>.<br/> <a class="s_main_color"
+                                                                                            href="http://www.shoppica.net">Shoppica
+        theme</a> made by <a href="http://www.themeburn.com">ThemeBurn.com</a></p>
+</div>
+<!-- end of FOOTER -->
+
 </div>
 
 <div id="fb-root"></div>
 <script type="text/javascript">
-  window.fbAsyncInit = function() {
-    FB.init({appId: '0c18007de6f00f7ecda8c040fb76cd90', status: true, cookie: true,
-     xfbml: true});
-  };
-  (function() {
-    var e = document.createElement('script'); e.async = true;
-    e.src = document.location.protocol +
-    '//connect.facebook.net/en_US/all.js';
-    document.getElementById('fb-root').appendChild(e);
-  }());
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '0c18007de6f00f7ecda8c040fb76cd90', status: true, cookie: true,
+            xfbml: true
+        });
+    };
+    (function () {
+        var e = document.createElement('script');
+        e.async = true;
+        e.src = document.location.protocol +
+            '//connect.facebook.net/en_US/all.js';
+        document.getElementById('fb-root').appendChild(e);
+    }());
 </script>
 
 </body>

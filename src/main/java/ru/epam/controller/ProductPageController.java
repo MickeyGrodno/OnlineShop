@@ -15,6 +15,7 @@ import ru.epam.models.ProductType;
 import ru.epam.service.comment.CommentService;
 import ru.epam.service.product.ProductService;
 import ru.epam.service.producttype.ProductTypeService;
+import ru.epam.service.user.UserProvider;
 import ru.epam.service.user.UserService;
 
 import java.security.Principal;
@@ -29,6 +30,7 @@ public class ProductPageController {
     private final ProductTypeService productTypeService;
     private final CommentService commentService;
     private final UserService userService;
+    private final UserProvider userProvider;
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/remove/product_{id}", method = RequestMethod.POST)
@@ -37,17 +39,25 @@ public class ProductPageController {
         return "redirect:../../admin/product_list";
     }
 
-    @RequestMapping(value = "/{id}")
-    public String showProductInfo(@PathVariable Long id,
+    @RequestMapping(value = "/{productId}")
+    public String showProductInfo(@PathVariable Long productId,
                                   @ModelAttribute("productInCart") ProductInCart productInCart,
                                   Principal principal,
                                   Model model) {
-        Product product = productService.findById(id);
+        boolean isAuthenticated = userProvider.isAuthenticated();
+        Product product = productService.findById(productId);
         ProductType productType = productTypeService.getById(product.getProductTypeId());
-        List<Comment> commentsByProductId = commentService.getCommentsByProductId(id);
+        List<Comment> commentsByProductId = commentService.getCommentsByProductId(productId);
+        if(isAuthenticated) {
+            Long userId = userService.getUserIdByLogin(principal.getName());
+            Comment comment = new Comment();
+            model.addAttribute("userId", userId);
+            model.addAttribute("comment", comment);
+        }
         model.addAttribute("product", product);
         model.addAttribute("productType", productType);
         model.addAttribute("commentsByProductId", commentsByProductId);
+        model.addAttribute("isAuthenticated", isAuthenticated);
         return "product/product_info";
     }
 
