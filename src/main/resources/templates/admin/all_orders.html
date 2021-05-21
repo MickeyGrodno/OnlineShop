@@ -125,37 +125,19 @@
                     <tr>
                         <th>Id</th>
                         <th>Логин</th>
-                        <th>Email</th>
-                        <th>Уровень доступа</th>
-                        <th>Изменить уровень доступа</th>
-                        <th>Удалить пользователя</th>
+                        <th>Адрес</th>
+                        <th>Дата заказа</th>
+                        <th>Сумма заказа</th>
+                        <th>Статус оплаты</th>
                     </tr>
-                    <tr th:each="user : ${users}">
-                        <td th:text="${user.getId()}">Cell 1</td>
-                        <td th:text="${user.getLogin()}">Cell 2</td>
-                        <td th:text="${user.getEmail()}">Cell 3</td>
-                        <td th:text="${user.getRole()}">Cell 4</td>
-                        <td>
-                            <a></a>
-                            <div class="s_row_2 clearfix">
-                                <form th:method="UPDATE" th:action="@{/user/update_role}">
-                                    <select style="width: 150px;" name="role">
-                                        <option th:if="${!user.getRole().equals('ROLE_BLOCKED')}" type="hidden">ROLE_BLOCKED</option>
-                                        <option th:if="${!user.getRole().equals('ROLE_USER')}" type="hidden">ROLE_USER</option>
-                                        <option th:if="${!user.getRole().equals('ROLE_ADMIN')}" type="hidden">ROLE_ADMIN</option>
-                                    </select>
-                                    <input type="hidden" name="userId" th:value="${user.getId()}"/>
-                                    <input type="submit" value="Изменить">
-                                </form>
-                            </div>
-                        </td>
-                        <td>
-                            <form th:method="DELETE" th:action="@{/user/delete}">
-                                <input type="hidden" name="role" th:value="${user.getRole()}"/>
-                                <input type="hidden" name="userId" th:value="${user.getId()}"/>
-                                <input type="submit" value="Удалить">
-                            </form>
-                        </td>
+                    <tr th:each="orderDto : ${orderDtos}">
+                        <td th:text="${orderDto.getId()}">Cell 1</td>
+                        <td th:text="${orderDto.getUserLogin()}">Cell 2</td>
+                        <td th:text="${orderDto.getAddress()}">Cell 3</td>
+                        <td th:text="${#dates.format(orderDto.getDate(), 'yyyy-MM-dd')}">Cell 4</td>
+                        <td th:text="${'$'+orderDto.getPrice()}">Cell 5</td>
+                        <td style="color:green" th:if="${orderDto.isHasBennPaid()}">Оплачено</td>
+                        <td style="color:red" th:if="${!orderDto.isHasBennPaid()}">Не оплачено</td>
                     </tr>
                 </table>
 

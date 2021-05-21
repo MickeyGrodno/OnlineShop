@@ -14,13 +14,13 @@ public interface UserRepository extends JpaRepository<User, Long>  {
 
     User getUserByLogin(String login);
 
-    @Modifying
-    @Query(nativeQuery = true, value = "update users set role=:role WHERE id=:id")
-    void updateUserRoleById(@Param(value = "id")Long id, @Param(value = "role")String role);
-
-    @Query(nativeQuery = true, value = "SELECT role FROM users WHERE id=:id")
-    String getRoleById(@Param(value = "id") Long id);
-
-    @Query(nativeQuery = true, value = "SELECT password FROM users WHERE id=:id")
-    String getPasswordById(@Param(value = "id") Long id);
+//    @Modifying
+//    @Query(nativeQuery = true, value = "update users set role=:role WHERE id=:id")
+//    void updateUserRoleById(@Param(value = "id")Long id, @Param(value = "role")String role);
+//
+//    @Query(nativeQuery = true, value = "SELECT role FROM users WHERE id=:id")
+//    String getRoleById(@Param(value = "id") Long id);
+//
+//    @Query(nativeQuery = true, value = "SELECT password FROM users WHERE id=:id")
+//    String getPasswordById(@Param(value = "id") Long id);
 }

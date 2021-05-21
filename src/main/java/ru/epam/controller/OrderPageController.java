@@ -5,6 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.epam.dto.OrderDto;
 import ru.epam.dto.ProductInCartDto;
 import ru.epam.models.Order;
 import ru.epam.models.OrderInfo;
@@ -25,12 +26,10 @@ import java.util.List;
 @RequestMapping("/order")
 @RequiredArgsConstructor
 public class OrderPageController {
-    private final UserService userService;
     private final ProductInCartService productInCartService;
     private final OrderService orderService;
     private final UserProvider userProvider;
     private final UserRepository userRepository;
-    private final ProductInCartRepository productInCartRepository;
     private final OrderInfoRepository orderInfoRepository;
 
     @GetMapping( "")
@@ -80,4 +79,11 @@ public class OrderPageController {
         return "redirect:/order";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping( "/all_orders")
+    public String showAllUserOrdersForAdmin(Model model) {
+        List<OrderDto> orderDtos = orderService.getAllOrdersWithUserLogin();
+        model.addAttribute("orderDtos", orderDtos);
+        return "admin/all_orders";
+    }
 }

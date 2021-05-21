@@ -3,22 +3,18 @@ package ru.epam.service.order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.epam.models.Order;
-import ru.epam.models.OrderInfo;
-import ru.epam.models.Product;
-import ru.epam.models.ProductInCart;
+import ru.epam.dto.OrderDto;
+import ru.epam.dto.UserDto;
+import ru.epam.models.*;
 import ru.epam.repositories.*;
 import ru.epam.service.user.UserProvider;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final UserProvider userProvider;
     private final UserRepository userRepository;
@@ -66,8 +62,31 @@ public class OrderServiceImpl implements OrderService{
     @Transactional
     @Override
     public void payOrder(Long id) {
-       Order order = orderRepository.findById(id).orElse(null);
-       order.setHasBeenPaid(true);
-       orderRepository.saveAndFlush(order);
+        Order order = orderRepository.findById(id).orElse(null);
+        order.setHasBeenPaid(true);
+        orderRepository.saveAndFlush(order);
+    }
+
+    public List<OrderDto> getAllOrdersWithUserLogin() {
+        List<Order> allOrders = orderRepository.findAll();
+        Set<Long> usersId = allOrders.stream().map(Order::getUserId).collect(Collectors.toSet());
+        List<User> users = userRepository.findAllById(usersId);
+        Map<Long, User> userMap = users.stream().collect(Collectors.toMap(User::getId, user -> user));
+        List<OrderDto> allOrdersWithUserLogin = new ArrayList<>();
+
+        for (Order order : allOrders) {
+            OrderDto orderDto = new OrderDto();
+            orderDto.setId(order.getUserId());
+            orderDto.setPrice(order.getPrice());
+            orderDto.setDate(order.getDate());
+            orderDto.setHasBennPaid(order.isHasBeenPaid());
+            orderDto.setAddress(order.getAddress());
+            orderDto.setUserLogin(userMap
+                    .get(order.getUserId())
+                    .getLogin());
+            allOrdersWithUserLogin.add(orderDto);
+        }
+        allOrdersWithUserLogin.sort(Comparator.comparing(OrderDto::getDate));
+        return allOrdersWithUserLogin;
     }
 }

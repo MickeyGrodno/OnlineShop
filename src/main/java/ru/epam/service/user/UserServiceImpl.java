@@ -6,13 +6,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.epam.config.Roles;
 import ru.epam.dto.UserDto;
+import ru.epam.models.Order;
 import ru.epam.models.User;
-import ru.epam.repositories.CommentRepository;
-import ru.epam.repositories.OrderRepository;
-import ru.epam.repositories.ProductInCartRepository;
-import ru.epam.repositories.UserRepository;
+import ru.epam.repositories.*;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService {
     private final ProductInCartRepository productInCartRepository;
     private final OrderRepository orderRepository;
     private final CommentRepository commentRepository;
+    private final OrderInfoRepository orderInfoRepository;
 
 //    public User getUserByLogin(String login) {
 //        return userRepository.findUserByLogin(login);
@@ -114,9 +115,13 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+
     @Override
     public void deleteUserById(Long id) {
+        List<Order> allUserOrders = orderRepository.findAllByUserId(id);
+        List<Long> allDeletedOrderId = allUserOrders.stream().map(Order::getId).collect(Collectors.toList());
         commentRepository.deleteAllByUserId(id);
+        orderInfoRepository.deleteAllByOrderIdIn(allDeletedOrderId);
         orderRepository.deleteAllByUserId(id);
         userRepository.deleteById(id);
     }
