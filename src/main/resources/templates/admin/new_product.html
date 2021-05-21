@@ -29,15 +29,12 @@
   <div id="header" class="container_12">
     <div class="grid_12">
 
-      <a id="site_logo" href="new_product.html">Shoppica store - Premium e-Commerce Theme</a>
+      <a id="site_logo" href="../">Shoppica store - Premium e-Commerce Theme</a>
 
       <div id="system_navigation" class="s_nav">
         <ul class="s_list_1 clearfix">
-          <li><a href="new_product.html">Home</a></li>
-          <li><a href="login.html">Log In</a></li>
-          <li><a href="cart.html">Shopping Cart</a></li>
-          <li><a href="static.html">About Us</a></li>
-          <li><a href="contacts.html">Contact</a></li>
+          <li><a href="/">На главную</a></li>
+          <li><a href="/logout">Log out</a></li>
         </ul>
       </div>
 
@@ -55,43 +52,40 @@
       </div>
       <div id="categories" class="s_nav">
         <ul>
-
-
-          <li> <a href="listing_1.html">Мужчинам</a>
+          <li><a>Мужчинам</a>
             <div class="s_submenu">
               <h3>Inside mens</h3>
               <ul class="s_list_1 clearfix">
-                <li><a href="category_1">Байки</a></li>
-                <li><a href="category_2">Куртки</a></li>
-                <li><a href="category_3">Костюмы</a></li>
-                <li><a href="category_4">Кофты</a></li>
-                <li><a href="category_5">Штаны, шорты</a></li>
-                <li><a href="category_6">Футболк</a></li>
-                <li><a href="category_7">Рубашки</a></li>
+                <li><a href="../category1">Байки</a></li>
+                <li><a href="../category2">Куртки</a></li>
+                <li><a href="../category3">Костюмы</a></li>
+                <li><a href="../category4">Кофты</a></li>
+                <li><a href="../category5">Штаны, шорты</a></li>
+                <li><a href="../category6">Футболк</a></li>
+                <li><a href="../category7">Рубашки</a></li>
               </ul>
             </div>
           </li>
-          <li><a href="listing_1.html">Женщинам</a>
+          <li><a>Женщинам</a>
             <div class="s_submenu">
               <h3>Inside womens</h3>
               <ul class="s_list_1 clearfix">
-                <li><a href="category_8">Платья, туники</a></li>
-                <li><a href="category_9">Кофты</a></li>
-                <li><a href="category_10">Блузки, рубашки</a></li>
-                <li><a href="category_11">Куртки, пальто, жилетки</a></li>
-                <li><a href="category_12">Кардиганы, пиджаки</a></li>
-                <li><a href="category_13">Костюмы</a></li>
-                <li><a href="category_14">Штаны, шорты</a></li>
+                <li><a href="../category8">Платья, туники</a></li>
+                <li><a href="../category9">Кофты</a></li>
+                <li><a href="../category10">Блузки, рубашки</a></li>
+                <li><a href="../category11">Куртки, пальто, жилетки</a></li>
+                <li><a href="../category12">Кардиганы, пиджаки</a></li>
+                <li><a href="../category13">Костюмы</a></li>
+                <li><a href="../category14">Штаны, шорты</a></li>
               </ul>
               <span class="clear border_eee"></span>
             </div>
           </li>
-
         </ul>
       </div>
 
       <div id="cart_menu" class="s_nav">
-        <a href="cart.html"><span class="s_icon"></span> <small class="s_text">Cart</small><span class="s_grand_total s_main_color">$0.00</span></a>
+        <a href="/cart"><span class="s_icon"></span> <small class="s_text">Cart</small></a>
         <div class="s_submenu s_cart_holder">
           <p class="s_mb_0">0 items</p>
         </div>
@@ -123,20 +117,32 @@
 
       <body>
       <form th:method="POST" th:action="@{/admin/new_product}" th:object="${product}">
-        <label for="name">Enter name: </label>
+        <label for="name">Название: </label>
         <input type="text" th:field="*{name}" id="name">
-        <!--        <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>-->
         <br/>
-        <label for="price">Enter price: </label>
+        <label for="price">Цена: </label>
         <input type="text" th:field="*{price}" id="price">
-        <!--        <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>-->
         <br/>
-        <label for="productTypeId">Enter product type: </label>
-        <input type="text" th:field="*{productTypeId}" id="productTypeId">
+        <label for="productTypeId">Категория: </label>
+        <select style="width: 190px;" name="gender" th:field="*{productTypeId}" id="productTypeId">
+          <option th:value="'1'">Мужское, Байки</option>
+          <option th:value="'2'">Мужское, Куртки</option>
+          <option th:value="'3'">Мужское, Костюмы</option>
+          <option th:value="'4'">Мужское, Кофты</option>
+          <option th:value="'5'">Мужское, Штаны, шорты</option>
+          <option th:value="'6'">Мужское, Футболк</option>
+          <option th:value="'7'">Мужское, Рубашки</option>
+          <option th:value="'8'">Женское, Платья, туники</option>
+          <option th:value="'9'">Женское,Кофты</option>
+          <option th:value="'10'">Женское,Блузки, рубашки</option>
+          <option th:value="'11'">Женское,Куртки, пальто, жилетки</option>
+          <option th:value="'12'">Женское,Кардиганы, пиджаки</option>
+          <option th:value="'13'">Женское,Костюмы</option>
+          <option th:value="'14'">Женское,Штаны, шорты</option>
+        </select>
         <br/>
-        <label for="text">Enter text: </label>
+        <label for="text">Описание: </label>
         <input type="text" th:field="*{text}" id="text">
-        <!--        <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error</div>-->
         <br/>
         <input type="submit" value="Create!">
       </form>

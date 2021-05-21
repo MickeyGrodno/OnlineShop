@@ -38,17 +38,24 @@
 
             <div id="system_navigation" class="s_nav">
                 <ul class="s_list_1 clearfix">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="/admin">Admin</a></li>
+
+                    <li th:if="${isAuthenticated}"><a th:text="${'Привествуем Вас, '+login}">Приветствие</a></li>
+                    <li><a href="/">На главную</a></li>
+                    <a th:if="${isAuthenticated}"><a th:if="${!userRole.equals('ROLE_USER')}">
+                        <li><a href="/admin">Admin</a></li>
+                    </a></a>
                     <li>
                         <a th:if="${isAuthenticated}" href="/logout">Log out</a>
                         <a th:if="${!isAuthenticated}" href="/login">Log In</a>
                     </li>
-                    <a th:if="${!isAuthenticated}" href="/registration"><li>Registration</a>
-                    <a th:if="${isAuthenticated}" href="/user"><li>Личный кабинет</a>
+                    <a th:if="${!isAuthenticated}" href="/registration">
+                        <li>Регистрация
+                    </a>
+                    <a th:if="${isAuthenticated}" href="/user">
+                        <li>Личный кабинет
+                    </a>
                 </ul>
             </div>
-
 
 
             <div id="site_search">
@@ -66,47 +73,43 @@
             </div>
             <div id="categories" class="s_nav">
                 <ul>
-
-
-                    <li><a href="listing_1.html">Мужчинам</a>
+                    <li><a>Мужчинам</a>
                         <div class="s_submenu">
                             <h3>Inside mens</h3>
                             <ul class="s_list_1 clearfix">
-                                <li><a href="category_1">Байки</a></li>
-                                <li><a href="category_2">Куртки</a></li>
-                                <li><a href="category_3">Костюмы</a></li>
-                                <li><a href="category_4">Кофты</a></li>
-                                <li><a href="category_5">Штаны, шорты</a></li>
-                                <li><a href="category_6">Футболк</a></li>
-                                <li><a href="category_7">Рубашки</a></li>
+                                <li><a href="category1">Байки</a></li>
+                                <li><a href="category2">Куртки</a></li>
+                                <li><a href="category3">Костюмы</a></li>
+                                <li><a href="category4">Кофты</a></li>
+                                <li><a href="category5">Штаны, шорты</a></li>
+                                <li><a href="category6">Футболк</a></li>
+                                <li><a href="category7">Рубашки</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li><a href="listing_1.html">Женщинам</a>
+                    <li><a>Женщинам</a>
                         <div class="s_submenu">
                             <h3>Inside womens</h3>
                             <ul class="s_list_1 clearfix">
-                                <li><a href="category_8">Платья, туники</a></li>
-                                <li><a href="category_9">Кофты</a></li>
-                                <li><a href="category_10">Блузки, рубашки</a></li>
-                                <li><a href="category_11">Куртки, пальто, жилетки</a></li>
-                                <li><a href="category_12">Кардиганы, пиджаки</a></li>
-                                <li><a href="category_13">Костюмы</a></li>
-                                <li><a href="category_14">Штаны, шорты</a></li>
+                                <li><a href="category8">Платья, туники</a></li>
+                                <li><a href="category9">Кофты</a></li>
+                                <li><a href="category10">Блузки, рубашки</a></li>
+                                <li><a href="category11">Куртки, пальто, жилетки</a></li>
+                                <li><a href="category12">Кардиганы, пиджаки</a></li>
+                                <li><a href="category13">Костюмы</a></li>
+                                <li><a href="category14">Штаны, шорты</a></li>
                             </ul>
                             <span class="clear border_eee"></span>
                         </div>
                     </li>
-
                 </ul>
             </div>
 
             <div id="cart_menu" class="s_nav">
+
                 <a href="/cart"><span class="s_icon"></span> <small class="s_text">Cart</small>
-                    <span th:if="${isAuthenticated}" th:text="${'$'+totalPriceAllProducts}" class="s_grand_total s_main_color">$0.00</span></a>
-                <div class="s_submenu s_cart_holder">
-                    <p class="s_mb_0">0 items</p>
-                </div>
+                    <span th:if="${isAuthenticated}" th:text="${'$'+totalPriceAllProducts}"
+                          class="s_grand_total s_main_color">$0.00</span></a>
             </div>
 
         </div>
@@ -153,12 +156,13 @@
                             name</a></h3>
                         <p class="s_price" th:text="${product.getPrice() +'$'}">price</p>
 
-<!--                        <form method="POST" th:action="@{/cart/{productId}(productId=*{product.getId()})}">-->
-<!--                        <form method="POST" th:href="@{/cart/{productId}(productId=*{product.getId()})}">-->
-                        <a th:href="@{/cart/{productId}(productId=*{product.getId()})}" class="s_button_add_to_cart"><span class="s_icon_16"><span class="s_icon">
+                        <!--                        <form method="POST" th:action="@{/cart/{productId}(productId=*{product.getId()})}">-->
+                        <!--                        <form method="POST" th:href="@{/cart/{productId}(productId=*{product.getId()})}">-->
+                        <a th:href="@{/cart/{productId}(productId=*{product.getId()})}"
+                           class="s_button_add_to_cart"><span class="s_icon_16"><span class="s_icon">
                         </span>Add to Cart</span>
                         </a>
-<!--                        </form>-->
+                        <!--                        </form>-->
                     </div>
                 </div>
                 <div class="clear"></div>

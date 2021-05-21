@@ -10,8 +10,6 @@ import ru.epam.repositories.ProductRepository;
 import ru.epam.repositories.UserRepository;
 import ru.epam.service.user.UserProvider;
 
-import javax.transaction.Transactional;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +26,7 @@ public class ProductInCartServiceImpl implements ProductInCartService {
 
     @Override
     public void saveProductInCart(ProductInCart productInCart) {
-        Long userId = userRepository.getIdByLogin(userProvider.getUsername());
+        Long userId = userRepository.getIdByLogin(userProvider.getUserName());
         productInCart.setUserId(userId);
         ProductInCart productInCartFromDB = productInCartRepository.findByUserIdAndProductId(productInCart.getUserId(), productInCart.getProductId());
 
@@ -63,7 +61,7 @@ public class ProductInCartServiceImpl implements ProductInCartService {
 
     @Override
     public Long getTotalPriceAllProductsInCart() {
-        String login = userProvider.getUsername();
+        String login = userProvider.getUserName();
         Long userId = userRepository.getIdByLogin(login);
         List<ProductInCart> userProductsInCart = productInCartRepository.findAllByUserId(userId);
         Set<Long> productIds = userProductsInCart

@@ -10,11 +10,13 @@ import ru.epam.models.Comment;
 import ru.epam.models.Product;
 import ru.epam.models.ProductInCart;
 import ru.epam.models.ProductType;
+import ru.epam.repositories.ProductInCartRepository;
 import ru.epam.repositories.ProductRepository;
 import ru.epam.repositories.ProductTypeRepository;
 import ru.epam.repositories.UserRepository;
 import ru.epam.service.comment.CommentService;
 import ru.epam.service.product.ProductService;
+import ru.epam.service.productincart.ProductInCartService;
 import ru.epam.service.producttype.ProductTypeService;
 import ru.epam.service.user.UserProvider;
 import ru.epam.service.user.UserService;
@@ -28,13 +30,12 @@ import java.util.List;
 public class ProductPageController {
 
     private final ProductService productService;
-    private final ProductTypeService productTypeService;
     private final CommentService commentService;
-    private final UserService userService;
     private final UserProvider userProvider;
     private final UserRepository userRepository;
     private final ProductTypeRepository productTypeRepository;
     private final ProductRepository productRepository;
+    private final ProductInCartService productInCartService;
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/remove/product/{id}")
@@ -53,8 +54,10 @@ public class ProductPageController {
         ProductType productType = productTypeRepository.findById(product.getProductTypeId()).orElse(null);
         List<CommentDto> commentsDto = commentService.getCommentsDtoByProductId(productId);
         if(isAuthenticated) {
+            Long totalPriceAllProducts = productInCartService.getTotalPriceAllProductsInCart();
             Long userId = userRepository.getIdByLogin(principal.getName());
             Comment comment = new Comment();
+            model.addAttribute("totalPriceAllProducts", totalPriceAllProducts);
             model.addAttribute("userId", userId);
             model.addAttribute("comment", comment);
         }

@@ -31,7 +31,7 @@ public class UserServiceImplTest implements OnlineShopTestRunner {
     public void updateUserRoleById_SuperAdminSetRollAdmin() throws NotFoundException {
         ru.epam.models.User user = new User();
         user.setRole(Roles.ROLE_SUPERADMIN.name());
-        when(userProvider.getUsername()).thenReturn("");
+        when(userProvider.getUserName()).thenReturn("");
         when(userRepository.getUserByLogin(any(String.class))).thenReturn(user);
         ru.epam.models.User updatedUser = new User();
         updatedUser.setRole(Roles.ROLE_USER.name());
@@ -44,7 +44,7 @@ public class UserServiceImplTest implements OnlineShopTestRunner {
     public void updateUserRoleById_AdminSetRollBlockedToUser() throws NotFoundException {
         ru.epam.models.User user = new User();
         user.setRole(Roles.ROLE_ADMIN.name());
-        when(userProvider.getUsername()).thenReturn("");
+        when(userProvider.getUserName()).thenReturn("");
         when(userRepository.getUserByLogin(any(String.class))).thenReturn(user);
         ru.epam.models.User updatedUser = new User();
         updatedUser.setRole(Roles.ROLE_USER.name());
@@ -57,7 +57,7 @@ public class UserServiceImplTest implements OnlineShopTestRunner {
     public void updateUserRoleById_AdminSetRollBlockedToAdmin() throws NotFoundException {
         ru.epam.models.User user = new User();
         user.setRole(Roles.ROLE_ADMIN.name());
-        when(userProvider.getUsername()).thenReturn("");
+        when(userProvider.getUserName()).thenReturn("");
         when(userRepository.getUserByLogin(any(String.class))).thenReturn(user);
         ru.epam.models.User updatedUser = new User();
         updatedUser.setRole(Roles.ROLE_ADMIN.name());

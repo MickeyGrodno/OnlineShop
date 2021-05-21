@@ -29,15 +29,12 @@
   <div id="header" class="container_12">
     <div class="grid_12">
 
-      <a id="site_logo" href="add_product_image.html">Shoppica store - Premium e-Commerce Theme</a>
+      <a id="site_logo" href="/">Shoppica store - Premium e-Commerce Theme</a>
 
       <div id="system_navigation" class="s_nav">
         <ul class="s_list_1 clearfix">
-          <li><a href="add_product_image.html">Home</a></li>
-          <li><a href="login.html">Log In</a></li>
-          <li><a href="cart.html">Shopping Cart</a></li>
-          <li><a href="static.html">About Us</a></li>
-          <li><a href="contacts.html">Contact</a></li>
+          <li><a href="/">На главную</a></li>
+          <li><a href="/logout">Log out</a></li>
         </ul>
       </div>
 
@@ -61,13 +58,13 @@
             <div class="s_submenu">
               <h3>Inside mens</h3>
               <ul class="s_list_1 clearfix">
-                <li><a href="../category_1">Байки</a></li>
-                <li><a href="../category_2">Куртки</a></li>
-                <li><a href="../category_3">Костюмы</a></li>
-                <li><a href="../category_4">Кофты</a></li>
-                <li><a href="../category_5">Штаны, шорты</a></li>
-                <li><a href="../category_6">Футболк</a></li>
-                <li><a href="../category_7">Рубашки</a></li>
+                <li><a href="../category1">Байки</a></li>
+                <li><a href="../category2">Куртки</a></li>
+                <li><a href="../category3">Костюмы</a></li>
+                <li><a href="../category4">Кофты</a></li>
+                <li><a href="../category5">Штаны, шорты</a></li>
+                <li><a href="../category6">Футболк</a></li>
+                <li><a href="../category7">Рубашки</a></li>
               </ul>
             </div>
           </li>
@@ -75,13 +72,13 @@
             <div class="s_submenu">
               <h3>Inside womens</h3>
               <ul class="s_list_1 clearfix">
-                <li><a href="../category_8">Платья, туники</a></li>
-                <li><a href="../category_9">Кофты</a></li>
-                <li><a href="../category_10">Блузки, рубашки</a></li>
-                <li><a href="../category_11">Куртки, пальто, жилетки</a></li>
-                <li><a href="../category_12">Кардиганы, пиджаки</a></li>
-                <li><a href="../category_13">Костюмы</a></li>
-                <li><a href="../category_14">Штаны, шорты</a></li>
+                <li><a href="../category8">Платья, туники</a></li>
+                <li><a href="../category9">Кофты</a></li>
+                <li><a href="../category10">Блузки, рубашки</a></li>
+                <li><a href="../category11">Куртки, пальто, жилетки</a></li>
+                <li><a href="../category12">Кардиганы, пиджаки</a></li>
+                <li><a href="../category13">Костюмы</a></li>
+                <li><a href="../category14">Штаны, шорты</a></li>
               </ul>
               <span class="clear border_eee"></span>
             </div>
@@ -91,7 +88,7 @@
       </div>
 
       <div id="cart_menu" class="s_nav">
-        <a href="cart.html"><span class="s_icon"></span> <small class="s_text">Cart</small><span class="s_grand_total s_main_color">$0.00</span></a>
+        <a href="/cart"><span class="s_icon"></span> <small class="s_text">Cart</small></a>
         <div class="s_submenu s_cart_holder">
           <p class="s_mb_0">0 items</p>
         </div>
@@ -128,7 +125,6 @@
           <div class="s_item grid_2"> <a class="s_thumb" href="product.html"><img  th:src="@{${'/image/' + product.getId()}}" th:title="*{product.getName()}" th:alt="*{product.getName()}" /></a>
             <h3><a href="product.html" th:text="*{product.getName()}">product name</a></h3>
             <p class="s_price" th:text="${product.getPrice() +'$'}">price</p>
-            <a class="s_button_add_to_cart" href="product.html"><span class="s_icon_16"><span class="s_icon"></span>Add to Cart</span></a>
             <form th:method="DELETE" th:action="@{/product/remove/product/{id}(id=${product.getId()})}">
               <input type="submit" value="удалить!">
             </form>

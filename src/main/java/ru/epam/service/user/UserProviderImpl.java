@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Service
 public class UserProviderImpl implements UserProvider{
-    public String getUsername() {
+    public String getUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (Objects.isNull(authentication)) {
             return "UNKNOWN";
@@ -26,5 +26,15 @@ public class UserProviderImpl implements UserProvider{
         } else {
             return true;
         }
+    }
+    public String getUserRole() {
+        String userRole = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getAuthorities()
+                .iterator()
+                .next()
+                .getAuthority();
+        return userRole;
     }
 }

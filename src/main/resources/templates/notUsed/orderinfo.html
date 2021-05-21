@@ -4,47 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Your Store</title>
 <meta name="description" content="My Store" />
-<link rel="stylesheet" type="text/css" href="../static/stylesheet/960.css" media="all" />
-<link rel="stylesheet" type="text/css" href="../static/stylesheet/screen.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="../static/stylesheet/color.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../../static/stylesheet/960.css" media="all" />
+<link rel="stylesheet" type="text/css" href="../../static/stylesheet/screen.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../../static/stylesheet/color.css" media="screen" />
 <!--[if lt IE 9]>
-    <link rel="stylesheet" type="text/css" href="../static/stylesheet/ie.css" media="screen"/>
-    <![endif]-->
+  <link rel="stylesheet" type="text/css" href="../../static/stylesheet/ie.css" media="screen"/>
+  <![endif]-->
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
-<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8/jquery.validate.min.js"></script>
-<script type="text/javascript" src="../static/js/shoppica.js"></script>
-<script type="text/javascript">
-$(document).ready(function () {
-														
-	jQuery.validator.setDefaults({
-			errorElement: "p",
-			errorClass: "s_error_msg",
-			errorPlacement: function(error, element) {
-					error.insertAfter(element);
-			},
-			highlight: function(element, errorClass, validClass) {
-					$(element).addClass("error_element").removeClass(validClass);
-					$(element).parent("div").addClass("s_error_row");
-			},
-			unhighlight: function(element, errorClass, validClass) {
-					$(element).removeClass("error_element").addClass(validClass);
-					$(element).parent("div").removeClass("s_error_row");
-			}
-	});
-	$("#contact_form").validate({
-		rules: {
-			enquiry: {
-					required: true,
-					minlength: 10
-			}
-		}
-	});
-	
-});
-</script>
-
+<script type="text/javascript" src="../../static/js/shoppica.js"></script>
 
 </head>
 
@@ -58,15 +27,15 @@ $(document).ready(function () {
   <div id="header" class="container_12">
     <div class="grid_12">
     
-    	<a id="site_logo" href="index.html">Shoppica store - Premium e-Commerce Theme</a> 
+    	<a id="site_logo" href="../index.html">Shoppica store - Premium e-Commerce Theme</a>
 
       <div id="system_navigation" class="s_nav">
         <ul class="s_list_1 clearfix">
-          <li><a href="index.html">Home</a></li>
+          <li><a href="../index.html">Home</a></li>
           <li><a href="login3.html">Log In</a></li>
           <li><a href="cart.html">Shopping Cart</a></li>
           <li><a href="static.html">About Us</a></li>
-          <li><a href="contacts.html">Contact</a></li>
+          <li><a href="../contacts.html">Contact</a></li>
         </ul>
       </div>
 
@@ -91,16 +60,16 @@ $(document).ready(function () {
         </ul>
       </div>
       
-      <div id="currency_switcher" class="s_switcher"> <span class="s_selected"><img src="images/flags/gb.png" alt="English" /> English</span>
+      <div id="currency_switcher" class="s_switcher"> <span class="s_selected"><img src="../../static/images/flags/gb.png" alt="English" /> English</span>
         <ul class="s_options">
-          <li><a href=""><img src="images/flags/gb.png" alt="English" /> English</a></li>
-          <li><a href=""><img src="images/flags/de.png" alt="Deutsch" /> Deutsch</a></li>
+          <li><a href=""><img src="../../static/images/flags/gb.png" alt="English" /> English</a></li>
+          <li><a href=""><img src="../../static/images/flags/de.png" alt="Deutsch" /> Deutsch</a></li>
         </ul>
       </div>
       
       <div id="categories" class="s_nav">
         <ul>
-          <li id="menu_home"> <a href="index.html">Home</a> </li>
+          <li id="menu_home"> <a href="../index.html">Home</a> </li>
           <li> <a href="listing_1.html">Electronics</a>
             <div class="s_submenu">
               <h3>Inside Electronics</h3>
@@ -286,9 +255,9 @@ $(document).ready(function () {
         <div id="breadcrumbs" class="grid_12">
           <a href="">Home</a>
           &gt;
-          <a href="">Contact Us</a>
+          <a href="">Static page</a>
         </div>
-        <h1>Contact Us</h1>
+        <h1>Static page</h1>
       </div>
     </div>
   </div>
@@ -300,81 +269,113 @@ $(document).ready(function () {
   <!-- ********************** --> 
   <div id="content" class="container_16">
 
+    <div id="order_details" class="grid_16">
 
-    
-    <div id="contacts" class="s_info_page grid_12">
-     	
-      <h2><span class="s_secondary_color">Shop</span> address</h2>
-      
-      <p class="alpha grid_4"><strong>Shoppica store</strong><br /> 5 Shoppica Blvd<br /> New York<br /> 1000</p>
-      <p class="grid_4"><strong>Telephone:</strong><br /> +1 (0) 7007001</p>
-      <p class="omega grid_4"><strong>Fax:</strong><br /> +1 (0) 7007002</p>
+      <div class="s_order clearfix">
 
-      <br />
-      <span class="clear border_ddd"></span>
-      <br />
-      
-      
-      <h2><span class="s_secondary_color">Send</span> a message</h2>
+        <p class="s_status"><span class="s_999">Invoice ID:</span> <span class="s_secondary_color">INV1</span></p>
+        <p class="s_id"><span class="s_999">Order ID</span> <span class="s_main_color">#4</span></p>
 
-      <form id="contact_form" action="#" method="post" enctype="multipart/form-data">
-      	<div id="contact_form_icon"></div>
+        <span class="clear border_eee"></span>
         
-        <div class="s_row_3 clearfix">
-          <label><strong>First Name:</strong> *</label>
-          <input type="text" size="40" class="required" title="Name must be between 3 and 32 characters!" />
+        <dl class="grid_5 alpha clearfix">
+          <dt>E-Mail</dt>
+          <dd>svetoslavatanasov@gmail.com</dd>
+          <dt>Telephone</dt>
+          <dd>123123</dd>
+          <dt>Shipping Method</dt>
+          <dd>Flat Shipping Rate</dd>
+          <dt>Payment Method</dt>
+          <dd>Cash On Delivery</dd>
+        </dl>
+        
+        <span class="clear border_eee"></span>
+
+        <div class="grid_7 alpha">
+          <h2>Payment Address</h2>
+          <p>Pinko Pinkov<br />Pinkotown<br />Pinkotown 000000<br />Varna<br />Bulgaria</p>
         </div>
-        <div class="s_row_3 clearfix">
-          <label><strong>E-Mail Address:</strong> *</label>
-          <input type="text" size="40" class="required email" title="E-Mail Address does not appear to be valid!" />
+        <div class="grid_7 omega">
+          <h2>Shipping Address</h2>
+          <p>Pinko Pinkov<br />Pinkotown<br />Pinkotown 000000<br />Varna<br />Bulgaria</p>
         </div>
-        <div class="s_row_3 clearfix">
-          <label><strong>Enquiry:</strong> *</label>
-          <div class="s_full">
-            <textarea id="enquiry" style="width: 98%;" rows="10" class="required" title="Enquiry must be between 10 and 3000 characters!"></textarea>
-          </div>
-        </div>
-        <a class="s_button_1 s_main_color_bgr" onclick="$('#contact_form').submit();"><span class="s_text">Send message</span></a>
-      </form>
+
+        <span class="clear border_eee"></span>
+
+        <h2>Product</h2>
+        <table class="s_table" width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <th>Product</th>
+            <th>Model</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th width="130">Total</th>
+          </tr>
+          <tr>
+            <td class="align_left"><strong>iPhone 3GS 8GB</strong><br /> <small> - Capacity 8GB</small></td>
+            <td>Model description</td>
+            <td>2</td>
+            <td><span class="s_currency s_before">$</span>816.65</td>
+            <td><span class="s_currency s_before">$</span>1,633.30</td>
+          </tr>
+          <tr>
+            <td class="align_left"><strong>Nikon D300*</strong></td>
+            <td>Product 4</td>
+            <td>1</td>
+            <td><span class="s_currency s_before">$</span>130.66</td>
+            <td><span class="s_currency s_before">$</span>130.66</td>
+          </tr>
+          <tr>
+            <td class="align_left"><strong>Samsung SyncMaster 941BW</strong></td>
+            <td>Product 6</td>
+            <td>1</td>
+            <td><span class="s_currency s_before">$</span>326.66</td>
+            <td><span class="s_currency s_before">$</span>326.66</td>
+          </tr>
+          <tr>
+            <td class="align_right" colspan="4"><strong>Sub-Total:</strong></td>
+            <td><span class="s_currency s_before">$</span>2,090.62</td>
+          </tr>
+          <tr>
+            <td class="align_right" colspan="4"><strong>Flat Shipping Rate:</strong></td>
+            <td><span class="s_currency s_before">$</span>3.27</td>
+          </tr>
+          <tr>
+            <td class="align_right" colspan="4"><strong>:</strong></td>
+            <td><span class="s_currency s_before">$</span>0.00</td>
+          </tr>
+          <tr class="last">
+            <td class="align_right" colspan="4"><strong>Total:</strong></td>
+            <td class="s_secondary_color"><span class="s_currency s_before">$</span>3,213.08</td>
+          </tr>
+        </table>
+
+
+        <h2>Order History</h2>
+        <table class="s_table" width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <th>Date Added</th>
+            <th>Status</th>
+            <th>Comments</th>
+          </tr>
+          <tr>
+            <td>07/04/2011</td>
+            <td>Canceled</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>07/04/2011</td>
+            <td>Reversed</td>
+            <td>Pellentesque et diam at orci convallis ultrices in nec eros! Duis sit amet felis vitae diam vehicula pretium. Morbi pulvinar elit et quam feugiat quis aliquet neque venenatis? Suspendisse nisi arcu; semper eget convallis id, hendrerit eu odio. Nunc leo metus, malesuada nec congue in, rutrum vel risus. Mauris cras amet.</td>
+          </tr>
+        </table>
+        
+      </div>
 
     </div>
-    
-    <div id="right_col" class="grid_3">
 
-      <div id="information_module" class="s_box">
-        <h2>Information</h2>
-        <ul class="s_list_1">
-          <li><a href="static.html">About Shoppica</a></li>
-          <li><a href="static.html">Privacy Policy</a></li>
-          <li><a href="static.html">Terms &amp; Conditions</a></li>
-          <li><a href="contacts.html">Contact Us</a></li>
-          <li><a href="sitemap.html">Site Map</a></li>
-        </ul>
-      </div>
-  
-      <div id="featured_side" class="s_box clearfix">
-        <h2>Featured</h2>
-        <div class="s_item s_size_1 clearfix">
-          <a class="s_thumb" href="product.html"><img src="images/dummy/pic_8.jpg" width="38" height="38" alt="White football trainers" /></a>
-          <h3><a href="product.html">White football trainers</a></h3>
-          <p><a href="product.html"><span class="s_main_color"><span class="s_currency s_before">£</span>117.50</span></a></p>
-        </div>
-        <div class="s_item s_size_1 clearfix">
-          <a class="s_thumb" href="product.html"><img src="images/dummy/pic_7.jpg" width="38" height="38" alt="Hubo Boss Emotion" /></a>
-          <h3><a href="product.html">Hubo Boss Emotion</a></h3>
-          <p><a href="product.html"><span class="s_main_color"><span class="s_currency s_before">£</span>2,350.00</span></a></p>
-        </div>
-        <div class="s_item s_size_1 clearfix">
-          <a class="s_thumb" href="product.html"><img src="images/dummy/pic_6.jpg" width="38" height="38" alt="Christian Dior J'adore" /></a>
-          <h3><a href="product.html">Christian Dior J'adore</a></h3>
-          <p><a href="product.html"><span class="s_main_color"><span class="s_currency s_before">£</span>328.99</span></a></p>
-        </div>
-      </div>
-
-    </div>
-    
     <div class="clear"></div>
-   
+
   </div>
   <!-- end of content -->
   
@@ -496,12 +497,12 @@ $(document).ready(function () {
       <div class="grid_12 border_eee"></div>
     </div>
     <div id="payments" class="right clearfix">
-      <img src="images/payments/discover_straight_32px.png" alt="" />
-      <img src="images/payments/american_express_straight_32px.png" alt="" />
-      <img src="images/payments/moneybookers_straight_32px.png" alt="" />
-      <img src="images/payments/paypal_straight_32px.png" alt="" />
-      <img src="images/payments/visa_straight_32px.png" alt="" />
-      <img src="images/payments/american_express_straight_32px.png" alt="" />
+      <img src="../../static/images/payments/discover_straight_32px.png" alt="" />
+      <img src="../../static/images/payments/american_express_straight_32px.png" alt="" />
+      <img src="../../static/images/payments/moneybookers_straight_32px.png" alt="" />
+      <img src="../../static/images/payments/paypal_straight_32px.png" alt="" />
+      <img src="../../static/images/payments/visa_straight_32px.png" alt="" />
+      <img src="../../static/images/payments/american_express_straight_32px.png" alt="" />
     </div>
     <p id="copy">&copy; Copyright 2011. Powered by <a class="blue" href="">Open Cart</a>.<br /> <a class="s_main_color" href="http://www.shoppica.net">Shoppica theme</a> made by <a href="http://www.themeburn.com">ThemeBurn.com</a></p>
   </div>

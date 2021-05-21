@@ -11,9 +11,7 @@ import ru.epam.repositories.ProductRepository;
 import ru.epam.service.product.ProductService;
 import ru.epam.service.productincart.ProductInCartService;
 import ru.epam.service.user.UserProvider;
-import ru.epam.service.user.UserService;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -27,6 +25,7 @@ public class IndexPageController {
 
     @GetMapping()
     public String mainPage(Model model) {
+
         List<Product> products = productRepository.findAll();
         boolean isAuthenticated = userProvider.isAuthenticated();
         model.addAttribute("products", products);
@@ -34,14 +33,24 @@ public class IndexPageController {
         if(isAuthenticated) {
             Long totalPriceAllProducts = productInCartService.getTotalPriceAllProductsInCart();
             model.addAttribute("totalPriceAllProducts", totalPriceAllProducts);
+            model.addAttribute("userRole", userProvider.getUserRole());
+            model.addAttribute("login", userProvider.getUserName());
         }
         return "index";
     }
 
-    @GetMapping("/category_{id}")
+    @GetMapping("/category{id}")
     public String show(@PathVariable("id") Long id, Model model) {
         List<Product> products = productRepository.findAllByProductTypeId(id);
+        boolean isAuthenticated = userProvider.isAuthenticated();
         model.addAttribute("products", products);
+        model.addAttribute("isAuthenticated", isAuthenticated);
+        if(isAuthenticated) {
+            Long totalPriceAllProducts = productInCartService.getTotalPriceAllProductsInCart();
+            model.addAttribute("totalPriceAllProducts", totalPriceAllProducts);
+            model.addAttribute("userRole", userProvider.getUserRole());
+            model.addAttribute("login", userProvider.getUserName());
+        }
         return "index";
     }
 }

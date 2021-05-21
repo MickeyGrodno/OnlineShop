@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.epam.dto.ProductInCartDto;
 import ru.epam.models.Order;
+import ru.epam.models.OrderInfo;
+import ru.epam.repositories.OrderInfoRepository;
 import ru.epam.repositories.ProductInCartRepository;
 import ru.epam.repositories.UserRepository;
 import ru.epam.service.order.OrderService;
@@ -29,6 +31,7 @@ public class OrderPageController {
     private final UserProvider userProvider;
     private final UserRepository userRepository;
     private final ProductInCartRepository productInCartRepository;
+    private final OrderInfoRepository orderInfoRepository;
 
     @GetMapping( "")
     public String mainPage(Model model) {
@@ -37,10 +40,22 @@ public class OrderPageController {
         return "order/orders";
     }
 
+    @GetMapping( "/order_info{orderId}")
+    public String mainPage(@PathVariable("orderId") Long orderId, Model model) {
+        List<OrderInfo> ordersInfo = orderInfoRepository.findAllByOrderId(orderId);
+        Long totalOrderPrice = ordersInfo.stream().mapToLong(OrderInfo::getTotalPrice).sum();
+        model.addAttribute("ordersInfo", ordersInfo);
+        model.addAttribute("totalOrderPrice", totalOrderPrice);
+        model.addAttribute("orderId", orderId);
+        return "order/order_info";
+    }
+
     @GetMapping( "/create_order")
-    public String mainPage(@ModelAttribute("order") Order order, Principal principal, Model model) {
+    public String mainPage(@ModelAttribute("order") Order order,
+                           @ModelAttribute("orderInfo") OrderInfo orderInfo,
+                           Model model) {
         boolean isAuthenticated = userProvider.isAuthenticated();
-        model.addAttribute("principal", userProvider.getUsername());
+        model.addAttribute("principal", userProvider.getUserName());
         model.addAttribute("isAuthenticated", isAuthenticated);
         if(isAuthenticated) {
             Long totalPriceAllProducts = productInCartService.getTotalPriceAllProductsInCart();
@@ -56,8 +71,13 @@ public class OrderPageController {
         Long totalPrice = productsInCartByCartId.stream().mapToLong(ProductInCartDto::getTotalPrice).sum();
         order.setPrice(totalPrice);
         order.setUserId(userId);
-        orderService.saveOrder(order);
-        productInCartRepository.removeAllByUserId(userId);
+        orderService.saveOrderAndOrderInfo(order);
         return "redirect:../";
     }
+    @PostMapping( "/pay")
+    public String payOrder(@RequestParam("orderId") Long orderId) {
+        orderService.payOrder(orderId);
+        return "redirect:/order";
+    }
+
 }

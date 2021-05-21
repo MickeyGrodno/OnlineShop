@@ -2,10 +2,6 @@ package ru.epam.service.user;
 
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.epam.config.Roles;
@@ -17,10 +13,6 @@ import ru.epam.repositories.ProductInCartRepository;
 import ru.epam.repositories.UserRepository;
 
 import javax.transaction.Transactional;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -82,7 +74,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void updateUserRoleById(Long id, String newUserRoleString) throws NotFoundException {
-        String authorizedUserLogin = userProvider.getUsername();
+        String authorizedUserLogin = userProvider.getUserName();
 
         String authorizedUserRoleString = userRepository
                 .getUserByLogin(authorizedUserLogin)

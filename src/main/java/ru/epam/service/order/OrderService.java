@@ -5,6 +5,7 @@ import ru.epam.models.Order;
 import java.util.List;
 
 public interface OrderService {
-    Long saveOrder(Order order);
+    Long saveOrderAndOrderInfo(Order order);
     List<Order> getAllOrders();
+    void payOrder(Long id);
 }
