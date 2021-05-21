@@ -4,12 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import ru.epam.dto.ProductInCartDto;
 import ru.epam.models.Order;
+import ru.epam.repositories.UserRepository;
 import ru.epam.service.order.OrderService;
 import ru.epam.service.productincart.ProductInCartService;
 import ru.epam.service.user.UserProvider;
@@ -28,6 +26,7 @@ public class OrderPageController {
     private final ProductInCartService productInCartService;
     private final OrderService orderService;
     private final UserProvider userProvider;
+    private final UserRepository userRepository;
 
     @GetMapping( "")
     public String mainPage(Model model) {
@@ -36,7 +35,7 @@ public class OrderPageController {
         return "order/orders";
     }
 
-    @RequestMapping(value = "/create_order", method = RequestMethod.GET)
+    @GetMapping( "/create_order")
     public String mainPage(@ModelAttribute("order") Order order, Principal principal, Model model) {
         boolean isAuthenticated = userProvider.isAuthenticated();
         model.addAttribute("principal", userProvider.getUsername());
@@ -48,9 +47,9 @@ public class OrderPageController {
         return "order/create_order";
     }
 
-    @RequestMapping(value = "/create_order", method = RequestMethod.POST)
+    @PostMapping( "/create_order")
     public String create(@ModelAttribute("order") Order order, Principal principal) throws SQLException {
-        Long userId = userService.getUserIdByLogin(principal.getName());
+        Long userId = userRepository.getIdByLogin(principal.getName());
         List<ProductInCartDto> productsInCartByCartId = productInCartService.getProductsInCartByCartId(userId);
         Long totalPrice = productsInCartByCartId.stream().mapToLong(ProductInCartDto::getTotalPrice).sum();
         order.setPrice(totalPrice);

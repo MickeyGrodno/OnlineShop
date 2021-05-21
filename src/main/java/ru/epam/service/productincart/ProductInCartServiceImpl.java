@@ -11,6 +11,7 @@ import ru.epam.repositories.UserRepository;
 import ru.epam.service.user.UserProvider;
 
 import javax.transaction.Transactional;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ public class ProductInCartServiceImpl implements ProductInCartService {
     private final UserProvider userProvider;
     private final UserRepository userRepository;
 
+
     @Override
     @Transactional
     public void deleteCartProductsByUserId(Long id) {
@@ -33,6 +35,8 @@ public class ProductInCartServiceImpl implements ProductInCartService {
 
     @Override
     public void saveProductInCart(ProductInCart productInCart) {
+        Long userId = userRepository.getIdByLogin(userProvider.getUsername());
+        productInCart.setUserId(userId);
         ProductInCart productInCartFromDB = productInCartRepository.findByUserIdAndProductId(productInCart.getUserId(), productInCart.getProductId());
 
         if (productInCartFromDB != null) {

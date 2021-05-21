@@ -47,7 +47,7 @@ public class AdminPageController {
         return "admin/add_product_image";
     }
 
-    @RequestMapping(value = "/add_image/{id}", method = RequestMethod.POST)
+    @PostMapping( "/add_image/{id}")
     public String uploadImage(@PathVariable("id") Long id, Model model,
                               @ModelAttribute("myUploadForm") MyUploadForm myUploadForm) {
         String description = productService.doUpload(myUploadForm, id);

@@ -15,6 +15,9 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.access.ExceptionTranslationFilter;
 
+import java.security.Principal;
+import java.security.Provider;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor

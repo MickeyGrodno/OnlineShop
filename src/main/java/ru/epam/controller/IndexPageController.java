@@ -24,7 +24,7 @@ public class IndexPageController {
     private final UserProvider userProvider;
 
     @GetMapping()
-    public String mainPage(Model model, Principal principal) {
+    public String mainPage(Model model) {
         List<Product> products = productService.getAllProducts();
         boolean isAuthenticated = userProvider.isAuthenticated();
         model.addAttribute("products", products);

@@ -2,9 +2,13 @@ package ru.epam.service.product;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ru.epam.config.MyUploadForm;
+import ru.epam.models.Comment;
 import ru.epam.models.Product;
+import ru.epam.repositories.CommentRepository;
+import ru.epam.repositories.ProductInCartRepository;
 import ru.epam.repositories.ProductRepository;
 
 import java.io.File;
@@ -19,6 +23,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
+    private final CommentRepository commentRepository;
+    private final ProductInCartRepository productInCartRepository;
 
     public Product findById(Long id) {
         return productRepository.findById(id).orElse(null);
@@ -80,10 +86,11 @@ public class ProductServiceImpl implements ProductService {
         }
         return null;
     }
-
+    @Transactional
     @Override
     public void remove(Long id) {
-
+        commentRepository.deleteAllByProductId(id);
+        productInCartRepository.deleteAllByProductId(id);
         productRepository.findById(id).ifPresent(product -> {
             if (product.getImage() != null) {
                 File file = new File(product.getImage());

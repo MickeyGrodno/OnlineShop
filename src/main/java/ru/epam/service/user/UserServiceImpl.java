@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import ru.epam.config.Roles;
 import ru.epam.dto.UserDto;
 import ru.epam.models.User;
+import ru.epam.repositories.CommentRepository;
+import ru.epam.repositories.OrderRepository;
+import ru.epam.repositories.ProductInCartRepository;
 import ru.epam.repositories.UserRepository;
 
 import javax.transaction.Transactional;
@@ -25,6 +28,9 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final UserProvider userProvider;
+    private final ProductInCartRepository productInCartRepository;
+    private final OrderRepository orderRepository;
+    private final CommentRepository commentRepository;
 
 //    public User getUserByLogin(String login) {
 //        return userRepository.findUserByLogin(login);
@@ -122,6 +128,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUserById(Long id) {
+        commentRepository.deleteAllByUserId(id);
+        orderRepository.deleteAllByUserId(id);
         userRepository.deleteById(id);
     }
 

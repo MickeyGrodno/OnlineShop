@@ -4,15 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import ru.epam.dto.CommentDto;
 import ru.epam.models.Comment;
 import ru.epam.models.Product;
 import ru.epam.models.ProductInCart;
 import ru.epam.models.ProductType;
+import ru.epam.repositories.UserRepository;
 import ru.epam.service.comment.CommentService;
 import ru.epam.service.product.ProductService;
 import ru.epam.service.producttype.ProductTypeService;
@@ -32,12 +30,13 @@ public class ProductPageController {
     private final CommentService commentService;
     private final UserService userService;
     private final UserProvider userProvider;
+    private final UserRepository userRepository;
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "/remove/product_{id}", method = RequestMethod.POST)
+    @PostMapping("/remove/product/{id}")
     public String remove(@PathVariable("id") Long id) {
         productService.remove(id);
-        return "redirect:../../admin/product_list";
+        return "redirect:../../../admin/product_list";
     }
 
     @RequestMapping(value = "/{productId}")
@@ -50,7 +49,7 @@ public class ProductPageController {
         ProductType productType = productTypeService.getById(product.getProductTypeId());
         List<CommentDto> commentsDto = commentService.getCommentsDtoByProductId(productId);
         if(isAuthenticated) {
-            Long userId = userService.getUserIdByLogin(principal.getName());
+            Long userId = userRepository.getIdByLogin(principal.getName());
             Comment comment = new Comment();
             model.addAttribute("userId", userId);
             model.addAttribute("comment", comment);

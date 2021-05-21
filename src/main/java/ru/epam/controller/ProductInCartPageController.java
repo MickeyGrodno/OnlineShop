@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.epam.dto.ProductInCartDto;
 import ru.epam.models.ProductInCart;
+import ru.epam.repositories.UserRepository;
 import ru.epam.service.productincart.ProductInCartService;
 import ru.epam.service.user.UserService;
 
@@ -21,10 +22,11 @@ import java.util.Objects;
 public class ProductInCartPageController {
     private final ProductInCartService productInCartService;
     private final UserService userService;
+    private final UserRepository userRepository;
 
     @GetMapping(value = "")
-    public String showProductInfo(Principal principal, Model model) {
-        Long userId = userService.getUserIdByLogin(principal.getName());
+    public String showProductInCartInfo(Principal principal, Model model) {
+        Long userId = userRepository.getIdByLogin(principal.getName());
         List<ProductInCartDto> productsInCartByCartId = productInCartService.getProductsInCartByCartId(userId);
         Long totalPrice = productInCartService.getTotalPriceAllProductsInCart();
         model.addAttribute("productsInCartByCartId", productsInCartByCartId);
@@ -34,11 +36,8 @@ public class ProductInCartPageController {
 
     @PostMapping("/{productId}")
     public String addProductInCart(@PathVariable Long productId,
-                                       Principal principal,
                                        ProductInCart productInCartFromPage) {
-        Long userId = userService.getUserIdByLogin(principal.getName());
         ProductInCart productInCart = new ProductInCart();
-        productInCart.setUserId(userId);
         productInCart.setProductId(productId);
         if(Objects.isNull(productInCartFromPage) || productInCartFromPage.getProductCount()==0) {
             productInCart.setProductCount(1L);
@@ -52,7 +51,7 @@ public class ProductInCartPageController {
     @GetMapping("/{productId}")
     public String addProductInCartFast(@PathVariable Long productId,
                                    Principal principal) {
-        Long userId = userService.getUserIdByLogin(principal.getName());
+        Long userId = userRepository.getIdByLogin(principal.getName());
         ProductInCart productInCart = new ProductInCart();
         productInCart.setUserId(userId);
         productInCart.setProductId(productId);
@@ -64,7 +63,7 @@ public class ProductInCartPageController {
     @PostMapping("/delete/{productId}")
     public String deleteProductFromCart(Principal principal,
                                         @PathVariable Long productId) {
-        Long userId = userService.getUserIdByLogin(principal.getName());
+        Long userId = userRepository.getIdByLogin(principal.getName());
         productInCartService.deleteProductInCartByUserIdAndProductId(userId, productId);
         return "redirect:/cart";
     }
