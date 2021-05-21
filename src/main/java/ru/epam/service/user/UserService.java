@@ -7,14 +7,13 @@ import ru.epam.models.User;
 import java.util.List;
 
 public interface UserService {
-    User getUserByLogin(String login);
+//    User getUserByLogin(String login);
     Long getUserIdByLogin(String login);
-    public List<User> getAllUsers();
+//    public List<User> getAllUsers();
     boolean saveUser(User user);
     void updateUser(UserDto userDto, String login);
     UserDto getUserDtoByLogin(String login);
     void updateUserRoleById(Long id, String newRole) throws NotFoundException;
     void deleteUserById(Long id);
-    String getUserRoleById(Long id);
     boolean updateUserPassword(Long id, String oldPassword, String newPassword);
 }

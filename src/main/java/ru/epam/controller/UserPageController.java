@@ -73,20 +73,4 @@ public class UserPageController {
         }
         return "redirect:/admin/all_users";
     }
-
-
-
 }
-
-
-//    @PostMapping( "/cart_{userId}/{productId}")
-//    public String addProductInCartFast(@PathVariable Long userId,
-//                                       @PathVariable Long productId,
-//                                       @ModelAttribute("productInCart") ProductInCart productInCart) {
-//        ProductInCart productInCartToDB = new ProductInCart();
-//        productInCartToDB.setUserId(userId);
-//        productInCartToDB.setProductId(productId);
-//        productInCartToDB.setProductCount(productInCart.getProductCount());
-//        productInCartService.saveProductInCart(productInCart);
-//        return "redirect:../../";
-//    }

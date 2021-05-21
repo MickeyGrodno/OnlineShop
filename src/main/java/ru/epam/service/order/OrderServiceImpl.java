@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.epam.models.Order;
 import ru.epam.repositories.OrderRepository;
+import ru.epam.repositories.UserRepository;
+import ru.epam.service.user.UserProvider;
 
 import java.util.Date;
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService{
     private final OrderRepository orderRepository;
+    private final UserProvider userProvider;
+    private final UserRepository userRepository;
 
     @Override
     public Long saveOrder(Order order) {
@@ -22,7 +26,9 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public List<Order> getAllOrdersByUserId(Long userId) {
+    public List<Order> getAllOrders() {
+        String login = userProvider.getUsername();
+        Long userId = userRepository.getIdByLogin(login);
         return orderRepository.findAllByUserId(userId);
     }
 }

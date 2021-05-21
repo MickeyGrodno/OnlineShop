@@ -7,7 +7,8 @@ import ru.epam.models.Product;
 import ru.epam.models.ProductInCart;
 import ru.epam.repositories.ProductInCartRepository;
 import ru.epam.repositories.ProductRepository;
-import ru.epam.service.product.ProductService;
+import ru.epam.repositories.UserRepository;
+import ru.epam.service.user.UserProvider;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ import java.util.stream.Collectors;
 public class ProductInCartServiceImpl implements ProductInCartService {
     private final ProductInCartRepository productInCartRepository;
     private final ProductRepository productRepository;
+    private final UserProvider userProvider;
+    private final UserRepository userRepository;
 
     @Override
     @Transactional
@@ -68,7 +71,9 @@ public class ProductInCartServiceImpl implements ProductInCartService {
     }
 
     @Override
-    public Long getTotalPriceAllProductsInCartByUserId(Long userId) {
+    public Long getTotalPriceAllProductsInCart() {
+        String login = userProvider.getUsername();
+        Long userId = userRepository.getIdByLogin(login);
         List<ProductInCart> userProductsInCart = productInCartRepository.findAllByUserId(userId);
         Set<Long> productIds = userProductsInCart
                 .stream()

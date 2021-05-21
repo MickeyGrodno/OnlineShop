@@ -19,21 +19,18 @@ import java.util.List;
 @RequestMapping("/")
 @RequiredArgsConstructor
 public class IndexPageController {
-    private final UserService userService;
     private final ProductService productService;
     private final ProductInCartService productInCartService;
     private final UserProvider userProvider;
 
     @GetMapping()
     public String mainPage(Model model, Principal principal) {
-
         List<Product> products = productService.getAllProducts();
         boolean isAuthenticated = userProvider.isAuthenticated();
         model.addAttribute("products", products);
         model.addAttribute("isAuthenticated", isAuthenticated);
         if(isAuthenticated) {
-            Long userId = userService.getUserIdByLogin(principal.getName());
-            Long totalPriceAllProducts = productInCartService.getTotalPriceAllProductsInCartByUserId(userId);
+            Long totalPriceAllProducts = productInCartService.getTotalPriceAllProductsInCart();
             model.addAttribute("totalPriceAllProducts", totalPriceAllProducts);
         }
         return "index";
@@ -42,7 +39,6 @@ public class IndexPageController {
     @GetMapping("/category_{id}")
     public String show(@PathVariable("id") Long id, Model model) {
         List<Product> products = productService.getAllProductsByProductTypeId(id);
-        //получим одного человека по id из DAO и передать на отображение в представление
         model.addAttribute("products", products);
         return "index";
     }

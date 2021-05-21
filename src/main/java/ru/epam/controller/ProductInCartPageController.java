@@ -26,7 +26,7 @@ public class ProductInCartPageController {
     public String showProductInfo(Principal principal, Model model) {
         Long userId = userService.getUserIdByLogin(principal.getName());
         List<ProductInCartDto> productsInCartByCartId = productInCartService.getProductsInCartByCartId(userId);
-        Long totalPrice = productInCartService.getTotalPriceAllProductsInCartByUserId(userId);
+        Long totalPrice = productInCartService.getTotalPriceAllProductsInCart();
         model.addAttribute("productsInCartByCartId", productsInCartByCartId);
         model.addAttribute("totalPrice", totalPrice);
         return "cart/cart";

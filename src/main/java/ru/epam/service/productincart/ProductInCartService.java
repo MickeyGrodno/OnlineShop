@@ -14,6 +14,6 @@ public interface ProductInCartService {
 
     void deleteProductInCartByUserIdAndProductId(Long userId, Long productId);
 
-    Long getTotalPriceAllProductsInCartByUserId(Long userId);
+    Long getTotalPriceAllProductsInCart();
 
 }

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface OrderService {
     Long saveOrder(Order order);
-    List<Order> getAllOrdersByUserId(Long userId);
+    List<Order> getAllOrders();
 }

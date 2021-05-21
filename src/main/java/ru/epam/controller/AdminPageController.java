@@ -1,7 +1,6 @@
 package ru.epam.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,10 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.epam.config.MyUploadForm;
 import ru.epam.models.Product;
 import ru.epam.models.User;
+import ru.epam.repositories.UserRepository;
 import ru.epam.service.product.ProductService;
-import ru.epam.service.user.UserService;
 
-import javax.annotation.security.RolesAllowed;
 import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
@@ -24,10 +22,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AdminPageController {
     private final ProductService productService;
-    private final UserService userService;
+    private final UserRepository userRepository;
 
     @GetMapping()
-    public String adminMain(@ModelAttribute("product") Product product) {
+    public String adminMain() {
         return "admin/main";
     }
 
@@ -66,9 +64,9 @@ public class AdminPageController {
 
     @GetMapping("/all_users")
     public String getAllUsersList(Model model) {
-        List<User> users = userService.getAllUsers();
+        List<User> users = userRepository.findAll();
         List<User> sortedUsers = users.stream()
-                .sorted(Comparator.comparingDouble(User::getId))
+                .sorted(Comparator.comparing(User::getId))
                 .collect(Collectors.toList());
         model.addAttribute("users", sortedUsers);
         return "admin/all_users";

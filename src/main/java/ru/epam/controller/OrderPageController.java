@@ -12,6 +12,7 @@ import ru.epam.dto.ProductInCartDto;
 import ru.epam.models.Order;
 import ru.epam.service.order.OrderService;
 import ru.epam.service.productincart.ProductInCartService;
+import ru.epam.service.user.UserProvider;
 import ru.epam.service.user.UserService;
 
 import java.security.Principal;
@@ -26,20 +27,24 @@ public class OrderPageController {
     private final UserService userService;
     private final ProductInCartService productInCartService;
     private final OrderService orderService;
+    private final UserProvider userProvider;
 
     @GetMapping( "")
-    public String mainPage(Principal principal, Model model) {
-        Long userId = userService.getUserIdByLogin(principal.getName());
-        List<Order> orders = orderService.getAllOrdersByUserId(userId);
+    public String mainPage(Model model) {
+        List<Order> orders = orderService.getAllOrders();
         model.addAttribute("orders", orders);
         return "order/orders";
     }
 
     @RequestMapping(value = "/create_order", method = RequestMethod.GET)
     public String mainPage(@ModelAttribute("order") Order order, Principal principal, Model model) {
-        Long userId = userService.getUserIdByLogin(principal.getName());
-        model.addAttribute("principal", principal.getName());
-        model.addAttribute("userId", userId);
+        boolean isAuthenticated = userProvider.isAuthenticated();
+        model.addAttribute("principal", userProvider.getUsername());
+        model.addAttribute("isAuthenticated", isAuthenticated);
+        if(isAuthenticated) {
+            Long totalPriceAllProducts = productInCartService.getTotalPriceAllProductsInCart();
+            model.addAttribute("totalPriceAllProducts", totalPriceAllProducts);
+        }
         return "order/create_order";
     }
 

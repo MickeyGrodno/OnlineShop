@@ -26,18 +26,18 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserProvider userProvider;
 
-    public User getUserByLogin(String login) {
-        return userRepository.findUserByLogin(login);
-    }
+//    public User getUserByLogin(String login) {
+//        return userRepository.findUserByLogin(login);
+//    }
 
     public Long getUserIdByLogin(String login) {
         return userRepository.getIdByLogin(login);
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+//    public List<User> getAllUsers() {
+//        return userRepository.findAll();
+//    }
 
     public boolean saveUser(User user) {
         User userFromDB = userRepository.findUserByLogin(user.getLogin());
@@ -73,9 +73,9 @@ public class UserServiceImpl implements UserService {
         userRepository.save(userFromDB);
     }
 
-    public String getUserRoleById(Long id) {
-        return userRepository.getRoleById(id);
-    }
+//    public String getUserRoleById(Long id) {
+//        return userRepository.getRoleById(id);
+//    }
 
     @Override
     @Transactional
@@ -125,12 +125,12 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
-    public boolean deleteUser(Long userId) {
-        if (userRepository.findById(userId).isPresent()) {
-            userRepository.deleteById(userId);
-            return true;
-        }
-        return false;
-    }
+//    public boolean deleteUser(Long userId) {
+//        if (userRepository.findById(userId).isPresent()) {
+//            userRepository.deleteById(userId);
+//            return true;
+//        }
+//        return false;
+//    }
 
 }
