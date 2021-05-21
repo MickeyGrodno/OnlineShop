@@ -36,10 +36,6 @@ public class UserServiceImpl implements UserService {
 //        return userRepository.findUserByLogin(login);
 //    }
 
-    public Long getUserIdByLogin(String login) {
-        return userRepository.getIdByLogin(login);
-    }
-
     @Override
 //    public List<User> getAllUsers() {
 //        return userRepository.findAll();

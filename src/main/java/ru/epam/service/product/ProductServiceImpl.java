@@ -26,19 +26,6 @@ public class ProductServiceImpl implements ProductService {
     private final CommentRepository commentRepository;
     private final ProductInCartRepository productInCartRepository;
 
-    public Product findById(Long id) {
-        return productRepository.findById(id).orElse(null);
-    }
-
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
-
-    @Override
-    public List<Product> getAllProductsByProductTypeId(Long id) {
-        return productRepository.findAllByProductTypeId(id);
-    }
-
     @Override
     public Long saveProduct(Product product) {
         Date date = new Date();

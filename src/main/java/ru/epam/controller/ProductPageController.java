@@ -10,6 +10,8 @@ import ru.epam.models.Comment;
 import ru.epam.models.Product;
 import ru.epam.models.ProductInCart;
 import ru.epam.models.ProductType;
+import ru.epam.repositories.ProductRepository;
+import ru.epam.repositories.ProductTypeRepository;
 import ru.epam.repositories.UserRepository;
 import ru.epam.service.comment.CommentService;
 import ru.epam.service.product.ProductService;
@@ -31,6 +33,8 @@ public class ProductPageController {
     private final UserService userService;
     private final UserProvider userProvider;
     private final UserRepository userRepository;
+    private final ProductTypeRepository productTypeRepository;
+    private final ProductRepository productRepository;
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/remove/product/{id}")
@@ -45,8 +49,8 @@ public class ProductPageController {
                                   Principal principal,
                                   Model model) {
         boolean isAuthenticated = userProvider.isAuthenticated();
-        Product product = productService.findById(productId);
-        ProductType productType = productTypeService.getById(product.getProductTypeId());
+        Product product = productRepository.findById(productId).orElse(null);
+        ProductType productType = productTypeRepository.findById(product.getProductTypeId()).orElse(null);
         List<CommentDto> commentsDto = commentService.getCommentsDtoByProductId(productId);
         if(isAuthenticated) {
             Long userId = userRepository.getIdByLogin(principal.getName());

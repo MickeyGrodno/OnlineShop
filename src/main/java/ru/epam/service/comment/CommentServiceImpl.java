@@ -18,13 +18,6 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
 
-    @Override
-    public List<Comment> getCommentsByProductId(Long id) {
-        List<Comment> commentsByProductId = commentRepository.findCommentsByProductId(id);
-
-        return commentsByProductId;
-    }
-
     public void saveComment(Comment comment) {
         comment.setDate(LocalDateTime.now());
         commentRepository.save(comment);

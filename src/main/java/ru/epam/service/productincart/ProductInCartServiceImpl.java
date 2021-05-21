@@ -26,13 +26,6 @@ public class ProductInCartServiceImpl implements ProductInCartService {
     private final UserProvider userProvider;
     private final UserRepository userRepository;
 
-
-    @Override
-    @Transactional
-    public void deleteCartProductsByUserId(Long id) {
-        productInCartRepository.removeAllByUserId(id);
-    }
-
     @Override
     public void saveProductInCart(ProductInCart productInCart) {
         Long userId = userRepository.getIdByLogin(userProvider.getUsername());
@@ -66,12 +59,6 @@ public class ProductInCartServiceImpl implements ProductInCartService {
         }
         return resultDtos;
 
-    }
-
-    @Override
-    @Transactional
-    public void deleteProductInCartByUserIdAndProductId(Long userId, Long productId) {
-        productInCartRepository.deleteByUserIdAndProductId(userId, productId);
     }
 
     @Override

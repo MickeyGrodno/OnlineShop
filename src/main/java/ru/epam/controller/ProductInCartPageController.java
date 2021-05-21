@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.epam.dto.ProductInCartDto;
 import ru.epam.models.ProductInCart;
+import ru.epam.repositories.ProductInCartRepository;
 import ru.epam.repositories.UserRepository;
 import ru.epam.service.productincart.ProductInCartService;
 import ru.epam.service.user.UserService;
@@ -23,6 +24,7 @@ public class ProductInCartPageController {
     private final ProductInCartService productInCartService;
     private final UserService userService;
     private final UserRepository userRepository;
+    private final ProductInCartRepository productInCartRepository;
 
     @GetMapping(value = "")
     public String showProductInCartInfo(Principal principal, Model model) {
@@ -64,7 +66,7 @@ public class ProductInCartPageController {
     public String deleteProductFromCart(Principal principal,
                                         @PathVariable Long productId) {
         Long userId = userRepository.getIdByLogin(principal.getName());
-        productInCartService.deleteProductInCartByUserIdAndProductId(userId, productId);
+        productInCartRepository.deleteByUserIdAndProductId(userId, productId);
         return "redirect:/cart";
     }
 }

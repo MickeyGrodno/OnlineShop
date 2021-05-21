@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.epam.config.MyUploadForm;
 import ru.epam.models.Product;
 import ru.epam.models.User;
+import ru.epam.repositories.ProductRepository;
 import ru.epam.repositories.UserRepository;
 import ru.epam.service.product.ProductService;
 
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 public class AdminPageController {
     private final ProductService productService;
     private final UserRepository userRepository;
+    private final ProductRepository productRepository;
 
     @GetMapping()
     public String adminMain() {
@@ -57,7 +59,7 @@ public class AdminPageController {
 
     @GetMapping("/product_list")
     public String editOrDeleteProductList(Model model) {
-        List<Product> products = productService.getAllProducts();
+        List<Product> products = productRepository.findAll();
         model.addAttribute("products", products);
         return "admin/product_list";
     }

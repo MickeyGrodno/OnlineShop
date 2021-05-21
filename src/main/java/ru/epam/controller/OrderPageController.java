@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.epam.dto.ProductInCartDto;
 import ru.epam.models.Order;
+import ru.epam.repositories.ProductInCartRepository;
 import ru.epam.repositories.UserRepository;
 import ru.epam.service.order.OrderService;
 import ru.epam.service.productincart.ProductInCartService;
@@ -27,6 +28,7 @@ public class OrderPageController {
     private final OrderService orderService;
     private final UserProvider userProvider;
     private final UserRepository userRepository;
+    private final ProductInCartRepository productInCartRepository;
 
     @GetMapping( "")
     public String mainPage(Model model) {
@@ -55,7 +57,7 @@ public class OrderPageController {
         order.setPrice(totalPrice);
         order.setUserId(userId);
         orderService.saveOrder(order);
-        productInCartService.deleteCartProductsByUserId(userId);
+        productInCartRepository.removeAllByUserId(userId);
         return "redirect:../";
     }
 }

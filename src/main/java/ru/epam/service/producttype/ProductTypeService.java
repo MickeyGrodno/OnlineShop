@@ -5,5 +5,5 @@ import ru.epam.models.ProductType;
 import java.util.List;
 
 public interface ProductTypeService {
-    ProductType getById(Long id);
+
 }

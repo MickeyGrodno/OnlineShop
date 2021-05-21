@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface UserService {
 //    User getUserByLogin(String login);
-    Long getUserIdByLogin(String login);
 //    public List<User> getAllUsers();
     boolean saveUser(User user);
     void updateUser(UserDto userDto, String login);
