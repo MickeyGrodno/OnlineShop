@@ -133,16 +133,19 @@
                     <label><strong th:text="${user.getFirstName()}">Имя</strong></label>
                     <br/>
                     <label style="color:ForestGreen"><strong>Фамилия</strong></label>
-                    <label><strong th:text="${user.getLastName()}">Имя</strong></label>
+                    <label><strong th:text="${user.getLastName()}">Фамилия</strong></label>
                     <br/>
                     <label style="color:ForestGreen"><strong>Пол</strong></label>
-                    <label><strong th:text="${user.getGender()}">Имя</strong></label>
+                    <label><strong th:text="${user.getGender()}">Пол</strong></label>
+                    <br/>
+                    <label style="color:ForestGreen"><strong>Дата рождения</strong></label>
+                    <label th:text="${#dates.format(user.getBirthDate(), 'yyyy-MM-dd')}"><strong th:text="${#dates.format(user.getBirthDate(), 'yyyy-MM-dd')}">Дата рождения</strong></label>
                     <br/>
                     <label style="color:ForestGreen"><strong>Email</strong></label>
-                    <label><strong th:text="${user.getEmail()}">Имя</strong></label>
+                    <label><strong th:text="${user.getEmail()}">Email</strong></label>
                     <br/>
                     <label style="color:ForestGreen"><strong>Номер телефона</strong></label>
-                    <label><strong th:text="${user.getTelephone()}">Имя</strong></label>
+                    <label><strong th:text="${user.getTelephone()}">Номер телефона</strong></label>
                     <br/>
                 </div>
                 <br/>

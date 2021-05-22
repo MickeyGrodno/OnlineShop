@@ -150,17 +150,17 @@
 
                     <td valign="middle"><a><img th:src="@{${'/image/' + productInCart.getId()}}" width="60" height="60"
                                                 alt="Panasonic Lumix"/></a></td>
-                    <td valign="middle"><a th:text="${productInCart.getName()}"><strong>Name</strong></a></td>
-                    <td valign="middle" th:text="${productInCart.getCount()}">>Count</td>
-                    <td valign="middle" th:text="${productInCart.getPrice()}">>Price<span
+                    <td valign="middle"><a><strong th:text="${productInCart.getName()}">Name</strong></a></td>
+                    <td valign="middle" th:text="${productInCart.getCount()}"> Count</td>
+                    <td valign="middle" th:text="'$'+${productInCart.getPrice()}">Price<span
                             class="s_currency s_after"> $</span></td>
-                    <td valign="middle" th:text="${productInCart.getTotalPrice()}">Total price<span
+                    <td valign="middle" th:text="'$'+${productInCart.getTotalPrice()}">Total price<span
                             class="s_currency s_after"> $</span></td>
                     </tr>
                 </div>
             </table>
             <br/>
-            <p class="s_total s_secondary_color last" th:text="${'Итого '+totalPrice+'$'}"> Суммарная цена</p>
+            <p class="s_total s_secondary_color last" th:text="${'Итого $'+totalPrice}"> Суммарная цена</p>
 
             <div class="clear"></div>
             <br/>

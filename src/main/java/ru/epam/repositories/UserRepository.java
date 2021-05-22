@@ -14,6 +14,8 @@ public interface UserRepository extends JpaRepository<User, Long>  {
 
     User getUserByLogin(String login);
 
+    @Query(nativeQuery = true, value = "SELECT count(*),login FROM users WHERE login=:login")
+    Long numberOfLoginRepetitions(String login);
 //    @Modifying
 //    @Query(nativeQuery = true, value = "update users set role=:role WHERE id=:id")
 //    void updateUserRoleById(@Param(value = "id")Long id, @Param(value = "role")String role);

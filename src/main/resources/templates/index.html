@@ -39,7 +39,7 @@
             <div id="system_navigation" class="s_nav">
                 <ul class="s_list_1 clearfix">
 
-                    <li th:if="${isAuthenticated}"><a th:text="${'Привествуем Вас, '+login}">Приветствие</a></li>
+                    <li th:if="${isAuthenticated}"><a th:text="${'Приветствуем Вас, '+login}">Приветствие</a></li>
                     <li><a href="/">На главную</a></li>
                     <a th:if="${isAuthenticated}"><a th:if="${!userRole.equals('ROLE_USER')}">
                         <li><a href="/admin">Admin</a></li>

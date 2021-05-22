@@ -137,18 +137,27 @@
                         <label><strong>Логин</strong></label>
                         <input type="text" size="35" th:field="*{login}" id="login"/>
                         <br/>
+                        <div style="color:red" th:if="${usernameError!=null}" th:text="${usernameError}">Error</div>
+                        <br/>
                         <br/>
                         <label><strong>Пароль</strong></label>
                         <input type="password" size="35" class="required" th:field="*{password}" id="password"/>
+                        <br/>
+                        <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</div>
+
                         <br/>
                         <br/>
                         <label><strong>Повторите пароль</strong></label>
                         <input type="password" size="35" class="required" th:field="*{passwordConfirm}"
                                id="passwordConfirm"/>
+                        <div style="color:red" th:if="${passwordError!=null}" th:text="${passwordError}">Error</div>
                         <br/>
                         <br/>
                         <label><strong>Email</strong></label>
                         <input type="text" size="35" class="required" th:field="*{email}" id="email"/>
+                        <br/>
+                        <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</div>
+
                         <br/>
                         <br/>
                         <label style="color:ForestGreen"><strong>Имя</strong></label>
@@ -167,11 +176,11 @@
                         <br/>
 
 
-                        <!--            <br />-->
-                        <!--                <label style="color:ForestGreen"><strong>Дата рождения</strong></label>-->
-                        <!--              <input type="date" name="calendar" value="2010-01-01" max="2010-01-01" min="1920-01-01"-->
-                        <!--                     th:field="*{birthDate}" id="birthDate">-->
-                        <!--            <br />-->
+                        <br/>
+                        <label style="color:ForestGreen"><strong>Дата рождения</strong></label>
+                        <input type="date" name="calendar" value="2010-01-01" max="2010-01-01" min="1920-01-01"
+                               th:field="*{birthDate}" id="birthDate">
+                        <br/>
                         <br/>
                         <label style="color:ForestGreen"><strong>Номер телефона</strong></label>
                         <input type="text" size="35" class="required" th:field="*{telephone}" id="telephone"/>

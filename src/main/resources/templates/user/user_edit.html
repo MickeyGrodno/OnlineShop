@@ -144,6 +144,11 @@
                         </select>
                         <br/>
                         <br/>
+                        <label style="color:ForestGreen"><strong>Дата рождения</strong></label>
+                        <input type="date" name="calendar" th:value="${#dates.format(user.getBirthDate(), 'yyyy-MM-dd')}" max="2010-01-01" min="1920-01-01"
+                               th:field="*{birthDate}" id="birthDate">
+                        <br/>
+                        <br/>
                         <label style="color:ForestGreen"><strong>Email</strong></label>
                         <input type="text" size="35" class="required" th:field="*{email}" id="email"/>
                         <br/>

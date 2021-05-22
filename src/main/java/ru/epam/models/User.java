@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -28,16 +30,19 @@ public class User {
     @Column(name = "gender")
     private String gender;
     @Column(name = "birth_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
-    @Size(min=2, message = "Не меньше 5 знаков")
+    @Size(min=2, max=30, message = "Длинна логина должна быть от 2 до 30 символов!")
+    @NotEmpty(message = "Поле 'Логин' не может быть пустым!")
     @Column(name = "login")
     private String login;
-    @Size(min=1, message = "Не меньше 5 знаков")
+    @Size(min=5, message = "Длинна пароля не может быть меньше 5 символов!")
     @Column(name = "password")
     private String password;
     @Transient
     private String passwordConfirm;
-    @Email
+    @NotEmpty(message = "Поле email не может быть пустым!")
+    @Email(message = "Введен некорректный email адрес!")
     @Column(name = "email")
     private String email;
     @Column(name = "role")
