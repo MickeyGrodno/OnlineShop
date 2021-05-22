@@ -12,6 +12,7 @@ import ru.epam.repositories.UserRepository;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -23,12 +24,17 @@ public class CustomDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String login) throws UsernameNotFoundException {
-        User user = userRepository.findUserByLogin(login);
-        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().toUpperCase());
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(authority);
 
-        return new org.springframework.security.core.userdetails.
-                User(user.getLogin(), user.getPassword(), authorities);
+        User user = userRepository.findUserByLogin(login);
+        if(user!=null) {
+            GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().toUpperCase());
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(authority);
+
+            return new org.springframework.security.core.userdetails.
+                    User(user.getLogin(), user.getPassword(), authorities);
+        } else {
+            throw new  UsernameNotFoundException("Пользователь не найден.");
+        }
     }
 }

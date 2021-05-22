@@ -1,4 +1,4 @@
-package ru.epam.controller;
+package ru.epam.controller.servicecontroller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -38,7 +38,6 @@ public class RegistrationPageController {
             model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
             return "registration";
         }
-
         return "redirect:/";
     }
 }

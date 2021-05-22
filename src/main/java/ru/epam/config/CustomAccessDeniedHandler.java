@@ -15,11 +15,8 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response,
-                       AccessDeniedException accessDeniedException) throws IOException, ServletException {
-//        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication != null) {
-//            LOG.warn(String.format("User [%s] attempted to access the protected URL [%s]!", authentication.getName(), request.getRequestURI()));
-//        }
+                       AccessDeniedException accessDeniedException) throws IOException {
+
 
         response.sendRedirect(request.getContextPath() + "/access_denied");
     }

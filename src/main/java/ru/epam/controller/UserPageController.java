@@ -35,18 +35,23 @@ public class UserPageController {
         return "user/user_edit";
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/change_password")
     public String changePassword(@RequestParam("userId") Long userId,
                                  @RequestParam("oldPassword") String oldPassword,
                                  @RequestParam("newPassword") String newPassword,
-                                 Model model) throws NotFoundException {
-        System.out.println();
-        if(userService.updateUserPassword(userId, oldPassword, newPassword)){
+                                 Principal principal,
+                                 Model model) {
+        UserDto user = userService.getUserDtoByLogin(principal.getName());
+        if (!(newPassword.length()>4)) {
+            model.addAttribute("user", user);
+            model.addAttribute("shortLengthtPasswordError", "Длина пароля должна быть не менее 5 символов!");
+            return "user/user_edit";
+        } else if(userService.updateUserPassword(userId, oldPassword, newPassword)){
             return "redirect:/user";
         } else {
-//            model.addAttribute("user", user);
-            return "redirect:/user/edit";
+            model.addAttribute("incorrectPasswordError", "Введен неверный пароль!");
+            model.addAttribute("user", user);
+            return "user/user_edit";
         }
     }
 

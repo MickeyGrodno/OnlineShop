@@ -180,13 +180,16 @@
                 <div id="product_buy" class="clearfix">
                     <label style="color:ForestGreen">В наличии</label>
                     <div id="product_buy" class="clearfix">
+
                         <label>Количество</label>
                         <form th:method="POST"
                               th:action="@{/cart/{productId}(productId=${product.getId()})}"
                               th:object="${productInCart}">
-                            <input type="text" size="1" min="1" th:field="*{productCount}" id="productCount"/>
+
+                            <input type="number" min="1"  max="100" value="1" th:field="*{productCount}"/>
+							&nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="submit" value="Добавить в корзину" id="add_to_cart" class="s_main_color_bgr">
-                        </form>
+                      </form>
                     </div>
                 </div>
             </div>
@@ -223,7 +226,7 @@
                                 </h2>
                                 <div id="review_title" class="clear"></div>
                                 <div class="s_row_3 clearfix">
-                                    <textarea style="width: 98%;" rows="8" th:field="*{message}"></textarea>
+                                    <textarea maxlength="500" minlength="5" style="width: 98%;" rows="8" th:field="*{message}"></textarea>
                                     <span class="clear border_ddd"></span>
                                     <span class="clear"></span>
                                 </div>

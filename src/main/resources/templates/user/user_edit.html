@@ -145,7 +145,7 @@
                         <br/>
                         <br/>
                         <label style="color:ForestGreen"><strong>Дата рождения</strong></label>
-                        <input type="date" name="calendar" th:value="${#dates.format(user.getBirthDate(), 'yyyy-MM-dd')}" max="2010-01-01" min="1920-01-01"
+                        <input type="date" name="calendar"  max="2010-01-01" min="1920-01-01"
                                th:field="*{birthDate}" id="birthDate">
                         <br/>
                         <br/>
@@ -169,11 +169,14 @@
                     <div class="s_row_3 clearfix"><br/>
                         <label style="color:ForestGreen"><strong>Старый пароль</strong></label>
                         <input type="password" size="35" class="required" name="oldPassword"/>
+                        <div style="color:red" th:if="${incorrectPasswordError!=null}" th:text="${incorrectPasswordError}">Error</div>
                         <br/>
                         <br/>
                         <label style="color:ForestGreen"><strong>Новый пароль</strong></label>
                         <input type="password" size="35" class="required" name="newPassword"/>
                         <br/>
+                        <div style="color:red" th:if="${shortLengthtPasswordError!=null}" th:text="${shortLengthtPasswordError}">Error</div>
+
                         <input type="hidden" name="userId" th:value="${user.getId()}"/>
                     </div>
                     <button class="s_button_1 s_main_color_bgr" type="submit"><span class="s_text">Изменить</span>

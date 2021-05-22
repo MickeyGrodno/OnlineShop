@@ -1,4 +1,4 @@
-package ru.epam.controller;
+package ru.epam.controller.servicecontroller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -26,18 +26,18 @@ public class AdminPageController {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
 
-    @GetMapping()
+    @GetMapping("")
     public String adminMain() {
         return "admin/main";
     }
 
     @GetMapping("/new_product")
-    public String newProduct(@ModelAttribute("product") Product product) {
+    public String newProductForm(@ModelAttribute("product") Product product) {
         return "admin/new_product";
     }
 
     @PostMapping("/new_product")
-    public String create(@ModelAttribute("product") Product product) throws SQLException {
+    public String createNewProduct(@ModelAttribute("product") Product product) throws SQLException {
         Long productId = productService.saveProduct(product);
         return "redirect:/admin/add_image/" + productId;
     }

@@ -39,9 +39,10 @@ public class ProductInCartPageController {
     @PostMapping("/{productId}")
     public String addProductInCart(@PathVariable Long productId,
                                        ProductInCart productInCartFromPage) {
+
         ProductInCart productInCart = new ProductInCart();
         productInCart.setProductId(productId);
-        if(Objects.isNull(productInCartFromPage) || productInCartFromPage.getProductCount()==0) {
+        if(productInCartFromPage.getProductCount() == null || productInCartFromPage.getProductCount()<1) {
             productInCart.setProductCount(1L);
         } else {
             productInCart.setProductCount(productInCartFromPage.getProductCount());

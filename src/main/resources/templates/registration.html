@@ -136,36 +136,34 @@
                         <br/>
                         <label><strong>Логин</strong></label>
                         <input type="text" size="35" th:field="*{login}" id="login"/>
-                        <br/>
-                        <div style="color:red" th:if="${usernameError!=null}" th:text="${usernameError}">Error</div>
-                        <br/>
+                        <br>
+                        <p style="color:red" class="clear" th:if="${usernameError!=null}" th:text="${usernameError}">Error</p>
                         <br/>
                         <label><strong>Пароль</strong></label>
                         <input type="password" size="35" class="required" th:field="*{password}" id="password"/>
                         <br/>
-                        <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</div>
+                        <p style="color:red" class="clear" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error
+                        </p>
 
-                        <br/>
-                        <br/>
                         <label><strong>Повторите пароль</strong></label>
                         <input type="password" size="35" class="required" th:field="*{passwordConfirm}"
                                id="passwordConfirm"/>
-                        <div style="color:red" th:if="${passwordError!=null}" th:text="${passwordError}">Error</div>
                         <br/>
+                        <p style="color:red" class="clear" th:if="${passwordError!=null}" th:text="${passwordError}">Error</p>
                         <br/>
                         <label><strong>Email</strong></label>
                         <input type="text" size="35" class="required" th:field="*{email}" id="email"/>
                         <br/>
-                        <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</div>
-
-                        <br/>
+                        <p style="color:red" class="clear" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</p>
                         <br/>
                         <label style="color:ForestGreen"><strong>Имя</strong></label>
-                        <input type="text" size="35" class="required" th:field="*{firstName}" id="firstName"/>
+                        <input type="text" minlength="2" maxlength="30" size="35" class="required"
+                               th:field="*{firstName}" id="firstName"/>
                         <br/>
                         <br/>
                         <label style="color:ForestGreen"><strong>Фамилия</strong></label>
-                        <input type="text" size="35" class="required" th:field="*{lastName}" id="lastName"/>
+                        <input type="text" minlength="2" maxlength="30" size="35" class="required"
+                               th:field="*{lastName}" id="lastName"/>
                         <br/>
                         <br/>
                         <label style="color:ForestGreen"><strong>Пол</strong></label>
@@ -174,8 +172,6 @@
                             <option th:value="'Женский'">Женский</option>
                         </select>
                         <br/>
-
-
                         <br/>
                         <label style="color:ForestGreen"><strong>Дата рождения</strong></label>
                         <input type="date" name="calendar" value="2010-01-01" max="2010-01-01" min="1920-01-01"
@@ -183,15 +179,23 @@
                         <br/>
                         <br/>
                         <label style="color:ForestGreen"><strong>Номер телефона</strong></label>
-                        <input type="text" size="35" class="required" th:field="*{telephone}" id="telephone"/>
+
+                        <input type="tel" size="12" minlength="12" maxlength="12" pattern="[0-9]{12}" class="required" th:field="*{telephone}"
+                               id="telephone"/>
                         <br/>
                     </div>
-                    <span class="clear border_ddd"></span>
-                    <label style="color:ForestGreen"><strong>Зеленым цветом отмечены поля не обязательные для
-                        заполнения</strong></label>
-                    <br/>
+					        <div class="clear"></div>
+                    <p><br>
+                    </p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                      <br>
+                      <span class="clear border_ddd"></span>
                     <button class="s_button_1 s_main_color_bgr" type="submit"><span
                             class="s_text">Зарегистрироваться</span></button>
+              </form>
+                <label style="color:ForestGreen"><p>Зеленым цветом отмечены поля не обязательные для
+                    заполнения</p></label>
                 </form>
             </div>
 
@@ -205,9 +209,7 @@
     <!--   S H O P   I N F O    -->
     <!-- ********************** -->
 
-    <p id="copy"> Copyright 2011. Powered by <a class="blue" href="">Open Cart</a>.<br/> <a class="s_main_color"
-                                                                                            href="http://www.shoppica.net">Shoppica
-        theme</a> made by <a href="http://www.themeburn.com">ThemeBurn.com</a></p>
+    <p id="copy"> Shabalin Sergei for EPAM course 2021<a></a><br/></a></a></p>
 </div>
 <!-- end of FOOTER -->
 

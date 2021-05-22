@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.epam.models.Product;
 import ru.epam.repositories.ProductRepository;
-import ru.epam.service.product.ProductService;
 import ru.epam.service.productincart.ProductInCartService;
 import ru.epam.service.user.UserProvider;
 
@@ -18,7 +17,6 @@ import java.util.List;
 @RequestMapping("/")
 @RequiredArgsConstructor
 public class IndexPageController {
-    private final ProductService productService;
     private final ProductInCartService productInCartService;
     private final UserProvider userProvider;
     private final ProductRepository productRepository;
@@ -30,7 +28,7 @@ public class IndexPageController {
         boolean isAuthenticated = userProvider.isAuthenticated();
         model.addAttribute("products", products);
         model.addAttribute("isAuthenticated", isAuthenticated);
-        if(isAuthenticated) {
+        if (isAuthenticated) {
             Long totalPriceAllProducts = productInCartService.getTotalPriceAllProductsInCart();
             model.addAttribute("totalPriceAllProducts", totalPriceAllProducts);
             model.addAttribute("userRole", userProvider.getUserRole());
@@ -45,7 +43,7 @@ public class IndexPageController {
         boolean isAuthenticated = userProvider.isAuthenticated();
         model.addAttribute("products", products);
         model.addAttribute("isAuthenticated", isAuthenticated);
-        if(isAuthenticated) {
+        if (isAuthenticated) {
             Long totalPriceAllProducts = productInCartService.getTotalPriceAllProductsInCart();
             model.addAttribute("totalPriceAllProducts", totalPriceAllProducts);
             model.addAttribute("userRole", userProvider.getUserRole());

@@ -36,7 +36,7 @@
             <a id="site_logo" href="/">Shoppica store - Premium e-Commerce Theme</a>
             <div id="system_navigation" class="s_nav">
                 <ul class="s_list_1 clearfix">
-                    <li><a href="/">Home</a></li>
+                    <li><a href="/">На главную</a></li>
                     <li><a href="/login">Log In</a></li>
                     <li><a href="/registration">Регистрация</a></li>
                 </ul>
@@ -138,6 +138,8 @@
             <label><strong>Password:</strong></label>
             <input type="password" name="password" size="35" class="required" />
             <br />
+              </br>
+              <div style="color:red" th:if="${error!=null}" th:text="${error}">Error</div>
           </div>
           <span class="clear border_ddd"></span>
           <br />
