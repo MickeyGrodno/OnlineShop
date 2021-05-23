@@ -1,6 +1,7 @@
 package ru.epam.service.comment;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import ru.epam.dto.CommentDto;
 import ru.epam.models.Comment;
@@ -9,9 +10,12 @@ import ru.epam.repositories.CommentRepository;
 import ru.epam.repositories.UserRepository;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
@@ -21,6 +25,7 @@ public class CommentServiceImpl implements CommentService {
     public void saveComment(Comment comment) {
         comment.setDate(LocalDateTime.now());
         commentRepository.save(comment);
+        log.info("The comment was saved in the database.");
     }
 
     public List<CommentDto> getCommentsDtoByProductId(Long id) {
@@ -41,6 +46,7 @@ public class CommentServiceImpl implements CommentService {
             resultDtos.add(dto);
         }
         resultDtos.sort(Comparator.comparing(CommentDto::getDate).reversed());
+        log.info("Comments have been successfully converted to commentDto and sorted.");
         return resultDtos;
     }
 

@@ -23,7 +23,7 @@ public class CommentPageController {
         comment.setUserId(userId);
         comment.setProductId(productId);
         commentService.saveComment(comment);
-            return "redirect:/product/"+comment.getProductId();
+        return "redirect:/product/" + comment.getProductId();
 
     }
 }

@@ -3,10 +3,6 @@ package ru.epam.dto;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Transient;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Data

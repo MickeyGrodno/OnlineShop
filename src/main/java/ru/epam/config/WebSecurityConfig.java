@@ -12,11 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.access.AccessDeniedHandlerImpl;
-import org.springframework.security.web.access.ExceptionTranslationFilter;
-
-import java.security.Principal;
-import java.security.Provider;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -24,6 +20,7 @@ import java.security.Provider;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService customDetailsService;
     private final AccessDeniedHandler accessDeniedHandler;
+    private final AuthenticationFailureHandler authenticationFailureHandler;
 
 
     @Bean
@@ -42,13 +39,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/registration").not().fullyAuthenticated()
-                .antMatchers("/**","/product/**", "/image/**").permitAll()
+                .antMatchers("/**", "/product/**", "/image/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .failureUrl("/login_error")
+                .failureHandler(authenticationFailureHandler)
                 .defaultSuccessUrl("/", true)
                 .permitAll()
                 .and()

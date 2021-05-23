@@ -1,11 +1,11 @@
 package ru.epam.service.product;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ru.epam.config.MyUploadForm;
-import ru.epam.models.Comment;
 import ru.epam.models.Product;
 import ru.epam.repositories.CommentRepository;
 import ru.epam.repositories.ProductInCartRepository;
@@ -14,11 +14,11 @@ import ru.epam.repositories.ProductRepository;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
-import java.util.List;
-
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -62,28 +62,34 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public byte[] getImageFromProduct(Long id) {
         Product product = productRepository.findById(id).orElse(null);
-        if(product!=null) {
+        if (product != null) {
             String imagePath = product.getImage();
             Path path = Paths.get(imagePath);
             try {
                 return Files.readAllBytes(path);
+            } catch (NoSuchFileException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         return null;
     }
+
     @Transactional
     @Override
     public void remove(Long id) {
         commentRepository.deleteAllByProductId(id);
+        log.inf
         productInCartRepository.deleteAllByProductId(id);
         productRepository.findById(id).ifPresent(product -> {
             if (product.getImage() != null) {
                 File file = new File(product.getImage());
                 if (file.delete()) {
                     System.out.println("File has been deleted");
-                } else { System.out.println("File not found"); }
+                } else {
+                    System.out.println("File not found");
+                }
                 productRepository.deleteById(id);
             } else {
                 productRepository.deleteById(id);

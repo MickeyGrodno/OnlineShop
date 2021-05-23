@@ -11,7 +11,9 @@ import java.util.List;
 
 public interface ProductInCartRepository extends JpaRepository<ProductInCart, Long> {
     List<ProductInCart> getAllByUserId(Long userId);
+
     void deleteAllByProductId(Long productId);
+
     @Transactional
     void removeAllByUserId(Long userId);
 
@@ -21,12 +23,6 @@ public interface ProductInCartRepository extends JpaRepository<ProductInCart, Lo
     void deleteByUserIdAndProductId(@Param("userId") Long userId, @Param("productId") Long productId);
 
     ProductInCart findByUserIdAndProductId(Long userId, Long productId);
-
-    @Query(nativeQuery = true, value = "select p.product_count from product_in_cart p where p.user_id=:userId")
-    Long getProductCountByUserId(@Param("userId") Long userId);
-
-    @Query(nativeQuery = true, value = "select p.total_price from product_in_cart p where p.user_id=:userId")
-    List<Long> getProductInCartTotalPricesByUserId(@Param("userId")Long userId);
 
     @Query(nativeQuery = true, value = "select * from product_in_cart p where p.user_id=:userId")
     List<ProductInCart> findAllByUserId(Long userId);

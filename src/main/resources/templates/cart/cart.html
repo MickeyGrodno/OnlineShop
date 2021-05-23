@@ -166,7 +166,8 @@
             <br/>
 
             <a class="s_button_1 s_ddd_bgr left" href="../"><span class="s_text">Продолжить покупки</span></a>
-            <a class="s_button_1 s_main_color_bgr" href="../order/create_order"><span
+            <a th:if="${productsInCartByCartId.size()!=0}" class="s_button_1 s_main_color_bgr"
+               href="../order/create_order"><span
                     class="s_text">Оформить заказ</span></a>
 
         </div>

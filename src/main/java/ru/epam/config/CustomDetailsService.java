@@ -12,7 +12,6 @@ import ru.epam.repositories.UserRepository;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -25,7 +24,7 @@ public class CustomDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(final String login) throws UsernameNotFoundException {
 
-        User user = userRepository.findUserByLogin(login);
+        User user = userRepository.getUserByLogin(login);
         if(user!=null) {
             GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().toUpperCase());
             List<GrantedAuthority> authorities = new ArrayList<>();

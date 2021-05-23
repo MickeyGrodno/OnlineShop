@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en" xml:lang="en"
-      xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Your Store</title>
@@ -121,7 +121,7 @@
                 <div th:each="order : ${orders}" class="grid_4">
                     <div class="s_order clearfix">
                         <p class="s_id"><span class="s_999">Заказ: </span> <span class="s_main_color"
-                                                                                   th:text="'#'+${order.getId()}">Order Id</span>
+                                                                                 th:text="'#'+${order.getId()}">Order Id</span>
                         </p>
                         <p th:if="${order.isHasBeenPaid()}" class="s_status s_secondary_color" style="color:green">
                             Оплачено</p>
@@ -133,8 +133,6 @@
                             <dd th:text="${#dates.format(order.getDate(), 'dd MMM yyyy')}">Дата</dd>
                             <dt>Адрес доставки::</dt>
                             <dd th:text="${order.getAddress()}">Адрес</dd>
-                            <!--                            <dt>Products::</dt>-->
-                            <!--                            <dd>1</dd>-->
                         </dl>
                         <span class="clear border_eee"></span>
                         <br/>

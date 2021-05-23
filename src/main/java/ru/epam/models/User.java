@@ -32,11 +32,11 @@ public class User {
     @Column(name = "birth_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
-    @Size(min=2, max=30, message = "Длинна логина должна быть от 2 до 30 символов!")
+    @Size(min = 2, max = 30, message = "Длинна логина должна быть от 2 до 30 символов!")
     @NotEmpty(message = "Поле 'Логин' не может быть пустым!")
     @Column(name = "login")
     private String login;
-    @Size(min=5, message = "Длинна пароля не может быть меньше 5 символов!")
+    @Size(min = 5, message = "Длинна пароля не может быть меньше 5 символов!")
     @Column(name = "password")
     private String password;
     @Transient

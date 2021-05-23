@@ -1,6 +1,8 @@
 package ru.epam.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +14,9 @@ import ru.epam.repositories.ProductRepository;
 import ru.epam.repositories.UserRepository;
 import ru.epam.service.product.ProductService;
 
-import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-
 @Controller
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("/admin")
@@ -37,19 +37,19 @@ public class AdminPageController {
     }
 
     @PostMapping("/new_product")
-    public String createNewProduct(@ModelAttribute("product") Product product) throws SQLException {
+    public String createNewProduct(@ModelAttribute("product") Product product) {
         Long productId = productService.saveProduct(product);
         return "redirect:/admin/add_image/" + productId;
     }
 
-    @GetMapping( "/add_image/*")
+    @GetMapping("/add_image/*")
     public String uploadOneFileHandler(Model model) {
         MyUploadForm myUploadForm = new MyUploadForm();
         model.addAttribute("myUploadForm", myUploadForm);
         return "admin/add_product_image";
     }
 
-    @PostMapping( "/add_image/{id}")
+    @PostMapping("/add_image/{id}")
     public String uploadImage(@PathVariable("id") Long id, Model model,
                               @ModelAttribute("myUploadForm") MyUploadForm myUploadForm) {
         String description = productService.doUpload(myUploadForm, id);

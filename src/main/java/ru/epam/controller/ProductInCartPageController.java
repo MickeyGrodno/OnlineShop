@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.epam.dto.ProductInCartDto;
 import ru.epam.models.ProductInCart;
 import ru.epam.repositories.ProductInCartRepository;
@@ -14,7 +17,6 @@ import ru.epam.service.user.UserService;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
@@ -22,7 +24,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ProductInCartPageController {
     private final ProductInCartService productInCartService;
-    private final UserService userService;
     private final UserRepository userRepository;
     private final ProductInCartRepository productInCartRepository;
 
@@ -38,11 +39,11 @@ public class ProductInCartPageController {
 
     @PostMapping("/{productId}")
     public String addProductInCart(@PathVariable Long productId,
-                                       ProductInCart productInCartFromPage) {
+                                   ProductInCart productInCartFromPage) {
 
         ProductInCart productInCart = new ProductInCart();
         productInCart.setProductId(productId);
-        if(productInCartFromPage.getProductCount() == null || productInCartFromPage.getProductCount()<1) {
+        if (productInCartFromPage.getProductCount() == null || productInCartFromPage.getProductCount() < 1) {
             productInCart.setProductCount(1L);
         } else {
             productInCart.setProductCount(productInCartFromPage.getProductCount());
@@ -53,7 +54,7 @@ public class ProductInCartPageController {
 
     @GetMapping("/{productId}")
     public String addProductInCartFast(@PathVariable Long productId,
-                                   Principal principal) {
+                                       Principal principal) {
         Long userId = userRepository.getIdByLogin(principal.getName());
         ProductInCart productInCart = new ProductInCart();
         productInCart.setUserId(userId);

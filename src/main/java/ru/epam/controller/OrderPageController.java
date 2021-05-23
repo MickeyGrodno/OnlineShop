@@ -10,12 +10,10 @@ import ru.epam.dto.ProductInCartDto;
 import ru.epam.models.Order;
 import ru.epam.models.OrderInfo;
 import ru.epam.repositories.OrderInfoRepository;
-import ru.epam.repositories.ProductInCartRepository;
 import ru.epam.repositories.UserRepository;
 import ru.epam.service.order.OrderService;
 import ru.epam.service.productincart.ProductInCartService;
 import ru.epam.service.user.UserProvider;
-import ru.epam.service.user.UserService;
 
 import java.security.Principal;
 import java.sql.SQLException;
@@ -32,14 +30,14 @@ public class OrderPageController {
     private final UserRepository userRepository;
     private final OrderInfoRepository orderInfoRepository;
 
-    @GetMapping( "")
+    @GetMapping("")
     public String mainPage(Model model) {
         List<Order> orders = orderService.getAllOrders();
         model.addAttribute("orders", orders);
         return "order/orders";
     }
 
-    @GetMapping( "/order_info{orderId}")
+    @GetMapping("/order_info{orderId}")
     public String mainPage(@PathVariable("orderId") Long orderId, Model model) {
         List<OrderInfo> ordersInfo = orderInfoRepository.findAllByOrderId(orderId);
         Long totalOrderPrice = ordersInfo.stream().mapToLong(OrderInfo::getTotalPrice).sum();
@@ -49,21 +47,21 @@ public class OrderPageController {
         return "order/order_info";
     }
 
-    @GetMapping( "/create_order")
+    @GetMapping("/create_order")
     public String mainPage(@ModelAttribute("order") Order order,
                            @ModelAttribute("orderInfo") OrderInfo orderInfo,
                            Model model) {
         boolean isAuthenticated = userProvider.isAuthenticated();
         model.addAttribute("principal", userProvider.getUserName());
         model.addAttribute("isAuthenticated", isAuthenticated);
-        if(isAuthenticated) {
+        if (isAuthenticated) {
             Long totalPriceAllProducts = productInCartService.getTotalPriceAllProductsInCart();
             model.addAttribute("totalPriceAllProducts", totalPriceAllProducts);
         }
         return "order/create_order";
     }
 
-    @PostMapping( "/create_order")
+    @PostMapping("/create_order")
     public String create(@ModelAttribute("order") Order order, Principal principal) throws SQLException {
         Long userId = userRepository.getIdByLogin(principal.getName());
         List<ProductInCartDto> productsInCartByCartId = productInCartService.getProductsInCartByCartId(userId);
@@ -73,14 +71,15 @@ public class OrderPageController {
         orderService.saveOrderAndOrderInfo(order);
         return "redirect:../";
     }
-    @PostMapping( "/pay")
+
+    @PostMapping("/pay")
     public String payOrder(@RequestParam("orderId") Long orderId) {
         orderService.payOrder(orderId);
         return "redirect:/order";
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping( "/all_orders")
+    @GetMapping("/all_orders")
     public String showAllUserOrdersForAdmin(Model model) {
         List<OrderDto> orderDtos = orderService.getAllOrdersWithUserLogin();
         model.addAttribute("orderDtos", orderDtos);

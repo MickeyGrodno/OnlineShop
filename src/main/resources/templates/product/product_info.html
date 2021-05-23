@@ -144,8 +144,8 @@
             </div>
             <div id="product_info" class="grid_4">
                 </br>
-                <p class="s_price s_promo_price" ></br><span th:text="${product.getPrice()+' $'}"></span> <span
-                        class="s_currency s_after" ></span></p>
+                <p class="s_price s_promo_price"></br><span th:text="${product.getPrice()+' $'}"></span> <span
+                        class="s_currency s_after"></span></p>
                 <dl class="clearfix">
                     <dt>Название:</dt>
                     <dd th:text="${product.getName()}">Название продукта</dd>
@@ -186,10 +186,10 @@
                               th:action="@{/cart/{productId}(productId=${product.getId()})}"
                               th:object="${productInCart}">
 
-                            <input type="number" min="1"  max="100" value="1" th:field="*{productCount}"/>
-							&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="number" min="1" max="100" value="1" th:field="*{productCount}"/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="submit" value="Добавить в корзину" id="add_to_cart" class="s_main_color_bgr">
-                      </form>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -226,7 +226,8 @@
                                 </h2>
                                 <div id="review_title" class="clear"></div>
                                 <div class="s_row_3 clearfix">
-                                    <textarea maxlength="500" minlength="5" style="width: 98%;" rows="8" th:field="*{message}"></textarea>
+                                    <textarea maxlength="500" minlength="5" style="width: 98%;" rows="8"
+                                              th:field="*{message}"></textarea>
                                     <span class="clear border_ddd"></span>
                                     <span class="clear"></span>
                                 </div>

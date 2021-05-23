@@ -1,17 +1,17 @@
 package ru.epam.service.order;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.epam.dto.OrderDto;
-import ru.epam.dto.UserDto;
 import ru.epam.models.*;
 import ru.epam.repositories.*;
 import ru.epam.service.user.UserProvider;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
@@ -44,11 +44,13 @@ public class OrderServiceImpl implements OrderService {
             allOrderInfo.add(orderInfo);
         }
         Order savedOrder = orderRepository.saveAndFlush(order);
-
+        log.info("Order #{} have been successfully saved.", savedOrder.getId());
         allOrderInfo.forEach(a -> a.setOrderId(savedOrder.getId()));
 
         orderInfoRepository.saveAll(allOrderInfo);
+        log.info("Successfully saved all orderInfo order #"+ savedOrder.getId());
         productInCartRepository.removeAllByUserId(order.getUserId());
+        log.info("Successfully emptied the shopping cart of user #"+order.getUserId());
         return savedOrder.getId();
     }
 
@@ -56,7 +58,9 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getAllOrders() {
         String login = userProvider.getUserName();
         Long userId = userRepository.getIdByLogin(login);
-        return orderRepository.findAllByUserId(userId);
+        List<Order> allOrders = orderRepository.findAllByUserId(userId);
+        log.info("User № {} orders uploaded successfully", userId);
+        return allOrders;
     }
 
     @Transactional
@@ -64,11 +68,14 @@ public class OrderServiceImpl implements OrderService {
     public void payOrder(Long id) {
         Order order = orderRepository.findById(id).orElse(null);
         order.setHasBeenPaid(true);
+        log.info("Order # {} status has been changed to \"Paid\".", order.getId());
         orderRepository.saveAndFlush(order);
+        log.info("Order # {} is saved.");
     }
 
     public List<OrderDto> getAllOrdersWithUserLogin() {
         List<Order> allOrders = orderRepository.findAll();
+        log.info("All orders have been loaded.");
         Set<Long> usersId = allOrders.stream().map(Order::getUserId).collect(Collectors.toSet());
         List<User> users = userRepository.findAllById(usersId);
         Map<Long, User> userMap = users.stream().collect(Collectors.toMap(User::getId, user -> user));
@@ -87,6 +94,7 @@ public class OrderServiceImpl implements OrderService {
             allOrdersWithUserLogin.add(orderDto);
         }
         allOrdersWithUserLogin.sort(Comparator.comparing(OrderDto::getDate));
+        log.info("Received all orderDto and sorted by creation date.");
         return allOrdersWithUserLogin;
     }
 }

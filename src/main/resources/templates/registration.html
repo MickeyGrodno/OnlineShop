@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en" xml:lang="en"
-      xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Your Store</title>
@@ -135,26 +135,31 @@
 
                         <br/>
                         <label><strong>Логин</strong></label>
-                        <input type="text" size="35" th:field="*{login}" id="login"/>
+                        <input type="text" required size="35" th:field="*{login}" id="login"/>
                         <br>
-                        <p style="color:red" class="clear" th:if="${usernameError!=null}" th:text="${usernameError}">Error</p>
+                        <p style="color:red" class="clear" th:if="${usernameError!=null}" th:text="${usernameError}">
+                            Error</p>
                         <br/>
                         <label><strong>Пароль</strong></label>
-                        <input type="password" size="35" class="required" th:field="*{password}" id="password"/>
+                        <input type="password" required size="35" class="required" th:field="*{password}"
+                               id="password"/>
                         <br/>
-                        <p style="color:red" class="clear" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error
+                        <p style="color:red" class="clear" th:if="${#fields.hasErrors('password')}"
+                           th:errors="*{password}">Error
                         </p>
 
                         <label><strong>Повторите пароль</strong></label>
-                        <input type="password" size="35" class="required" th:field="*{passwordConfirm}"
+                        <input type="password" required size="35" class="required" th:field="*{passwordConfirm}"
                                id="passwordConfirm"/>
                         <br/>
-                        <p style="color:red" class="clear" th:if="${passwordError!=null}" th:text="${passwordError}">Error</p>
+                        <p style="color:red" class="clear" th:if="${passwordError!=null}" th:text="${passwordError}">
+                            Error</p>
                         <br/>
                         <label><strong>Email</strong></label>
-                        <input type="text" size="35" class="required" th:field="*{email}" id="email"/>
+                        <input type="email" required size="35" class="required" th:field="*{email}" id="email"/>
                         <br/>
-                        <p style="color:red" class="clear" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</p>
+                        <p style="color:red" class="clear" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                            Error</p>
                         <br/>
                         <label style="color:ForestGreen"><strong>Имя</strong></label>
                         <input type="text" minlength="2" maxlength="30" size="35" class="required"
@@ -180,20 +185,21 @@
                         <br/>
                         <label style="color:ForestGreen"><strong>Номер телефона</strong></label>
 
-                        <input type="tel" size="12" minlength="12" maxlength="12" pattern="[0-9]{12}" class="required" th:field="*{telephone}"
+                        <input type="tel" size="12" minlength="12" maxlength="12" pattern="[0-9]{12}" class="required"
+                               th:field="*{telephone}"
                                id="telephone"/>
                         <br/>
                     </div>
-					        <div class="clear"></div>
+                    <div class="clear"></div>
                     <p><br>
                     </p>
                     <p>&nbsp;</p>
                     <p>&nbsp;</p>
-                      <br>
-                      <span class="clear border_ddd"></span>
+                    <br>
+                    <span class="clear border_ddd"></span>
                     <button class="s_button_1 s_main_color_bgr" type="submit"><span
                             class="s_text">Зарегистрироваться</span></button>
-              </form>
+                </form>
                 <label style="color:ForestGreen"><p>Зеленым цветом отмечены поля не обязательные для
                     заполнения</p></label>
                 </form>

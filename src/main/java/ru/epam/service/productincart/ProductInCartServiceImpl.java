@@ -74,12 +74,10 @@ public class ProductInCartServiceImpl implements ProductInCartService {
                 .stream()
                 .collect(Collectors.toMap(Product::getId, Product::getPrice));
 
-        Long totalPrice = userProductsInCart
+        return userProductsInCart
                 .stream()
                 .map(a -> a.getProductCount() * productIdToPrice.get(a.getProductId()))
                 .mapToLong(Long::longValue)
                 .sum();
-
-        return totalPrice;
     }
 }

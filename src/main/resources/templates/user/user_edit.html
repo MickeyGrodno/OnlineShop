@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en" xml:lang="en"
-      xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Your Store</title>
@@ -138,14 +138,14 @@
                         <br/>
                         <br/>
                         <label style="color:ForestGreen"><strong>Пол</strong></label>
-                        <select style="width: 150px;"  name="gender" th:field="*{gender}">
+                        <select style="width: 150px;" name="gender" th:field="*{gender}">
                             <option th:value="'Мужской'">Мужской</option>
                             <option th:value="'Женский'">Женский</option>
                         </select>
                         <br/>
                         <br/>
                         <label style="color:ForestGreen"><strong>Дата рождения</strong></label>
-                        <input type="date" name="calendar"  max="2010-01-01" min="1920-01-01"
+                        <input type="date" name="calendar" max="2010-01-01" min="1920-01-01"
                                th:field="*{birthDate}" id="birthDate">
                         <br/>
                         <br/>
@@ -169,13 +169,17 @@
                     <div class="s_row_3 clearfix"><br/>
                         <label style="color:ForestGreen"><strong>Старый пароль</strong></label>
                         <input type="password" size="35" class="required" name="oldPassword"/>
-                        <div style="color:red" th:if="${incorrectPasswordError!=null}" th:text="${incorrectPasswordError}">Error</div>
+                        <div style="color:red" th:if="${incorrectPasswordError!=null}"
+                             th:text="${incorrectPasswordError}">Error
+                        </div>
                         <br/>
                         <br/>
                         <label style="color:ForestGreen"><strong>Новый пароль</strong></label>
                         <input type="password" size="35" class="required" name="newPassword"/>
                         <br/>
-                        <div style="color:red" th:if="${shortLengthtPasswordError!=null}" th:text="${shortLengthtPasswordError}">Error</div>
+                        <div style="color:red" th:if="${shortLengthtPasswordError!=null}"
+                             th:text="${shortLengthtPasswordError}">Error
+                        </div>
 
                         <input type="hidden" name="userId" th:value="${user.getId()}"/>
                     </div>
@@ -194,9 +198,9 @@
     <!--   S H O P   I N F O    -->
     <!-- ********************** -->
 
-    <p id="copy"> Copyright 2011. Powered by <a class="blue" href="">Open Cart</a>.<br/> <a class="s_main_color"
-                                                                                            href="http://www.shoppica.net">Shoppica
-        theme</a> made by <a href="http://www.themeburn.com">ThemeBurn.com</a></p>
+    <p id="copy"> Grodno 2021<a class="blue" href=""></a>.<br/> <a class="s_main_color"
+                                                                   href="http://www.shoppica.net">
+    </a> <a href="http://www.themeburn.com"></a></p>
 </div>
 <!-- end of FOOTER -->
 

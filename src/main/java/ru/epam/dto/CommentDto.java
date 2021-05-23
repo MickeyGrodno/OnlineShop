@@ -2,9 +2,7 @@ package ru.epam.dto;
 
 import lombok.Data;
 
-import javax.persistence.Column;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 public class CommentDto {

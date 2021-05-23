@@ -4,22 +4,22 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.epam.dto.CommentDto;
 import ru.epam.models.Comment;
 import ru.epam.models.Product;
 import ru.epam.models.ProductInCart;
 import ru.epam.models.ProductType;
-import ru.epam.repositories.ProductInCartRepository;
 import ru.epam.repositories.ProductRepository;
 import ru.epam.repositories.ProductTypeRepository;
 import ru.epam.repositories.UserRepository;
 import ru.epam.service.comment.CommentService;
 import ru.epam.service.product.ProductService;
 import ru.epam.service.productincart.ProductInCartService;
-import ru.epam.service.producttype.ProductTypeService;
 import ru.epam.service.user.UserProvider;
-import ru.epam.service.user.UserService;
 
 import java.security.Principal;
 import java.util.List;
@@ -53,7 +53,7 @@ public class ProductPageController {
         Product product = productRepository.findById(productId).orElse(null);
         ProductType productType = productTypeRepository.findById(product.getProductTypeId()).orElse(null);
         List<CommentDto> commentsDto = commentService.getCommentsDtoByProductId(productId);
-        if(isAuthenticated) {
+        if (isAuthenticated) {
             Long totalPriceAllProducts = productInCartService.getTotalPriceAllProductsInCart();
             Long userId = userRepository.getIdByLogin(principal.getName());
             Comment comment = new Comment();

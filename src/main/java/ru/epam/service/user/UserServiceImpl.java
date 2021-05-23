@@ -20,22 +20,12 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final UserProvider userProvider;
-    private final ProductInCartRepository productInCartRepository;
     private final OrderRepository orderRepository;
     private final CommentRepository commentRepository;
     private final OrderInfoRepository orderInfoRepository;
 
-//    public User getUserByLogin(String login) {
-//        return userRepository.findUserByLogin(login);
-//    }
-
-    @Override
-//    public List<User> getAllUsers() {
-//        return userRepository.findAll();
-//    }
-
     public boolean saveUser(User user) {
-        User userFromDB = userRepository.findUserByLogin(user.getLogin());
+        User userFromDB = userRepository.getUserByLogin(user.getLogin());
         if (userFromDB != null) {
             return false;
         }
@@ -60,7 +50,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void updateUser(UserDto userDto, String login) {
-        User userFromDB = userRepository.findUserByLogin(login);
+        User userFromDB = userRepository.getUserByLogin(login);
         userFromDB.setFirstName(userDto.getFirstName());
         userFromDB.setLastName(userDto.getLastName());
         userFromDB.setGender(userDto.getGender());
@@ -69,10 +59,6 @@ public class UserServiceImpl implements UserService {
         userFromDB.setBirthDate(userDto.getBirthDate());
         userRepository.save(userFromDB);
     }
-
-//    public String getUserRoleById(Long id) {
-//        return userRepository.getRoleById(id);
-//    }
 
     @Override
     @Transactional
@@ -86,7 +72,7 @@ public class UserServiceImpl implements UserService {
         Roles authorizedUserRole = Roles.valueOf(authorizedUserRoleString);
 
         User updatedUser = userRepository.findById(id).orElse(null);
-        if (updatedUser!=null) {
+        if (updatedUser != null) {
             Roles oldUserRole = Roles.valueOf(updatedUser.getRole());
             Roles newUserRole = Roles.valueOf(newUserRoleString);
             if ((authorizedUserRole.equals(Roles.ROLE_SUPERADMIN) && !oldUserRole.equals(Roles.ROLE_SUPERADMIN))) {
@@ -107,7 +93,7 @@ public class UserServiceImpl implements UserService {
     public boolean updateUserPassword(Long id, String oldPassword, String newPassword) {
         User user = userRepository.findById(id).get();
         String encodedOldPasswordFromDB = user.getPassword();
-        if(passwordEncoder.matches(oldPassword, encodedOldPasswordFromDB)) {
+        if (passwordEncoder.matches(oldPassword, encodedOldPasswordFromDB)) {
 
             user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
@@ -127,13 +113,4 @@ public class UserServiceImpl implements UserService {
         orderRepository.deleteAllByUserId(id);
         userRepository.deleteById(id);
     }
-
-//    public boolean deleteUser(Long userId) {
-//        if (userRepository.findById(userId).isPresent()) {
-//            userRepository.deleteById(userId);
-//            return true;
-//        }
-//        return false;
-//    }
-
 }

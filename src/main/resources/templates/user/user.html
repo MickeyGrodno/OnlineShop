@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en" xml:lang="en"
-      xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Your Store</title>
@@ -124,7 +124,7 @@
 
         <div id="login_page" style="display: inline-block;" class="grid_16">
             <div class="grid_8 alpha">
-                <h2 class="s_title_1"><span class="s_secondary_color">Данные пользователя &nbsp;</span> </h2>
+                <h2 class="s_title_1"><span class="s_secondary_color">Данные пользователя &nbsp;</span></h2>
                 <h2 th:text="${'  '+user.getLogin()}"></h2>
                 <div class="s_row_3 clearfix"><br/>
 
@@ -139,7 +139,8 @@
                     <label><strong th:text="${user.getGender()}">Пол</strong></label>
                     <br/>
                     <label style="color:ForestGreen"><strong>Дата рождения</strong></label>
-                    <label th:text="${#dates.format(user.getBirthDate(), 'yyyy-MM-dd')}"><strong th:text="${#dates.format(user.getBirthDate(), 'yyyy-MM-dd')}">Дата рождения</strong></label>
+                    <label th:text="${#dates.format(user.getBirthDate(), 'yyyy-MM-dd')}"><strong
+                            th:text="${#dates.format(user.getBirthDate(), 'yyyy-MM-dd')}">Дата рождения</strong></label>
                     <br/>
                     <label style="color:ForestGreen"><strong>Email</strong></label>
                     <label><strong th:text="${user.getEmail()}">Email</strong></label>
@@ -158,10 +159,10 @@
                 <br/>
                 <br/>
                 <br/>
-                <a class="s_button_1 s_main_color_bgr" href="/order" type="submit"><span class="s_text">Просмотр заказов</span></a>
+                <a class="s_button_1 s_main_color_bgr" href="/order" type="submit"><span
+                        class="s_text">Просмотр заказов</span></a>
                 <a class="s_button_1 s_main_color_bgr" href="/user/edit" type="submit"><span class="s_text">Редактировать</span></a>
             </div>
-
 
 
             <div class="clear"></div>
@@ -173,9 +174,9 @@
     <!--   S H O P   I N F O    -->
     <!-- ********************** -->
 
-    <p id="copy"> Copyright 2011. Powered by <a class="blue" href="">Open Cart</a>.<br/> <a class="s_main_color"
-                                                                                            href="http://www.shoppica.net">Shoppica
-        theme</a> made by <a href="http://www.themeburn.com">ThemeBurn.com</a></p>
+    <p id="copy"><a class="blue" href=""></a>Grodno 2021<br/> <a class="s_main_color"
+                                                                 href="http://www.shoppica.net">
+    </a><a href="http://www.themeburn.com"></a></p>
 </div>
 <!-- end of FOOTER -->
 
