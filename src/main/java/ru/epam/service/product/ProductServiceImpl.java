@@ -31,6 +31,7 @@ public class ProductServiceImpl implements ProductService {
         Date date = new Date();
         product.setPublicationDate(date);
         Product savedProduct = productRepository.saveAndFlush(product);
+        log.info("Product saved with a #"+savedProduct.getId());
         return savedProduct.getId();
     }
 
@@ -46,7 +47,8 @@ public class ProductServiceImpl implements ProductService {
             try {
                 Files.write(Paths.get(fileName), fileData.getBytes());
                 updateImagePath(id, fileName);
-            } catch (Exception ignored) {
+            } catch (IOException e) {
+                log.error("Failed to load file.", e);
             }
         }
         return description;
@@ -57,6 +59,7 @@ public class ProductServiceImpl implements ProductService {
             product.setImage(fileName);
             productRepository.saveAndFlush(product);
         });
+        log.info("Image URL added to the product.");
     }
 
     @Override
@@ -67,9 +70,8 @@ public class ProductServiceImpl implements ProductService {
             Path path = Paths.get(imagePath);
             try {
                 return Files.readAllBytes(path);
-            } catch (NoSuchFileException e) {
-                e.printStackTrace();
             } catch (IOException e) {
+                log.error("Failed to load image. Check the image address.", e);
                 e.printStackTrace();
             }
         }
@@ -80,19 +82,22 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void remove(Long id) {
         commentRepository.deleteAllByProductId(id);
-        log.inf
+        log.info("Removed all product comments #"+id);
         productInCartRepository.deleteAllByProductId(id);
+        log.info("Removed all # {} products from shopping carts", id);
         productRepository.findById(id).ifPresent(product -> {
             if (product.getImage() != null) {
                 File file = new File(product.getImage());
                 if (file.delete()) {
-                    System.out.println("File has been deleted");
+                    log.info("Product # {} image deleted successfully", id);
                 } else {
-                    System.out.println("File not found");
+                    log.info("Product # {} image not found", id);
                 }
                 productRepository.deleteById(id);
+                log.info("Product # {} deleted successfully", id);
             } else {
                 productRepository.deleteById(id);
+                log.info("Product # {} deleted successfully", id);
             }
         });
     }

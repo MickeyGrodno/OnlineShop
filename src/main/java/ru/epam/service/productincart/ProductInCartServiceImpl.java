@@ -1,6 +1,7 @@
 package ru.epam.service.productincart;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import ru.epam.dto.ProductInCartDto;
 import ru.epam.models.Product;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class ProductInCartServiceImpl implements ProductInCartService {
@@ -35,13 +36,16 @@ public class ProductInCartServiceImpl implements ProductInCartService {
             productInCartRepository.saveAndFlush(productInCartFromDB);
         } else {
             productInCartRepository.saveAndFlush(productInCart);
+            log.info("The product is saved in the database.");
         }
     }
 
     public List<ProductInCartDto> getProductsInCartByCartId(Long userId) {
         List<ProductInCart> allUserProducts = productInCartRepository.getAllByUserId(userId);
+        log.info("All items in the user #{} basket have been loaded.", userId);
         List<Long> productsId = allUserProducts.stream().map(ProductInCart::getProductId).collect(Collectors.toList());
         List<Product> products = productRepository.findAllById(productsId);
+        log.info("All products have been loaded.");
         Map<Long, Product> productMap = products.stream().collect(Collectors.toMap(Product::getId, product -> product));
         List<ProductInCartDto> resultDtos = new ArrayList<>();
 
@@ -63,13 +67,16 @@ public class ProductInCartServiceImpl implements ProductInCartService {
     public Long getTotalPriceAllProductsInCart() {
         String login = userProvider.getUserName();
         Long userId = userRepository.getIdByLogin(login);
+        log.info("All items in the user #{} cart have been loaded.", userId);
         List<ProductInCart> userProductsInCart = productInCartRepository.findAllByUserId(userId);
+        log.info("All items in cart by user #{} have been loaded.", userId);
         Set<Long> productIds = userProductsInCart
                 .stream()
                 .map(ProductInCart::getProductId)
                 .collect(Collectors.toSet());
 
         List<Product> products = productRepository.findAllById(productIds);
+        log.info("All products has been loaded by ID.");
         Map<Long, Long> productIdToPrice = products
                 .stream()
                 .collect(Collectors.toMap(Product::getId, Product::getPrice));
