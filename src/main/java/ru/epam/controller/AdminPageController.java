@@ -18,7 +18,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 @Controller
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERADMIN')")
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminPageController {

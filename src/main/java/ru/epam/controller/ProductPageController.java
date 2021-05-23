@@ -37,7 +37,7 @@ public class ProductPageController {
     private final ProductRepository productRepository;
     private final ProductInCartService productInCartService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERADMIN')")
     @PostMapping("/remove/product/{id}")
     public String remove(@PathVariable("id") Long id) {
         productService.remove(id);

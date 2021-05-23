@@ -15,7 +15,7 @@ import ru.epam.service.user.UserService;
 import java.security.Principal;
 
 @Controller
-@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER', 'ROLE_SUPERADMIN')")
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserPageController {
@@ -61,7 +61,7 @@ public class UserPageController {
         return "redirect:/user";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN' ,'ROLE_SUPERADMIN')")
     @PostMapping("/update_role")
     public String updateUserRole(@RequestParam("userId") Long id,
                                  @RequestParam("role") String role) throws NotFoundException {
@@ -69,7 +69,7 @@ public class UserPageController {
         return "redirect:/admin/all_users";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERADMIN')")
     @PostMapping("/delete")
     public String deleteUser(@RequestParam("userId") Long id,
                                  @RequestParam("role") String role) {

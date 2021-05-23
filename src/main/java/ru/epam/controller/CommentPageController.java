@@ -10,7 +10,7 @@ import ru.epam.models.Comment;
 import ru.epam.service.comment.CommentService;
 
 @Controller
-@PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+@PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_SUPERADMIN')")
 @RequestMapping("/comment")
 @RequiredArgsConstructor
 public class CommentPageController {

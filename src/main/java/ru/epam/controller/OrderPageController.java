@@ -20,7 +20,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Controller
-@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER', 'ROLE_SUPERADMIN')")
 @RequestMapping("/order")
 @RequiredArgsConstructor
 public class OrderPageController {
@@ -78,7 +78,7 @@ public class OrderPageController {
         return "redirect:/order";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERADMIN')")
     @GetMapping("/all_orders")
     public String showAllUserOrdersForAdmin(Model model) {
         List<OrderDto> orderDtos = orderService.getAllOrdersWithUserLogin();

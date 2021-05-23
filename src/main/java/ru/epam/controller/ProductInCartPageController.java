@@ -19,7 +19,7 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER', 'ROLE_SUPERADMIN')")
 @RequestMapping("/cart")
 @RequiredArgsConstructor
 public class ProductInCartPageController {
