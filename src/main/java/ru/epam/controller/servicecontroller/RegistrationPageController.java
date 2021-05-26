@@ -26,18 +26,21 @@ public class RegistrationPageController {
 
     @PostMapping("/registration")
     public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) {
+        boolean errorIsPresent = bindingResult.hasErrors();
 
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
         if (!userForm.getPassword().equals(userForm.getPasswordConfirm())) {
             model.addAttribute("passwordError", "Пароли не совпадают");
-            return "registration";
+            errorIsPresent = true;
         }
         if (!userService.saveUser(userForm)) {
             model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-            return "registration";
+            errorIsPresent = true;
         }
-        return "redirect:/";
+
+        if(errorIsPresent) {
+            return "registration";
+        } else {
+            return "redirect:/";
+        }
     }
 }

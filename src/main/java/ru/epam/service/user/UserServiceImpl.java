@@ -120,6 +120,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteUserById(Long id) {
         List<Order> allUserOrders = orderRepository.findAllByUserId(id);
         log.info("User # {} orders loaded", id);

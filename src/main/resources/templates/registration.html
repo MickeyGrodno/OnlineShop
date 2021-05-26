@@ -147,7 +147,7 @@
                         <p style="color:red" class="clear" th:if="${#fields.hasErrors('password')}"
                            th:errors="*{password}">Error
                         </p>
-
+                        <br/>
                         <label><strong>Повторите пароль</strong></label>
                         <input type="password" required size="35" class="required" th:field="*{passwordConfirm}"
                                id="passwordConfirm"/>
@@ -185,9 +185,10 @@
                         <br/>
                         <label style="color:ForestGreen"><strong>Номер телефона</strong></label>
 
-                        <input type="tel" size="12" minlength="12" maxlength="12" pattern="[0-9]{12}" class="required"
-                               th:field="*{telephone}"
-                               id="telephone"/>
+                        <p>Телефон в формате xxxxxxxxxxxx: <input type="tel" size="12" minlength="12" maxlength="12"
+                                                                  pattern="[0-9]{12}" class="required"
+                                                                  th:field="*{telephone}"
+                                                                  id="telephone"/></p>
                         <br/>
                     </div>
                     <div class="clear"></div>

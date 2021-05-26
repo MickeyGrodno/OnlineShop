@@ -11,6 +11,7 @@ import ru.epam.service.user.UserProvider;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
 @Log4j2
 @Service
 @RequiredArgsConstructor
@@ -48,9 +49,9 @@ public class OrderServiceImpl implements OrderService {
         allOrderInfo.forEach(a -> a.setOrderId(savedOrder.getId()));
 
         orderInfoRepository.saveAll(allOrderInfo);
-        log.info("Successfully saved all orderInfo order #"+ savedOrder.getId());
+        log.info("Successfully saved all orderInfo order #" + savedOrder.getId());
         productInCartRepository.removeAllByUserId(order.getUserId());
-        log.info("Successfully emptied the shopping cart of user #"+order.getUserId());
+        log.info("Successfully emptied the shopping cart of user #" + order.getUserId());
         return savedOrder.getId();
     }
 

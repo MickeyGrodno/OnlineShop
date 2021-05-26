@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 @Log4j2
 @Service
 @RequiredArgsConstructor
@@ -67,7 +68,6 @@ public class ProductInCartServiceImpl implements ProductInCartService {
     public Long getTotalPriceAllProductsInCart() {
         String login = userProvider.getUserName();
         Long userId = userRepository.getIdByLogin(login);
-        log.info("All items in the user #{} cart have been loaded.", userId);
         List<ProductInCart> userProductsInCart = productInCartRepository.findAllByUserId(userId);
         log.info("All items in cart by user #{} have been loaded.", userId);
         Set<Long> productIds = userProductsInCart

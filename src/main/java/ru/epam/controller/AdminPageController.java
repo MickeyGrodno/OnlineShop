@@ -1,8 +1,6 @@
 package ru.epam.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +15,7 @@ import ru.epam.service.product.ProductService;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Controller
 @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERADMIN')")
 @RequestMapping("/admin")

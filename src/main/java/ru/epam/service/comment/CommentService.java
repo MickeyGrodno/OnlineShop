@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface CommentService {
     void saveComment(Comment comment);
+
     List<CommentDto> getCommentsDtoByProductId(Long id);
 }

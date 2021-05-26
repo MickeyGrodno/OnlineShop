@@ -2,18 +2,17 @@ package ru.epam.controller;
 
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.epam.dto.UserDto;
 import ru.epam.service.user.UserService;
 
 import java.security.Principal;
 
+@Log4j2
 @Controller
 @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER', 'ROLE_SUPERADMIN')")
 @RequestMapping("/user")
@@ -42,11 +41,11 @@ public class UserPageController {
                                  Principal principal,
                                  Model model) {
         UserDto user = userService.getUserDtoByLogin(principal.getName());
-        if (!(newPassword.length()>4)) {
+        if (!(newPassword.length() > 4)) {
             model.addAttribute("user", user);
             model.addAttribute("shortLengthtPasswordError", "Длина пароля должна быть не менее 5 символов!");
             return "user/user_edit";
-        } else if(userService.updateUserPassword(userId, oldPassword, newPassword)){
+        } else if (userService.updateUserPassword(userId, oldPassword, newPassword)) {
             return "redirect:/user";
         } else {
             model.addAttribute("incorrectPasswordError", "Введен неверный пароль!");
@@ -64,15 +63,19 @@ public class UserPageController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN' ,'ROLE_SUPERADMIN')")
     @PostMapping("/update_role")
     public String updateUserRole(@RequestParam("userId") Long id,
-                                 @RequestParam("role") String role) throws NotFoundException {
-        userService.updateUserRoleById(id, role);
+                                 @RequestParam("role") String role) {
+        try {
+            userService.updateUserRoleById(id, role);
+        } catch (NotFoundException e) {
+            log.error(e);
+        }
         return "redirect:/admin/all_users";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERADMIN')")
     @PostMapping("/delete")
     public String deleteUser(@RequestParam("userId") Long id,
-                                 @RequestParam("role") String role) {
+                             @RequestParam("role") String role) {
         if (!role.equals("ROLE_ADMIN")) {
             userService.deleteUserById(id);
         }

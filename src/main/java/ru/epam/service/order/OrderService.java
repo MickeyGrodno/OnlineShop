@@ -7,7 +7,10 @@ import java.util.List;
 
 public interface OrderService {
     Long saveOrderAndOrderInfo(Order order);
+
     List<Order> getAllOrders();
+
     void payOrder(Long id);
+
     List<OrderDto> getAllOrdersWithUserLogin();
 }

@@ -13,7 +13,6 @@ import ru.epam.models.ProductInCart;
 import ru.epam.repositories.ProductInCartRepository;
 import ru.epam.repositories.UserRepository;
 import ru.epam.service.productincart.ProductInCartService;
-import ru.epam.service.user.UserService;
 
 import java.security.Principal;
 import java.util.List;

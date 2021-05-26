@@ -14,10 +14,10 @@ import ru.epam.repositories.ProductRepository;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
+
 @Log4j2
 @Service
 @RequiredArgsConstructor
@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
         Date date = new Date();
         product.setPublicationDate(date);
         Product savedProduct = productRepository.saveAndFlush(product);
-        log.info("Product saved with a #"+savedProduct.getId());
+        log.info("Product saved with a #" + savedProduct.getId());
         return savedProduct.getId();
     }
 
@@ -82,7 +82,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void remove(Long id) {
         commentRepository.deleteAllByProductId(id);
-        log.info("Removed all product comments #"+id);
+        log.info("Removed all product comments #" + id);
         productInCartRepository.deleteAllByProductId(id);
         log.info("Removed all # {} products from shopping carts", id);
         productRepository.findById(id).ifPresent(product -> {
