@@ -31,14 +31,14 @@ public class OrderPageController {
     private final OrderInfoRepository orderInfoRepository;
 
     @GetMapping("")
-    public String mainPage(Model model) {
+    public String orderMainPage(Model model) {
         List<Order> orders = orderService.getAllOrders();
         model.addAttribute("orders", orders);
         return "order/orders";
     }
 
     @GetMapping("/order_info{orderId}")
-    public String mainPage(@PathVariable("orderId") Long orderId, Model model) {
+    public String showOrderInfo(@PathVariable("orderId") Long orderId, Model model) {
         List<OrderInfo> ordersInfo = orderInfoRepository.findAllByOrderId(orderId);
         Long totalOrderPrice = ordersInfo.stream().mapToLong(OrderInfo::getTotalPrice).sum();
         model.addAttribute("ordersInfo", ordersInfo);
@@ -48,7 +48,7 @@ public class OrderPageController {
     }
 
     @GetMapping("/create_order")
-    public String mainPage(@ModelAttribute("order") Order order,
+    public String createOrder(@ModelAttribute("order") Order order,
                            @ModelAttribute("orderInfo") OrderInfo orderInfo,
                            Model model) {
         boolean isAuthenticated = userProvider.isAuthenticated();
@@ -69,7 +69,7 @@ public class OrderPageController {
         order.setPrice(totalPrice);
         order.setUserId(userId);
         orderService.saveOrderAndOrderInfo(order);
-        return "redirect:../";
+        return "order/order_accepted";
     }
 
     @PostMapping("/pay")

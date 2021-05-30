@@ -6,14 +6,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Your Store</title>
     <meta name="description" content="My Store"/>
-    <link rel="stylesheet" type="text/css" href="../../static/stylesheet/960.css" data-th-href="@{/stylesheet/960.css}"
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheet/960.css"
+          data-th-href="@{/stylesheet/960.css}"
           media="all"/>
     <link rel="stylesheet" type="text/css" href="../../static/stylesheet/screen.css"
           data-th-href="@{/stylesheet/screen.css}" media="screen"/>
     <link rel="stylesheet" type="text/css" href="../../static/stylesheet/color.css"
-          data-th-href="@{/stylesheet/color.css}" media="screen"/>
+          data-th-href="@{/stylesheet/color.css}"
+          media="screen"/>
     <!--[if lt IE 9]>
-    <link rel="stylesheet" type="text/css" href="../static/stylesheet/ie.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheet/ie.css" media="screen"/>
     <![endif]-->
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
@@ -33,15 +35,7 @@
     <div id="header" class="container_12">
         <div class="grid_12">
 
-            <a id="site_logo" href="/">Shoppica store - Premium e-Commerce Theme</a>
-
-            <div id="system_navigation" class="s_nav">
-                <ul class="s_list_1 clearfix">
-                    <li><a href="/">На главную</a></li>
-                    <li><a href="/admin">Admin</a></li>
-                    <li><a href="/logout">Log out</a></li>
-                </ul>
-            </div>
+            <a id="site_logo" href="../">Shoppica store - Premium e-Commerce Theme</a>
 
             <div id="site_search">
                 <a id="show_search" href="javascript:;" title="Search:"></a>
@@ -91,7 +85,9 @@
             </div>
 
             <div id="cart_menu" class="s_nav">
-                <a href="../cart"><span class="s_icon"></span> <small class="s_text">Cart</small></a>
+                <a href="/cart"><span class="s_icon"></span> <small class="s_text">Cart</small>
+                    <span th:if="${isAuthenticated}" th:text="${'$'+totalPriceAllProducts}"
+                          class="s_grand_total s_main_color">$0.00</span></a>
                 <div class="s_submenu s_cart_holder">
                     <p class="s_mb_0">0 items</p>
                 </div>
@@ -105,11 +101,19 @@
     <!-- ********************** -->
     <!--     I N T R O          -->
     <!-- ********************** -->
-    <div id="intro">
 
+    <div id="intro">
+        <div id="intro_wrap">
+            <div class="container_12">
+                <div id="breadcrumbs" class="grid_12">
+                    <a href="/">На главную</a>
+                    &gt;
+                    <a href="/cart">Корзина</a>
+                </div>
+                <h1>Подтверждение заказа</h1>
+            </div>
+        </div>
     </div>
-    <script type="text/javascript" src="../static/js/jquery/jquery.slides.js"></script>
-    <script type="text/javascript" src="../static/js/shoppica.products_slide.js"></script>
     <!-- end of intro -->
 
 
@@ -117,72 +121,45 @@
     <!--      C O N T E N T     -->
     <!-- ********************** -->
     <div id="content" class="container_12">
-        <div id="latest_home" class="grid_12">
-            <h2 class="s_title_1"><span class="s_main_color">Все</span> пользователи</h2>
-            <div class="clear"></div>
-            <div class="s_listing s_grid_view clearfix">
-
-                <table class="s_table" width="100%" cellpadding="" cellspacing="0" border="0">
-                    <tr>
-                        <th>Id</th>
-                        <th>Логин</th>
-                        <th>Email</th>
-                        <th>Уровень доступа</th>
-                        <th>Изменить уровень доступа</th>
-                        <th>Удалить пользователя</th>
-                    </tr>
-                    <tr th:each="user : ${users}">
-                        <td th:text="${user.getId()}">Cell 1</td>
-                        <td th:text="${user.getLogin()}">Cell 2</td>
-                        <td th:text="${user.getEmail()}">Cell 3</td>
-                        <td th:text="${user.getRole()}">Cell 4</td>
-                        <td>
-                            <a></a>
-                            <div class="s_row_2 clearfix">
-                                <form th:method="UPDATE" th:action="@{/user/update_role}">
-                                    <select style="width: 150px;" name="role">
-                                        <option th:if="${!user.getRole().equals('ROLE_BLOCKED')}" type="hidden">
-                                            ROLE_BLOCKED
-                                        </option>
-                                        <option th:if="${!user.getRole().equals('ROLE_USER')}" type="hidden">ROLE_USER
-                                        </option>
-                                        <option th:if="${!user.getRole().equals('ROLE_ADMIN')}" type="hidden">
-                                            ROLE_ADMIN
-                                        </option>
-                                    </select>
-                                    <input type="hidden" name="userId" th:value="${user.getId()}"/>
-                                    <input type="submit" value="Изменить">
-                                </form>
-                            </div>
-                        </td>
-                        <td>
-                            <form th:method="DELETE" th:action="@{/user/delete}">
-                                <input type="hidden" name="role" th:value="${user.getRole()}"/>
-                                <input type="hidden" name="userId" th:value="${user.getId()}"/>
-                                <input type="submit" value="Удалить">
-                            </form>
-                        </td>
-                    </tr>
-                </table>
+        <div id="checkout" class="grid_12">
 
 
-                <div class="clear"></div>
+            <h3><span class="s_secondary_color">Ваш</span> заказ принят!</h3>
+            <div id="accepted">
             </div>
+                <form class="left clearfix">
+                    <a class="s_button_1 s_main_color_bgr right"
+                       href="/"
+                       type="submit"><span class="s_text">Вернуться к покупкам</span></a>
+                </form>
+                <form class="left clearfix">
+                    <a class="s_button_1 s_main_color_bgr"
+                       href="/order"
+                       type="submit"><span class="s_text">Просмотр заказов</span></a>
+                </form>
+
+
+
+
+</br>
+</br>
+</br>
         </div>
-
     </div>
-    <div></div>
-    <div id="shop_info">
 
+    <div class="clear"></div>
+
+    <div id="payments" class="right clearfix">
+        <img src="../../static/images/payments/discover_straight_32px.png" alt=""/>
+        <img src="../../static/images/payments/american_express_straight_32px.png" alt=""/>
+        <img src="../../static/images/payments/moneybookers_straight_32px.png" alt=""/>
+        <img src="../../static/images/payments/paypal_straight_32px.png" alt=""/>
+        <img src="../../static/images/payments/visa_straight_32px.png" alt=""/>
+        <img src="../../static/images/payments/american_express_straight_32px.png" alt=""/>
     </div>
-    <!-- end of shop info -->
-
-
-    <!-- ********************** -->
-    <!--      F O O T E R       -->
-    <!-- ********************** -->
-
-    <!-- end of FOOTER -->
+    <p id="copy"><a class="blue" href="">Created by Sergei Shabalin</a>.<br/>
+</div>
+<!-- end of FOOTER -->
 
 </div>
 

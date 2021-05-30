@@ -53,7 +53,7 @@ public class AdminPageController {
                               @ModelAttribute("myUploadForm") MyUploadForm myUploadForm) {
         String description = productService.doUpload(myUploadForm, id);
         model.addAttribute("description", description);
-        return "admin/main";
+        return "redirect:/admin";
     }
 
     @GetMapping("/product_list")

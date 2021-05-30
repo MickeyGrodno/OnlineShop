@@ -80,7 +80,7 @@
                                 <li><a href="../category3">Костюмы</a></li>
                                 <li><a href="../category4">Кофты</a></li>
                                 <li><a href="../category5">Штаны, шорты</a></li>
-                                <li><a href="../category6">Футболк</a></li>
+                                <li><a href="../category6">Футболки</a></li>
                                 <li><a href="../category7">Рубашки</a></li>
                             </ul>
                         </div>
@@ -139,8 +139,7 @@
 
         <div id="product" class="grid_12">
             <div id="product_images" class="grid_4 alpha">
-                <img id="image" th:src="@{${'/image/' + product.getId()}}" width="300" height="300" title="Leica M7"
-                     alt="Leica M7"/></a>
+                <img id="image" th:src="@{${'/image/' + product.getId()}}" width="300" height="300" th:title="${product.getName()}"/>
             </div>
             <div id="product_info" class="grid_4">
                 </br>

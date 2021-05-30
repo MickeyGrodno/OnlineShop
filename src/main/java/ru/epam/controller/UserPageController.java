@@ -76,9 +76,7 @@ public class UserPageController {
     @PostMapping("/delete")
     public String deleteUser(@RequestParam("userId") Long id,
                              @RequestParam("role") String role) {
-        if (!role.equals("ROLE_ADMIN")) {
-            userService.deleteUserById(id);
-        }
+            userService.deleteUserById(id, role);
         return "redirect:/admin/all_users";
     }
 }

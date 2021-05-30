@@ -67,7 +67,7 @@
                                 <li><a href="../category3">Костюмы</a></li>
                                 <li><a href="../category4">Кофты</a></li>
                                 <li><a href="../category5">Штаны, шорты</a></li>
-                                <li><a href="../category6">Футболк</a></li>
+                                <li><a href="../category6">Футболки</a></li>
                                 <li><a href="../category7">Рубашки</a></li>
                             </ul>
                         </div>
@@ -127,6 +127,7 @@
                 <label for="price">Цена: </label>
                 <input required type="number" min="1" th:field="*{price}" id="price">
                 <br/>
+
                 <label for="productTypeId">Категория: </label>
                 <select style="width: 190px;" name="gender" th:field="*{productTypeId}" id="productTypeId">
                     <option th:value="'1'">Мужское, Байки</option>
@@ -134,7 +135,7 @@
                     <option th:value="'3'">Мужское, Костюмы</option>
                     <option th:value="'4'">Мужское, Кофты</option>
                     <option th:value="'5'">Мужское, Штаны, шорты</option>
-                    <option th:value="'6'">Мужское, Футболк</option>
+                    <option th:value="'6'">Мужское, Футболки</option>
                     <option th:value="'7'">Мужское, Рубашки</option>
                     <option th:value="'8'">Женское, Платья, туники</option>
                     <option th:value="'9'">Женское,Кофты</option>
@@ -146,6 +147,11 @@
                 </select>
                 <br/>
                 <label required for="text">Описание: </label>
+                <style>
+                    #text {
+                        width: 600px; /* Ширина поля в пикселах */
+                    }
+                </style>
                 <input type="text" minlength="3" th:field="*{text}" id="text">
                 <br/>
                 <input type="submit" value="Create!">

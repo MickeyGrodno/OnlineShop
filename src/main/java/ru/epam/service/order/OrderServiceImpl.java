@@ -59,9 +59,14 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getAllOrders() {
         String login = userProvider.getUserName();
         Long userId = userRepository.getIdByLogin(login);
-        List<Order> allOrders = orderRepository.findAllByUserId(userId);
+        List<Order> allSortedOrders = orderRepository.findAllByUserId(userId)
+                .stream()
+                .sorted(Comparator
+                        .comparing(Order::getDate)
+                        .reversed())
+                .collect(Collectors.toList());
         log.info("User № {} orders uploaded successfully", userId);
-        return allOrders;
+        return allSortedOrders;
     }
 
     @Transactional

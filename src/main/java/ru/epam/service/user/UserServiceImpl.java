@@ -87,13 +87,10 @@ public class UserServiceImpl implements UserService {
         if (updatedUser != null) {
             Roles oldUserRole = Roles.valueOf(updatedUser.getRole());
             Roles newUserRole = Roles.valueOf(newUserRoleString);
-            if ((authorizedUserRole.equals(Roles.ROLE_SUPERADMIN) && !oldUserRole.equals(Roles.ROLE_SUPERADMIN))) {
-                updatedUser.setRole(newUserRoleString);
-                userRepository.save(updatedUser);
-                log.info("User's role has been updated.");
-            } else if ((authorizedUserRole.equals(Roles.ROLE_ADMIN)) && !oldUserRole.equals(Roles.ROLE_ADMIN) &&
+            if (((authorizedUserRole.equals(Roles.ROLE_SUPERADMIN) && !oldUserRole.equals(Roles.ROLE_SUPERADMIN)))
+            || ((authorizedUserRole.equals(Roles.ROLE_ADMIN)) && !oldUserRole.equals(Roles.ROLE_ADMIN) &&
                     !oldUserRole.equals(Roles.ROLE_SUPERADMIN) && !newUserRole.equals(Roles.ROLE_SUPERADMIN) &&
-                    !newUserRole.equals(Roles.ROLE_ADMIN)) {
+                    !newUserRole.equals(Roles.ROLE_ADMIN))) {
                 updatedUser.setRole(newUserRoleString);
                 userRepository.save(updatedUser);
                 log.info("User's role has been updated.");
@@ -121,17 +118,44 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void deleteUserById(Long id) {
-        List<Order> allUserOrders = orderRepository.findAllByUserId(id);
-        log.info("User # {} orders loaded", id);
-        List<Long> allDeletedOrderId = allUserOrders.stream().map(Order::getId).collect(Collectors.toList());
-        commentRepository.deleteAllByUserId(id);
-        log.info("User #  {} comments removed", id);
-        orderInfoRepository.deleteAllByOrderIdIn(allDeletedOrderId);
-        log.info("User #  {} orders info removed", id);
-        orderRepository.deleteAllByUserId(id);
-        log.info("User #  {} orders removed", id);
-        userRepository.deleteById(id);
-        log.info("User #  {} removed", id);
+    public void deleteUserById(Long id, String userRole) {
+        String authorizedUserLogin = userProvider.getUserName();
+        String authorizedUserRoleString = userRepository
+                .getUserByLogin(authorizedUserLogin)
+                .getRole();
+        log.info("User's role has been loaded");
+
+        Roles authorizedUserRole = Roles.valueOf(authorizedUserRoleString);
+        Roles deletedUserRole = Roles.valueOf(userRole);
+            if (((authorizedUserRole.equals(Roles.ROLE_SUPERADMIN) && !deletedUserRole.equals(Roles.ROLE_SUPERADMIN)))
+                    || ((authorizedUserRole.equals(Roles.ROLE_ADMIN)) && !deletedUserRole.equals(Roles.ROLE_ADMIN) &&
+                    !deletedUserRole.equals(Roles.ROLE_SUPERADMIN))) {
+                List<Order> allUserOrders = orderRepository.findAllByUserId(id);
+                log.info("User # {} orders loaded", id);
+                List<Long> allDeletedOrderId = allUserOrders.stream().map(Order::getId).collect(Collectors.toList());
+                commentRepository.deleteAllByUserId(id);
+                log.info("User #  {} comments removed", id);
+                orderInfoRepository.deleteAllByOrderIdIn(allDeletedOrderId);
+                log.info("User #  {} orders info removed", id);
+                orderRepository.deleteAllByUserId(id);
+                log.info("User #  {} orders removed", id);
+                userRepository.deleteById(id);
+                log.info("User #  {} removed", id);
+            }
+
+
+
+
+//        List<Order> allUserOrders = orderRepository.findAllByUserId(id);
+//        log.info("User # {} orders loaded", id);
+//        List<Long> allDeletedOrderId = allUserOrders.stream().map(Order::getId).collect(Collectors.toList());
+//        commentRepository.deleteAllByUserId(id);
+//        log.info("User #  {} comments removed", id);
+//        orderInfoRepository.deleteAllByOrderIdIn(allDeletedOrderId);
+//        log.info("User #  {} orders info removed", id);
+//        orderRepository.deleteAllByUserId(id);
+//        log.info("User #  {} orders removed", id);
+//        userRepository.deleteById(id);
+//        log.info("User #  {} removed", id);
     }
 }

@@ -14,7 +14,7 @@ public interface UserService {
 
     void updateUserRoleById(Long id, String newRole) throws NotFoundException;
 
-    void deleteUserById(Long id);
+    void deleteUserById(Long id, String userRole);
 
     boolean updateUserPassword(Long id, String oldPassword, String newPassword);
 }

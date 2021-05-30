@@ -85,6 +85,18 @@ public class UserServiceImplTest implements OnlineShopTestRunner {
     }
 
     @Test
+    public void deleteUserById_UserDeleted() {
+        user = new User();
+        user.setRole(Roles.ROLE_ADMIN.name());
+        when(userProvider.getUserName()).thenReturn("");
+        when(userRepository.getUserByLogin(any(String.class))).thenReturn(user);
+        List<Order> orders = new ArrayList<>();
+        when(orderRepository.findAllByUserId(anyLong())).thenReturn(orders);
+        userService.deleteUserById(1L, "ROLE_USER");
+        Mockito.verify(userRepository, times(1)).deleteById(1L);
+    }
+
+    @Test
     public void saveUser_UserFound() {
         user = new User();
         user.setLogin("log");
@@ -138,13 +150,5 @@ public class UserServiceImplTest implements OnlineShopTestRunner {
         Assert.assertFalse(userService.updateUserPassword(1L, "string", "string"));
     }
 
-    @Test
-    public void deleteUserById_UserDeleted() {
-        Long id = 1L;
-        List<Order> orders = new ArrayList<>();
-        when(orderRepository.findAllByUserId(anyLong())).thenReturn(orders);
-        userService.deleteUserById(id);
-        Mockito.verify(userRepository, times(1)).deleteById(1L);
 
-    }
 }

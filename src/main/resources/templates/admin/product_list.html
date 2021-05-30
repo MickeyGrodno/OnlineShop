@@ -69,7 +69,7 @@
                                 <li><a href="../category3">Костюмы</a></li>
                                 <li><a href="../category4">Кофты</a></li>
                                 <li><a href="../category5">Штаны, шорты</a></li>
-                                <li><a href="../category6">Футболк</a></li>
+                                <li><a href="../category6">Футболки</a></li>
                                 <li><a href="../category7">Рубашки</a></li>
                             </ul>
                         </div>
@@ -126,7 +126,7 @@
             <h2 class="s_title_1"><span class="s_main_color">Все</span> товары для редактирования</h2>
             <div class="clear"></div>
             <div class="s_listing s_grid_view clearfix">
-                <div th:each="product : ${products}">
+                <div th:each="product, state : ${products}">
                     <input type="hidden" id="product_id" th:value="${product.getId()}"/>
                     <div class="s_item grid_2"><a class="s_thumb" th:href="@{/product/{id}(id=*{product.getId()})}"><img
                             th:src="@{${'/image/' + product.getId()}}" th:title="*{product.getName()}"
@@ -137,8 +137,9 @@
                             <input type="submit" value="удалить!">
                         </form>
                     </div>
+                    <div class="clear" th:if="${((state.count)%6)==0}"></div>
                 </div>
-                <div class="clear"></div>
+
             </div>
         </div>
 
